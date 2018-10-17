@@ -20,10 +20,7 @@ namespace DEV_1
                     {
                         throw new WrongNumberOfArguments("You have not used any arguments in the console line.");
                     }
-                    else
-                    {
-                        throw new WrongNumberOfArguments($"You used {args.Length} arguments instead of 1 argument.");
-                    }
+                    throw new WrongNumberOfArguments($"You used {args.Length} arguments instead of 1 argument.");
                 }
 
                 if (args[0] == "")
