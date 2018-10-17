@@ -17,7 +17,9 @@ namespace DEV_1
             {
                 return 1;
             }
-
+            
+            // Check string for the full uniqueness of characters.
+            
             var stringWithoutDuplicates = sequenceOfSymbols.Distinct();
             if (sequenceOfSymbols.Length == stringWithoutDuplicates.Count())
             {
@@ -28,9 +30,10 @@ namespace DEV_1
             var listOfUniqueCharacters = new List<char>();
 
             for (var i = 0; i < sequenceOfSymbols.Length; i++)
-            {
-                listOfUniqueCharacters.Add(sequenceOfSymbols[i]);
-                foreach (var j in sequenceOfSymbols.Skip(i+1))
+            { 
+                // Loop to search for a unique subsequence.
+                
+                foreach (var j in sequenceOfSymbols.Skip(i))
                 {
                     if (listOfUniqueCharacters.Contains(j))
                         break;
