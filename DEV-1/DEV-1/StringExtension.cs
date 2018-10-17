@@ -1,35 +1,51 @@
-﻿namespace DEV_1
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace DEV_1
 {
     public static class StringExtension
     {
+        /// <summary>
+        /// Method GetLengthUniqueSubsequence
+        /// Searches maximum length of same serial symbols in the string.
+        /// </summary>
+        /// <param name="sequenceOfSymbols">String, which was inputed</param>
+        /// <returns>Maximum length of same serial symbols in the string.</returns>
         public static int GetLengthUniqueSubsequence(this string sequenceOfSymbols)
         {    
-            var maxLength = 0;
-            var characterCounter = 1;
-
             if (sequenceOfSymbols.Length == 1)
             {
                 return 1;
             }
 
-            for (var i = 1; i < sequenceOfSymbols.Length; i++)
+            var stringWithoutDuplicates = sequenceOfSymbols.Distinct();
+            if (sequenceOfSymbols.Length == stringWithoutDuplicates.Count())
             {
-                if (sequenceOfSymbols[i - 1] != sequenceOfSymbols[i])
-                {
-                    ++characterCounter;
-                }
-                else
-                {
-                    characterCounter = 1;
-                }
-
-                if (characterCounter > maxLength)
-                {
-                    maxLength = characterCounter;
-                }
+                return sequenceOfSymbols.Length;
             }
 
-            return maxLength;
+            var maximumLength = 1;
+            var listOfUniqueCharacters = new List<char>();
+
+            for (var i = 0; i < sequenceOfSymbols.Length; i++)
+            {
+                listOfUniqueCharacters.Add(sequenceOfSymbols[i]);
+                foreach (var j in sequenceOfSymbols.Skip(i+1))
+                {
+                    if (listOfUniqueCharacters.Contains(j))
+                        break;
+                    listOfUniqueCharacters.Add(j);
+                }
+
+                if (maximumLength < listOfUniqueCharacters.Count)
+                {
+                    maximumLength = listOfUniqueCharacters.Count;
+                }
+                
+                listOfUniqueCharacters.Clear();
+            }
+            
+            return maximumLength;
         }
     }
 }
