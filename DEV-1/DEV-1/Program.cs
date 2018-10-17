@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace DEV_1
 {
+    
+    /// <summary>
+    /// Class MaximumNumberOfUnequalCharacters
+    /// Takes 1 argument from the command line and searches for the
+    /// maximum size of a series of unique characters in a string.
+    /// </summary>
     internal class MaximumNumberOfUnequalCharacters
     {
         public static void Main(string[] args)
@@ -24,28 +26,19 @@ namespace DEV_1
                     }
                 }
 
+                if (args[0] == "")
+                {
+                    throw new WrongDataInString("Empty argument.");
+                }
+                
                 int lengthUniqueSubsequence = args[0].GetLengthUniqueSubsequence();
                 
-                Console.WriteLine(lengthUniqueSubsequence);
+                Console.WriteLine($"Maximum size of a series of unique characters : {lengthUniqueSubsequence}");
             }
-            catch (WrongNumberOfArguments e)
+            catch (ApplicationException e)
             {
                 Console.WriteLine($"Error : {e.Message}");
             }
         }
     }
-}    
-/*
-if (sequence[i - 1] != sequence[i])
-{
-counter++;
 }
-else
-{
-counter = 1;
-}
-
-if (counter > maxLength)
-{
-maxLength = counter;
-}*/

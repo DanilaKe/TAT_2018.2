@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace DEV_1
+﻿namespace DEV_1
 {
     public static class StringExtension
     {
