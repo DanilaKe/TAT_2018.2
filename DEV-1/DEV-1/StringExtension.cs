@@ -13,30 +13,34 @@ namespace DEV_1
         /// <returns>Maximum length of same serial symbols in the string.</returns>
         public static int GetLengthUniqueSubsequence(this string sequenceOfSymbols)
         {    
+            var maximumLength = 1;
+            
             if (sequenceOfSymbols.Length == 1)
             {
-                return 1;
+                maximumLength = 1;    
+                return maximumLength;
             }
             
             // Check string for the full uniqueness of characters.
-            
             var stringWithoutDuplicates = sequenceOfSymbols.Distinct();
             if (sequenceOfSymbols.Length == stringWithoutDuplicates.Count())
             {
-                return sequenceOfSymbols.Length;
+                maximumLength = sequenceOfSymbols.Length;
+                return maximumLength;
             }
 
-            var maximumLength = 1;
             var listOfUniqueCharacters = new List<char>();
 
             for (var i = 0; i < sequenceOfSymbols.Length; i++)
             { 
                 // Loop to search for a unique subsequence.
-                
                 foreach (var j in sequenceOfSymbols.Skip(i))
                 {
                     if (listOfUniqueCharacters.Contains(j))
+                    {
                         break;
+                    }
+
                     listOfUniqueCharacters.Add(j);
                 }
 
