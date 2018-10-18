@@ -31,7 +31,7 @@ namespace DEV_1
                 var sequenceOfSymbols = args[0];
                 
                 // Checks the argument for correctness.     
-                if (sequenceOfSymbols == "")
+                if (sequenceOfSymbols == string.Empty)
                 {
                     throw new WrongDataInString("Empty argument.");
                 }
