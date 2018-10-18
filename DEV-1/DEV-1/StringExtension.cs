@@ -13,7 +13,7 @@ namespace DEV_1
         /// <returns>Maximum length of same serial symbols in the string.</returns>
         public static int GetLengthUniqueSubsequence(this string sequenceOfSymbols)
         {    
-            var maximumLength = 1;
+            var maximumLength = 0;
             
             if (sequenceOfSymbols.Length == 1)
             {
