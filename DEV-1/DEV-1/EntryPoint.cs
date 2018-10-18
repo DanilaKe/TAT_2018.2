@@ -3,11 +3,11 @@
 namespace DEV_1
 {
     /// <summary>
-    /// Class MaximumNumberOfUnequalCharacters
+    /// Class EntryPoint
     /// Takes 1 argument from the command line and searches for the
     /// maximum size of a series of unique characters in a string.
     /// </summary>
-    internal class MaximumNumberOfUnequalCharacters
+    internal class EntryPoint
     {
         /// Entry point.
         /// <exception cref="WrongNumberOfArguments">Thrown when there is not one argument on the command line.</exception>
