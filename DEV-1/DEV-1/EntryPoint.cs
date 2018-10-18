@@ -7,8 +7,9 @@ namespace DEV_1
     /// Takes 1 argument from the command line and searches for the
     /// maximum size of a series of unique characters in a string.
     /// </summary>
-    internal class EntryPoint
+    class EntryPoint
     {
+        /// Method Main
         /// Entry point.
         /// <exception cref="WrongNumberOfArguments">Thrown when there is not one argument on the command line.</exception>
         /// <exception cref="WrongDataInString">Thrown when the single argument is empty.</exception>
