@@ -10,7 +10,6 @@ namespace DEV_2
         public string Transliteration(string sequenceOfSymbols)
         {
             TypeOfText typeOfString = GetTypeOfString(sequenceOfSymbols);
-            Console.WriteLine(typeOfString);
             string transliteratedString = CyrillicLatinTransliteration(sequenceOfSymbols,typeOfString);
             return transliteratedString;
         }
@@ -50,8 +49,7 @@ namespace DEV_2
         
         private string CyrillicLatinTransliteration(string stringArgument, TypeOfText typeOfString)
         {
-            StringBuilder transliteratedString = new StringBuilder();
-            transliteratedString.Append(stringArgument);
+            StringBuilder transliteratedString = new StringBuilder(stringArgument.ToLower());
 
             if (typeOfString == TypeOfText.Cyrillic)
             {
@@ -63,9 +61,12 @@ namespace DEV_2
             
             if (typeOfString == TypeOfText.Latin)
             {
-                foreach (var i in latinCyrillicDictionary.Keys)
+                foreach (var i in cyrillicLatinDictionary.Keys)
                 {
-                    transliteratedString.Replace(i, latinCyrillicDictionary[i]);
+                    if (cyrillicLatinDictionary[i] != string.Empty)
+                    {
+                        transliteratedString.Replace(cyrillicLatinDictionary[i], i);
+                    }
                 }
             }
 
@@ -107,41 +108,6 @@ namespace DEV_2
             ["э"] = "e",
             ["ю"] = "yu",
             ["я"] = "ya"
-        };
-        
-        private readonly Dictionary<string, string> latinCyrillicDictionary = new Dictionary<string, string>
-        {
-            ["a"] = "а",
-            ["b"] = "б",
-            ["v"] = "в",
-            ["g"] = "г",
-            ["d"] = "д",
-            ["e"] = "е",
-            ["yo"] = "ё",
-            ["zh"] = "ж",
-            ["z"] = "з",
-            ["i"] = "и",
-            ["iy"] = "й",
-            ["k"] = "к",
-            ["l"] = "л",
-            ["m"] = "м",
-            ["n"] = "н",
-            ["o"] = "о",
-            ["p"] = "п",
-            ["r"] = "р",
-            ["s"] = "с",
-            ["t"] = "т",
-            ["u"] = "у",
-            ["f"] = "ф",
-            ["kh"] = "х",
-            ["ts"] = "ц",
-            ["ch"] = "ч",
-            ["sh"] = "ш",
-            ["sch"] = "щ",
-            ["y"] = "ы",
-            ["ie"] = "э",
-            ["yu"] = "ю",
-            ["ya"] = "я"
         };
     }
 }
