@@ -2,8 +2,18 @@
 
 namespace DEV_2
 {
+    /// <summary>
+    /// Class EntryPoint
+    /// Takes 1 argument from the command line & makes a string transliteration.
+    /// </summary>
     internal class EntryPoint
     {
+        /// <summary>
+        /// Method Main
+        /// Entry point.
+        /// </summary>
+        /// <exception cref="WrongNumberOfArguments">Thrown when there is not one argument on the command line.</exception>
+        /// <exception cref="WrongDataInString">Thrown when the single argument is empty.</exception>
         public static void Main(string[] args)
         {
             try

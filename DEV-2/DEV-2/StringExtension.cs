@@ -3,14 +3,16 @@
     public static class StringExtension
     {
         /// <summary>
-        /// 
+        /// Method GetTranslit
+        /// Makes transliteration of the received string.
         /// </summary>
-        /// <param name="sequenceOfSymbols"></param>
+        /// <param name="receivedString">String, which was inputed</param>
         /// <returns></returns>
-        public static string GetTranslit(this string sequenceOfSymbols)
+        public static string GetTranslit(this string receivedString)
         {
             var cyrillicLatinTransliterator = new Transliterator();
-            string transliteratedString = cyrillicLatinTransliterator.Transliteration(sequenceOfSymbols);
+            string transliteratedString = cyrillicLatinTransliterator.Transliteration(receivedString);
+            
             return transliteratedString;
         }
     }

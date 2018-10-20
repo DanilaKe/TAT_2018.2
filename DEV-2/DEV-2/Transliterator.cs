@@ -1,55 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace DEV_2
 {
+    /// <summary>
+    /// Class Transliterator
+    /// Makes a string transliteration.
+    /// </summary>
     public class Transliterator
     {
-        public string Transliteration(string sequenceOfSymbols)
+        /// <summary>
+        /// Method Transliteration
+        /// Makes transliteration depending on the type of alphabet.
+        /// </summary>
+        /// <param name="receivedString">String, which was inputed<</param>
+        /// <returns>Transliterated string.</returns>
+        public string Transliteration(string receivedString)
         {
-            TypeOfText typeOfString = GetTypeOfString(sequenceOfSymbols);
-            string transliteratedString = CyrillicLatinTransliteration(sequenceOfSymbols,typeOfString);
+            TypeOfText typeOfString = GetTypeOfString(receivedString);
+            string transliteratedString = CyrillicLatinTransliteration(receivedString,typeOfString);
+            
             return transliteratedString;
         }
         
-        private TypeOfText GetTypeOfString(string sequenceOfSymbols)
+        /// <summary>
+        /// Method GetTypeOfString
+        /// Gets string and finds out type of string.
+        /// </summary>
+        /// <param name="receivedString">String, which was inputed<</param>
+        /// <returns>Type of string</returns>
+        /// <exception cref="UndefinedStringTypeException">Thrown when unable to find out the type of string.</exception>
+        private TypeOfText GetTypeOfString(string receivedString)
         {
-            try
+            var cyrillicCharFlag = false;
+            TypeOfText returnedType = TypeOfText.Cyrillic;
+            char minimalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Min();
+            char maximalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Max();
+    
+            if (!((minimalElement >= (int)'a')  && (maximalElement <= (int)'z')))
             {
-                var cyrillicCharFlag = false;
-                TypeOfText returnedType = TypeOfText.Cyrillic;
-                char minimalElement = (sequenceOfSymbols.Where(x => x != ' ').Select(y => y)).Min();
-                char maximalElement = (sequenceOfSymbols.Where(x => x != ' ').Select(y => y)).Max();
-
-                if (!((minimalElement >= (int)'a')  && (maximalElement <= (int)'z')))
+                returnedType = TypeOfText.Cyrillic;
+                cyrillicCharFlag = true;
+            }
+            
+            if (!((minimalElement >= (int)'а')  && (maximalElement <= (int)'я' || maximalElement == (int)'ё')))
+            {
+                if (cyrillicCharFlag)
                 {
-                    returnedType = TypeOfText.Cyrillic;
-                    cyrillicCharFlag = true;
+                    throw new UndefinedStringTypeException("Cannot determine row type.");
                 }
                 
-                if (!((minimalElement >= (int)'а')  && (maximalElement <= (int)'я' || maximalElement == (int)'ё')))
-                {
-                    if (cyrillicCharFlag)
-                    {
-                        throw new Exception("  ");
-                    }
-                    
-                    returnedType = TypeOfText.Latin;
-                }
-
-                return returnedType;
+                returnedType = TypeOfText.Latin;
             }
-            catch (Exception e)
-            {
-                throw;
-            }
+    
+            return returnedType;
         }
         
-        private string CyrillicLatinTransliteration(string stringArgument, TypeOfText typeOfString)
+        /// <summary>
+        /// Method CyrillicLatinTransliteration
+        /// Transliterates Cyrillic into Latin or Latin into Cyrillic, depending on the type of string.
+        /// </summary>
+        /// <returns>Transliterated string</returns>
+        private string CyrillicLatinTransliteration(string receivedString, TypeOfText typeOfString)
         {
-            StringBuilder transliteratedString = new StringBuilder(stringArgument.ToLower());
+            StringBuilder transliteratedString = new StringBuilder(receivedString.ToLower());
 
             if (typeOfString == TypeOfText.Cyrillic)
             {
@@ -73,6 +88,10 @@ namespace DEV_2
             return transliteratedString.ToString(); 
         }
         
+        /// <summary>
+        /// Dictionary cyrillicLatinDictionary
+        /// The correspondence between the Cyrillic and Latin alphabet.
+        /// </summary>
         private readonly Dictionary<string, string> cyrillicLatinDictionary = new Dictionary<string, string>
         {
             ["а"] = "a",
