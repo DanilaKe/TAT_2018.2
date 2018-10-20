@@ -7,7 +7,7 @@
         /// Makes transliteration of the received string.
         /// </summary>
         /// <param name="receivedString">String, which was inputed</param>
-        /// <returns></returns>
+        /// <returns>Transliterated string</returns>
         public static string GetTranslit(this string receivedString)
         {
             var cyrillicLatinTransliterator = new Transliterator();
