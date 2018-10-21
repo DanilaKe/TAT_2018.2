@@ -49,6 +49,7 @@ namespace Practical_1
         }
 
         /// <summary>
+        /// Method Resize
         /// Change limits the size.
         /// </summary>
         /// <param name="newSize">new stack size</param>
@@ -58,6 +59,7 @@ namespace Practical_1
         }
         
         /// <summary>
+        /// Method Push
         /// Push new element in stack.
         /// </summary>
         /// <param name="addedElement">new element in stack</param>
@@ -74,6 +76,7 @@ namespace Practical_1
         }
         
         /// <summary>
+        /// Method Pop
         /// Return value top of the stack & change link to the top of the stack to the previous item.
         /// </summary>
         /// <returns>value top of the stack.</returns>
@@ -84,11 +87,30 @@ namespace Practical_1
             {
                 throw new EmptyStackException("Empty stack.");
             }
+            
             TClass returnElement = Head.GetValue();
             --Size;
             Head = Head.GetNext();
+            
             return returnElement;
         }
 
+        /// <summary>
+        /// Method Peek
+        /// Return value top of the stack.
+        /// </summary>
+        /// <returns>value top of the stack</returns>
+        /// <exception cref="EmptyStackException">Empty stack.</exception>
+        internal TClass Peek()
+        {
+            if (Head == null)
+            {
+                throw new EmptyStackException("Empty stack.");
+            }
+            
+            TClass returnElement = Head.GetValue();
+            
+            return returnElement;  
+        }
     }
 }
