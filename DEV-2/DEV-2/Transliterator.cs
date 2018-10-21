@@ -94,14 +94,21 @@ namespace DEV_2
         /// </summary>
         private readonly Dictionary<string, string> cyrillicLatinDictionary = new Dictionary<string, string>
         {
+            ["щ"] = "sch",
+            ["ё"] = "yo",
+            ["ж"] = "zh",
+            ["х"] = "kh",
+            ["ц"] = "ts",
+            ["ч"] = "ch",
+            ["ш"] = "sh",
+            ["ю"] = "yu",
+            ["я"] = "ya",
             ["а"] = "a",
             ["б"] = "b",
             ["в"] = "v",
             ["г"] = "g",
             ["д"] = "d",
             ["е"] = "e",
-            ["ё"] = "yo",
-            ["ж"] = "zh",
             ["з"] = "z",
             ["и"] = "i",
             ["й"] = "y",
@@ -116,17 +123,10 @@ namespace DEV_2
             ["т"] = "t",
             ["у"] = "u",
             ["ф"] = "f",
-            ["х"] = "kh",
-            ["ц"] = "ts",
-            ["ч"] = "ch",
-            ["ш"] = "sh",
-            ["щ"] = "sch",
             ["ъ"] = string.Empty,
             ["ы"] = "y",
             ["ь"] = string.Empty,
             ["э"] = "e",
-            ["ю"] = "yu",
-            ["я"] = "ya"
         };
     }
 }
