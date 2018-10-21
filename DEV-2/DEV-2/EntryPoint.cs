@@ -38,8 +38,7 @@ namespace DEV_2
                 }
 
                 string transliteratedString = sequenceOfSymbols.GetTranslit();
-                
-                Console.WriteLine(transliteratedString);
+                Console.WriteLine($"{sequenceOfSymbols} --> {transliteratedString}");
             }
             catch (ApplicationException e)
             {

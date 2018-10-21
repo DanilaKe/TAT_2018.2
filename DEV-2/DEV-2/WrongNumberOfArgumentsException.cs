@@ -10,6 +10,6 @@ namespace DEV_2
     {
         public WrongNumberOfArgumentsException() { }
         
-        public WrongNumberOfArgumentsException(string message) { }
+        public WrongNumberOfArgumentsException(string message) : base(message) { }
     }
 }

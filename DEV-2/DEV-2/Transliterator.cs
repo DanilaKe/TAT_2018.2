@@ -33,22 +33,25 @@ namespace DEV_2
         /// <exception cref="UndefinedStringTypeException">Thrown when unable to find out the type of string.</exception>
         private TypeOfText GetTypeOfString(string receivedString)
         {
-            var cyrillicCharFlag = false;
-            TypeOfText returnedType = TypeOfText.Cyrillic;
+            var cyrillicCharFlag = false; // A variable that signals when the Cyrillic alphabet is in a string.
+            TypeOfText returnedType = TypeOfText.Cyrillic; 
             char minimalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Min();
             char maximalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Max();
-    
-            if (!((minimalElement >= (int)'a')  && (maximalElement <= (int)'z')))
+            
+            // It determines whether the characters of the string are in the range of the Cyrillic alphabet.
+            if ((minimalElement >= (int)'а')  && ((maximalElement <= (int)'я') || (maximalElement == (int)'ё')))
             {
                 returnedType = TypeOfText.Cyrillic;
                 cyrillicCharFlag = true;
             }
             
-            if (!((minimalElement >= (int)'а')  && (maximalElement <= (int)'я' || maximalElement == (int)'ё')))
+            // It determines whether the characters of the string are in the range of the Latin alphabet.
+            if ((minimalElement >= (int)'a')  && (maximalElement <= (int)'z'))
             {
+                // It determines whether characters of the string are in the range of both alphabets.
                 if (cyrillicCharFlag)
                 {
-                    throw new UndefinedStringTypeException("Cannot determine row type.");
+                    throw new UndefinedStringTypeException("Cannot determine string type.");
                 }
                 
                 returnedType = TypeOfText.Latin;
