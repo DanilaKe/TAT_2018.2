@@ -56,5 +56,21 @@ namespace Practical_1
         {
             Capacity = newSize;
         }
+        
+        /// <summary>
+        /// Push new element in stack.
+        /// </summary>
+        /// <param name="addedElement">new element in stack</param>
+        /// <exception cref="StackOverflowException">Stack overflow.</exception>
+        internal void Push(TClass addedElement)
+        {
+            if (Size + 1 > Capacity)
+            {
+                throw new StackOverflowException("Stack overflow.");
+            }
+            
+            var newElement = new Node<TClass>(addedElement,Head);
+            Head = newElement;
+        }
     }
 }
