@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace P
-
+namespace Practical_1
 {
     /// <summary>
     /// Class Stack
@@ -10,12 +9,18 @@ namespace P
     /// <typeparam name="TClass"></typeparam>
     public class Stack<TClass>
     {
+        private Node<TClass> Head; // Link to the top of the stack.
+        public int Capacity { get; set; }
+        public int Size { get; set; }
+
         /// <summary>
         /// Constructor stack without data. 
         /// </summary>
         public Stack()
         {
-            // TODO
+            Head = null;
+            Capacity = 0;
+            Size = 0;
         }
         
         /// <summary>
@@ -24,7 +29,10 @@ namespace P
         /// <param name="addedElement">first element in stack.</param>
         public Stack(TClass addedElement)
         {
-            // TODO
+            var NewElement = new Node<TClass>(addedElement,null);
+            Head = NewElement;
+            Capacity = 1;
+            Size++;
         }
         
         /// <summary>
@@ -34,84 +42,10 @@ namespace P
         /// <param name="stackSize">limit size.</param>
         public Stack(TClass addedElement,int stackSize)
         {
-            // TODO
-        }
-
-        /// <summary>
-        /// Change limits the size.
-        /// </summary>
-        /// <param name="newSize">new stack size</param>
-        internal void Resize(int newSize)
-        {
-            // TODO
-        }
-        
-        /// <summary>
-        /// Push new element in stack.
-        /// </summary>
-        /// <param name="addedElement">new element in stack</param>
-        /// <exception cref="StackOverflowException">Stack overflow.</exception>
-        internal void Push(TClass addedElement)
-        {
-            // TODO
-        }
-
-        /// <summary>
-        /// Return value top of the stack & change link to the top of the stack to the previous item.
-        /// </summary>
-        /// <returns>value top of the stack.</returns>
-        /// <exception cref="EmptyStackException">Empty stack.</exception>
-        internal TClass Pop()
-        {
-            /
-        }
-        
-        /// <summary>
-        /// Return value top of the stack.
-        /// </summary>
-        /// <returns>value top of the stack</returns>
-        /// <exception cref="EmptyStackException">Empty stack.</exception>
-        internal TClass GetHead()
-        {
-            try
-            {
-                if (Head == null)
-                {
-                    throw new EmptyStackException("Empty stack.");
-                }
-                TClass returnElement = Head.GetValue();
-                return returnElement;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Class Node
-    /// One item on the stack.
-    /// </summary>
-    internal class Node<TClass>
-    {
-        private TClass Value { get; set; }
-        private readonly Node<TClass> _next;
-
-        public Node(TClass addedElement, Node<TClass> nextElement)
-        {
-            Value = addedElement;
-            _next = nextElement;
-        }
-
-        public TClass GetValue()
-        {
-            return Value;
-        }
-        
-        public Node<TClass> GetNext()
-        {
-            return _next;
+            var NewElement = new Node<TClass>(addedElement,null);
+            Head = NewElement;
+            Capacity = stackSize;
+            Size++;
         }
     }
 }
