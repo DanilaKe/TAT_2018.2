@@ -73,6 +73,7 @@ namespace Practical_1
             
             var newElement = new Node<TClass>(addedElement,Head);
             Head = newElement;
+            ++Size;
         }
         
         /// <summary>
