@@ -36,15 +36,15 @@ namespace DEV_2
             var cyrillicCharFlag = false; // A variable that signals when the Cyrillic alphabet is in a string.
             TypeOfText returnedType = TypeOfText.Cyrillic; 
             
-            var stringWithoutLatinChar = receivedString.Where(x => !Enumerable.Range(97, 122).Contains(x)).Select(x => x);
-            if (stringWithoutLatinChar.Any(x => Enumerable.Range(1072, 1103).Contains(x)))
+            var stringWithoutLatinCharacter = receivedString.Where(x => !Enumerable.Range(97, 122).Contains(x)).Select(x => x);
+            if (stringWithoutLatinCharacter.Any(x => Enumerable.Range(1072, 1103).Contains(x)))
             {
                 cyrillicCharFlag = true;
                 returnedType = TypeOfText.Cyrillic;
             }
             
-            var stringWithoutCyrillicChar = receivedString.Where(x => !Enumerable.Range(1072, 1103).Contains(x)).Select(x => x);
-            if (stringWithoutCyrillicChar.Any(x => Enumerable.Range(97, 122).Contains(x)))
+            var stringWithoutCyrillicCharacter = receivedString.Where(x => !Enumerable.Range(1072, 1103).Contains(x)).Select(x => x);
+            if (stringWithoutCyrillicCharacter.Any(x => Enumerable.Range(97, 122).Contains(x)))
             {
                 // Throw when have Latin and Cyrillic alphabet.
                 if (cyrillicCharFlag)
