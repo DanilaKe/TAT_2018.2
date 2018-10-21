@@ -18,7 +18,7 @@ namespace DEV_2
         /// <returns>Transliterated string.</returns>
         public string Transliteration(string receivedString)
         {
-            TypeOfText typeOfString = GetTypeOfString(receivedString);
+            TypeOfText typeOfString = GetTypeOfString(receivedString.ToLower());
             string transliteratedString = CyrillicLatinTransliteration(receivedString,typeOfString);
             
             return transliteratedString;
@@ -35,25 +35,22 @@ namespace DEV_2
         {
             var cyrillicCharFlag = false; // A variable that signals when the Cyrillic alphabet is in a string.
             TypeOfText returnedType = TypeOfText.Cyrillic; 
-            char minimalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Min();
-            char maximalElement = (receivedString.Where(x => x != ' ').Select(y => y)).Max();
             
-            // It determines whether the characters of the string are in the range of the Cyrillic alphabet.
-            if ((minimalElement >= (int)'а')  && ((maximalElement <= (int)'я') || (maximalElement == (int)'ё')))
+            var stringWithoutLatinChar = receivedString.Where(x => !Enumerable.Range(97, 122).Contains(x)).Select(x => x);
+            if (stringWithoutLatinChar.Any(x => Enumerable.Range(1072, 1103).Contains(x)))
             {
-                returnedType = TypeOfText.Cyrillic;
                 cyrillicCharFlag = true;
+                returnedType = TypeOfText.Cyrillic;
             }
             
-            // It determines whether the characters of the string are in the range of the Latin alphabet.
-            if ((minimalElement >= (int)'a')  && (maximalElement <= (int)'z'))
+            var stringWithoutCyrillicChar = receivedString.Where(x => !Enumerable.Range(1072, 1103).Contains(x)).Select(x => x);
+            if (stringWithoutCyrillicChar.Any(x => Enumerable.Range(97, 122).Contains(x)))
             {
-                // It determines whether characters of the string are in the range of both alphabets.
+                // Throw when have Latin and Cyrillic char.
                 if (cyrillicCharFlag)
                 {
                     throw new UndefinedStringTypeException("Cannot determine string type.");
                 }
-                
                 returnedType = TypeOfText.Latin;
             }
     
