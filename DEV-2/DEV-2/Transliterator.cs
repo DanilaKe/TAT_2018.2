@@ -46,7 +46,7 @@ namespace DEV_2
             var stringWithoutCyrillicChar = receivedString.Where(x => !Enumerable.Range(1072, 1103).Contains(x)).Select(x => x);
             if (stringWithoutCyrillicChar.Any(x => Enumerable.Range(97, 122).Contains(x)))
             {
-                // Throw when have Latin and Cyrillic char.
+                // Throw when have Latin and Cyrillic alphabet.
                 if (cyrillicCharFlag)
                 {
                     throw new UndefinedStringTypeException("Cannot determine string type.");
