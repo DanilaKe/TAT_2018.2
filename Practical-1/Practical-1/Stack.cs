@@ -47,5 +47,14 @@ namespace Practical_1
             Capacity = stackSize;
             Size++;
         }
+
+        /// <summary>
+        /// Change limits the size.
+        /// </summary>
+        /// <param name="newSize">new stack size</param>
+        internal void Resize(int newSize)
+        {
+            Capacity = newSize;
+        }
     }
 }
