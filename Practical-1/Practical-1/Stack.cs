@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Practical_1
+namespace P
 
 {
     /// <summary>
@@ -63,7 +63,7 @@ namespace Practical_1
         /// <exception cref="EmptyStackException">Empty stack.</exception>
         internal TClass Pop()
         {
-            // TODO
+            /
         }
         
         /// <summary>
@@ -73,7 +73,45 @@ namespace Practical_1
         /// <exception cref="EmptyStackException">Empty stack.</exception>
         internal TClass GetHead()
         {
-            // TODO
+            try
+            {
+                if (Head == null)
+                {
+                    throw new EmptyStackException("Empty stack.");
+                }
+                TClass returnElement = Head.GetValue();
+                return returnElement;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Class Node
+    /// One item on the stack.
+    /// </summary>
+    internal class Node<TClass>
+    {
+        private TClass Value { get; set; }
+        private readonly Node<TClass> _next;
+
+        public Node(TClass addedElement, Node<TClass> nextElement)
+        {
+            Value = addedElement;
+            _next = nextElement;
+        }
+
+        public TClass GetValue()
+        {
+            return Value;
+        }
+        
+        public Node<TClass> GetNext()
+        {
+            return _next;
         }
     }
 }
