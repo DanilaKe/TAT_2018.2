@@ -72,5 +72,23 @@ namespace Practical_1
             var newElement = new Node<TClass>(addedElement,Head);
             Head = newElement;
         }
+        
+        /// <summary>
+        /// Return value top of the stack & change link to the top of the stack to the previous item.
+        /// </summary>
+        /// <returns>value top of the stack.</returns>
+        /// <exception cref="EmptyStackException">Empty stack.</exception>
+        internal TClass Pop()
+        {
+            if (Head == null)
+            {
+                throw new EmptyStackException("Empty stack.");
+            }
+            TClass returnElement = Head.GetValue();
+            --Size;
+            Head = Head.GetNext();
+            return returnElement;
+        }
+
     }
 }
