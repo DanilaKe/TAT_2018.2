@@ -33,7 +33,7 @@ namespace DEV_3
 
                 if (!int.TryParse(args[0], out var receivedNumber) || !int.TryParse(args[1], out var receivedBasis))
                 {
-                    throw new ArgumentOutOfRangeException("");
+                    throw new ArgumentOutOfRangeException("Arguments entered incorrectly.");
                 }
             
                 var numbersConverter = new NumbersConverter();
@@ -44,7 +44,7 @@ namespace DEV_3
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"Error : {e.Message}");
             }
         }
     }

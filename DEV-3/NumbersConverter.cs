@@ -43,7 +43,7 @@ namespace DEV_3
             NumberInDecimal = Math.Abs(receivedNumber);
             if (basisOfTheNewNumberSystem < 2 || basisOfTheNewNumberSystem > 20)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("Basis is not in the desired range.");
             }
             
             Basis = basisOfTheNewNumberSystem;
