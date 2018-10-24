@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DEV_4
 {
@@ -11,9 +12,10 @@ namespace DEV_4
             ReceivedString = receivedList;
         }
 
-        public void Sort()
+        public List<string> Sort()
         {
-            
+            var sortedList = ReceivedString.OrderBy(x => x).Select(x => x).ToList();
+            return sortedList;
         }
     }
 }

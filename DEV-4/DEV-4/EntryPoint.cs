@@ -1,9 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace DEV_4
 {
@@ -20,15 +16,11 @@ namespace DEV_4
                 List<string> parsedResult = xmlParser.Parsing();
 
                 var Sorter = new ArgumentSorter(parsedResult);
-                Sorter.Sort();
+                List<string> parsedsortedResult = Sorter.Sort();
                 
-                foreach (var i in parsedResult)
+                foreach (var i in parsedsortedResult)
                 {
-                    foreach (var j in i)
-                    {
-                        Console.Write(j);
-                    }
-                    Console.WriteLine();
+                    Console.WriteLine(i);
                 }
             }
             catch (Exception e)
