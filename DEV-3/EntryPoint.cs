@@ -31,14 +31,14 @@ namespace DEV_3
                 }
             
                 var numbersConverter = new NumbersConverter();
+                string convertedNumber = numbersConverter.ConvertNumberFromDecimal(receivedNumber, receivedBasis);
                 
-                
-                Console.WriteLine($"Number in decimal : ");
-                Console.WriteLine($"Converted number (basis {receivedBasis}) : {}");
+                Console.WriteLine($"Number in decimal : {receivedNumber}");
+                Console.WriteLine($"Converted number (basis {receivedBasis}) : {convertedNumber}");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
             }
         }
     }
