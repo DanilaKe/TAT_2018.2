@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 
 namespace DEV_4.Stack
 {
@@ -110,5 +110,20 @@ namespace DEV_4.Stack
             
             return returnElement;  
         }
+
+        internal TClass[] ReturnSteck()
+        {
+            Node<TClass> lastElement
+            if (Head == null)
+            {
+                throw new EmptyStackException("Empty stack.");
+            }
+            
+            TClass returnElement = Head.GetValue();
+            --Size;
+            Head = Head.GetNext();
+            
+            return returnElement;
+        }
     }
-}
+}*/
