@@ -3,18 +3,24 @@
 namespace DEV_3
 {
     /// <summary>
-    /// 
+    /// Class EntryPoint
+    /// Receives a decimal number and a basis and translates the number into the selected basis.
     /// </summary>
     internal class EntryPoint
     {
         /// <summary>
-        /// 
+        /// Method Main
+        /// Entry point.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">Arguments from the command line, the first argument is the number
+        /// in decimal notation, the second argument is the basis.</param>
+        /// <exception cref="WrongNumberOfArgumentsException">Thrown when there is not two argument on the command line.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when not getting two integers as arguments</exception>
         public static void Main(string[] args)
         {
             try
             {
+                // Check that only two arguments were received.
                 if (args.Length != 2)
                 {
                     if (args.Length == 0)
