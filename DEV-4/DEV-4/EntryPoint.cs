@@ -13,93 +13,22 @@ namespace DEV_4
         {
             try
             {
-                string xml;
-                using (FileStream fstream = File.OpenRead("./DEV-4/Test.xml"))
+                var XmlToStringConverter = new FileToStringConverter(args[0]);
+                string xmlToString = XmlToStringConverter.ReturnedString;
+                
+                var xmlParser = new XmlParser(xmlToString);
+                List<string> parsedResult = xmlParser.Parsing();
+
+                var Sorter = new ArgumentSorter(parsedResult);
+                Sorter.Sort();
+                
+                foreach (var i in parsedResult)
                 {
-                    byte[] array = new byte[fstream.Length];
-                    fstream.Read(array, 0, array.Length);
-                    xml = System.Text.Encoding.Default.GetString(array);
-                }
-                Stack<string> a= new Stack<string>();
-                bool tagFlag = false;
-                bool endFlag = false;
-                bool argumetFlag = false;
-                StringBuilder str = new StringBuilder();
-                for (var i = 0; i < xml.Length; i++)
-                {
-                    if ((xml[i] == ' ' && (!tagFlag && !argumetFlag))|| xml[i] == '\n')
+                    foreach (var j in i)
                     {
-                        continue;
+                        Console.Write(j);
                     }
-                    if (xml[i] == '<' && tagFlag)
-                    {
-                        throw new Exception();
-                    }
-
-                    if (xml[i] == '<')
-                    {
-                        argumetFlag = false;
-                        if (str.ToString() != String.Empty)
-                        {
-                            StringBuilder bu = new StringBuilder();
-                            var Buffer = a.ToArray();
-                            for (var j = Buffer.Length-1; j >= 0; --j)
-                            {
-                                bu.Append($"{Buffer[j]} -> ");
-                            }
-
-                            bu.Append(str);
-                            Console.WriteLine(bu.ToString());
-                            str.Clear();
-                        }
-
-                        if (xml[i+1] == '/')
-                        {
-                            i++;
-                            endFlag = true;
-                        }
-
-                        tagFlag = true;
-                        continue;
-                    }
-
-                    if (xml[i] == '>')
-                    {
-                        if (!tagFlag)
-                        {
-                            throw new Exception();
-                        }
-
-                        if (endFlag)
-                        {
-                            var k = str.ToString();
-                            var s = new string(a.Peek().TakeWhile(x => x != ' ').ToArray());
-                            if (s != k)
-                            {
-                                throw new Exception();
-                            }
-
-                            tagFlag = false;
-                            endFlag = false;
-                            a.Pop();
-                            str.Clear();
-                            continue;
-                        }
-                        tagFlag = false;
-                        a.Push(str.ToString());
-                        str.Clear();
-                        continue;
-                    }
-
-                    if (!tagFlag)
-                    {
-                        argumetFlag = true;
-                    }
-                    str.Append(xml[i]);
-                }
-                foreach (var i in a.ToArray())
-                {
-                    Console.WriteLine(i);    
+                    Console.WriteLine();
                 }
             }
             catch (Exception e)
