@@ -5,11 +5,15 @@ using System.Text;
 
 namespace DEV_3
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class NumbersConverter
     {
         private int NumberInDecimal { get; set; }
         private int Basis { get; set; }
-
+        
+        // 
         private Dictionary<int, char> LettersInNumbers = new Dictionary<int, char> 
         {
             [10] = 'A',
@@ -23,14 +27,14 @@ namespace DEV_3
             [18] = 'I',
             [19] = 'J'    
         };
-
+        
         public string ConvertNumberFromDecimal(int receivedNumber, int basisOfTheNewNumberSystem)
         {
             
             NumberInDecimal = Math.Abs(receivedNumber);
             if (basisOfTheNewNumberSystem < 1 || basisOfTheNewNumberSystem > 20)
             {
-                throw new Exception();
+                throw new ArgumentOutOfRangeException();
             }
             
             Basis = basisOfTheNewNumberSystem;
@@ -57,9 +61,9 @@ namespace DEV_3
                 convertedReversibleString.Append('-');
             }
             
-            var returnedString = new string(convertedReversibleString.ToString().Reverse().ToArray());
+            var returnedNumber = new string(convertedReversibleString.ToString().Reverse().ToArray());
 
-            return returnedString;
+            return returnedNumber;
         }
     }
 }
