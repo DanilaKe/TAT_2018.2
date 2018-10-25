@@ -1,22 +1,22 @@
- <!--catalog last updated 2000-11-01-->
-<recipe name="хлеб" preptime="5min" cooktime="180min">
+<recipe name="bread" preptime="5min" cooktime="180min">
    <title>
-      Простой хлеб
+      Simple bread
    </title>
    <composition>
-      <ingredient amount="3" unit="стакан">Мука</ingredient>
-      <ingredient amount="0.25" unit="грамм">Дрожжи</ingredient>
-      <ingredient amount="1.5" unit="стакан">Тёплая вода</ingredient>
+      <ingredient amount="3" unit="glass">Flour</ingredient>
+      <ingredient amount="0.25" unit="gram">Yeast</ingredient>
+      <ingredient amount="1.5" unit="glass">Warm water</ingredient>
    </composition>
    <instructions>
      <step>
-        Смешать все ингредиенты и тщательно замесить.	
+        Mix all ingredients and knead thoroughly.
      </step>
      <step>
-        Закрыть тканью и оставить на один час в тёплом помещении. 
+        Cover with a cloth and leave for one hour in a warm room.
      </step>
+     <!-- some comment -->
      <step>
-        Замесить ещё раз, положить на противень и поставить в духовку.
+        Knead again, put on a baking sheet and put in the oven.
      </step>
    </instructions>
 </recipe>
