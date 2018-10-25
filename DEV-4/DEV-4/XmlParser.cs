@@ -114,6 +114,15 @@ namespace DEV_4
                         throw new Exception("Incorrect brackets.");
                     }
                     
+                    // If this is an empty tag.
+                    if (XmlString[i - 1] == '/')
+                    {
+                        tagFlag = false;
+                        // Remove character '/' from addString.
+                        addString.Length = addString.Length - 1;
+                        continue;
+                    }
+                    
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (endTagFlag)
                     {
@@ -150,6 +159,11 @@ namespace DEV_4
                 addString.Append(XmlString[i]);
             }
 
+            if (StackWithTags.Count != 0)
+            {
+                throw new Exception("Incorrectly closed tags.");
+            }
+            
             return parsedResult;
         }
     }
