@@ -2,16 +2,20 @@
 
 namespace DEV_4
 {
+    /// <summary>
+    /// Class FileToStringConverter
+    /// Convert file to string.
+    /// </summary>
     public class FileToStringConverter
     {
         public string ReturnedString { get; private set; }
 
         public FileToStringConverter(string AddressToTheFile)
         {
-            FileStream fstream = File.OpenRead(AddressToTheFile);
-            byte[] array = new byte[fstream.Length];
-            fstream.Read(array, 0, array.Length);
-            ReturnedString = System.Text.Encoding.Default.GetString(array);
+            FileStream XmlFile = File.OpenRead(AddressToTheFile);
+            byte[] fileIntoArray = new byte[XmlFile.Length];
+            XmlFile.Read(fileIntoArray, 0, fileIntoArray.Length);
+            ReturnedString = System.Text.Encoding.Default.GetString(fileIntoArray);
         }
     }
 }

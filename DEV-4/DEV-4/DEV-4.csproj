@@ -42,6 +42,7 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="FileToStringConverter..cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WrongNumberOfArgumentsException.cs" />
     <Compile Include="XmlParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
