@@ -14,8 +14,6 @@ namespace DEV_3
         /// </summary>
         /// <param name="args">Arguments from the command line, the first argument is the number
         /// in decimal notation, the second argument is the basis.</param>
-        /// <exception cref="WrongNumberOfArgumentsException">Thrown when there is not two argument on the command line.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when not getting two integers as arguments</exception>
         public static void Main(string[] args)
         {
             try
@@ -23,12 +21,7 @@ namespace DEV_3
                 // Check that only two arguments were received.
                 if (args.Length != 2)
                 {
-                    if (args.Length == 0)
-                    {
-                        throw new WrongNumberOfArgumentsException("You have not used any arguments in the console line.");
-                    }
-                    
-                    throw new WrongNumberOfArgumentsException($"You used {args.Length} arguments instead of 2 argument.");
+                    throw new WrongNumberOfArgumentsException("Wrong number of arguments.");
                 }
 
                 if (!int.TryParse(args[0], out var receivedNumber) || !int.TryParse(args[1], out var receivedBasis))
@@ -36,8 +29,8 @@ namespace DEV_3
                     throw new ArgumentOutOfRangeException("Arguments entered incorrectly.");
                 }
             
-                var numbersConverter = new NumbersConverter();
-                string convertedNumber = numbersConverter.ConvertNumberFromDecimal(receivedNumber, receivedBasis);
+                var numbersConverter = new NumbersConverter(receivedNumber, receivedBasis);
+                string convertedNumber = numbersConverter.ConvertNumberFromDecimal();
                 
                 Console.WriteLine($"Number in decimal : {receivedNumber}");
                 Console.WriteLine($"Converted number (basis {receivedBasis}) : {convertedNumber}");

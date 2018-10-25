@@ -13,22 +13,20 @@ namespace DEV_3
     {
         private int NumberInDecimal { get; set; }
         private int Basis { get; set; }
-        
-        // Matching numbers with letters. 
-        private Dictionary<int, char> LettersInNumbers = new Dictionary<int, char> 
+        // Matching numbers with letters.
+        private readonly string lettersInNumbers = "0123456789ABCDEFGHIJ";
+
+        public NumbersConverter(int receivedNumber, int basisOfTheNewNumberSystem)
         {
-            [10] = 'A',
-            [11] = 'B',
-            [12] = 'C',
-            [13] = 'D',
-            [14] = 'E',
-            [15] = 'F',
-            [16] = 'G',
-            [17] = 'H',
-            [18] = 'I',
-            [19] = 'J'    
-        };
-        
+            if (basisOfTheNewNumberSystem < 2 || basisOfTheNewNumberSystem > 20)
+            {
+                throw new ArgumentOutOfRangeException("Basis is not in the desired range.");
+            }
+
+            NumberInDecimal = receivedNumber;
+            Basis = basisOfTheNewNumberSystem;
+        }
+
         /// <summary>
         /// Method ConvertNumberFromDecimal
         /// Converting a number in the decimal number system to another system.
@@ -36,44 +34,44 @@ namespace DEV_3
         /// <param name="receivedNumber">Received number in decimal system.</param>
         /// <param name="basisOfTheNewNumberSystem">Resived basis</param>
         /// <returns>Converted number</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the basis is not in the desired range.</exception>
-        public string ConvertNumberFromDecimal(int receivedNumber, int basisOfTheNewNumberSystem)
+        public string ConvertNumberFromDecimal()
         {
-            
-            NumberInDecimal = Math.Abs(receivedNumber);
-            if (basisOfTheNewNumberSystem < 2 || basisOfTheNewNumberSystem > 20)
+            string returnedNumber;
+            if (NumberInDecimal == 0)
             {
-                throw new ArgumentOutOfRangeException("Basis is not in the desired range.");
+                returnedNumber = "0";
+                return returnedNumber;
             }
             
-            Basis = basisOfTheNewNumberSystem;
+            bool negativeNumber = NumberInDecimal < 0;
+            
+            NumberInDecimal = Math.Abs(NumberInDecimal);
 
             StringBuilder convertedReversibleString = new StringBuilder();
-            int addedElement;
-            
+
             // Loop that divides the number on the basis of the new number system.
             while (NumberInDecimal > 0)
             {
-                addedElement = NumberInDecimal % Basis;
+                var addedElement = NumberInDecimal % Basis;
                 if (addedElement < 10)
                 {
                     convertedReversibleString.Append(addedElement);
                 }
                 else
                 {
-                    convertedReversibleString.Append(LettersInNumbers[addedElement]);
+                    convertedReversibleString.Append(lettersInNumbers[addedElement]);
                 }
 
                 NumberInDecimal /= Basis;
             }
 
-            if (receivedNumber < 0)
+            if (negativeNumber)
             {
                 convertedReversibleString.Append('-');
             }
             
             // Flips a string.
-            var returnedNumber = new string(convertedReversibleString.ToString().Reverse().ToArray());
+            returnedNumber = new string(convertedReversibleString.ToString().Reverse().ToArray());
 
             return returnedNumber;
         }
