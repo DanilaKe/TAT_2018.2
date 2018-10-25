@@ -48,7 +48,7 @@ namespace DEV_4
                 {
                     if (i+2 > XmlString.Length)
                     {
-                        new Exception("comment is not closed");
+                        new Exception("Comment is not closed.");
                     }
                     
                     // Search end of comment
@@ -119,7 +119,7 @@ namespace DEV_4
                     // Check for XML declaration at the beginning.
                     if (!xmlFlag)
                     {
-                        if (addString.ToString().Contains("xml "))
+                        if (addString.ToString().Contains("?xml"))
                         {
                             tagFlag = false;
                             xmlFlag = true;
