@@ -27,6 +27,8 @@ namespace DEV_4
         public List<string> Parsing()
         {
             var parsedResult = new List<string>(); 
+            // Notes if this is a XML file.
+            var xmlFlag = false;
             // Notes that the tag is being parsed.
             var tagFlag = false;
             // Notes that the closing tag is being parsed.
@@ -112,6 +114,20 @@ namespace DEV_4
                     if (!tagFlag)
                     {
                         throw new Exception("Incorrect brackets.");
+                    }
+                    
+                    // Check for XML declaration at the beginning.
+                    if (!xmlFlag)
+                    {
+                        if (addString.ToString().Contains("xml "))
+                        {
+                            tagFlag = false;
+                            xmlFlag = true;
+                            addString.Clear();
+                            continue;
+                        }
+                            
+                        throw new Exception("This is not an XML file (there is no XML declaration at the beginning)."); 
                     }
                     
                     // If this is an empty tag.
