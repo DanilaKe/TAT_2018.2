@@ -82,12 +82,15 @@ namespace DEV_2
             
             if (typeOfString == TypeOfText.Latin)
             {
-                transliteratedString = new StringBuilder(receivedString);
-                foreach (var i in cyrillicLatinDictionary.Keys)
+                foreach (var i in receivedString)
                 {
-                    if (cyrillicLatinDictionary[i] != string.Empty)
+                    if (char.IsLetter(i))
                     {
-                        transliteratedString.Replace(cyrillicLatinDictionary[i], i);
+                        transliteratedString.Append(latinCyrillicDictionary[i.ToString().ToLower()]);
+                    }
+                    else
+                    {
+                        transliteratedString.Append(i);
                     }
                 }
             }
@@ -134,6 +137,41 @@ namespace DEV_2
             ["ы"] = "y",
             ["ь"] = string.Empty,
             ["э"] = "e",
+        };
+        
+        private readonly Dictionary<string, string> latinCyrillicDictionary = new Dictionary<string, string>
+        {
+            ["sch"] = "щ",
+            ["yo"] = "ё",
+            ["zh"] = "ж",
+            ["kh"] = "х",
+            ["ts"] = "ц",
+            ["ch"] = "ч",
+            ["sh"] = "ш",
+            ["yu"] = "ю",
+            ["ya"] = "я",
+            ["a"] = "а",
+            ["b"] = "б",
+            ["v"] = "в",
+            ["g"] = "г",
+            ["d"] = "д",
+            ["e"] = "е",
+            ["z"] = "з",
+            ["i"] = "и",
+            ["y"] = "й",
+            ["k"] = "к",
+            ["l"] = "л",
+            ["m"] = "м",
+            ["n"] = "н",
+            ["o"] = "о",
+            ["p"] = "п",
+            ["r"] = "р",
+            ["s"] = "с",
+            ["t"] = "т",
+            ["u"] = "у",
+            ["f"] = "ф",
+            ["y"] = "ы",
+            ["e"] = "е",
         };
     }
 }
