@@ -67,6 +67,7 @@ namespace DEV_4
                     continue;
                 }
                 
+                // Check for opening tag one more time.
                 if ((XmlString[i] == '<') && tagFlag)
                 {
                     throw new Exception("Incorrect brackets.");
@@ -98,9 +99,9 @@ namespace DEV_4
                     }
                     
                     // Separates the tag from the comment.
-                    if (XmlString[i + 1] == '!' && XmlString[i + 2] == '-' && XmlString[i + 3] == '-')
+                    if ((XmlString[i + 1] == '!') && (XmlString[i + 2] == '-') && (XmlString[i + 3] == '-'))
                     {
-                        i += 3; // Skipping, the character of the start of the comment(<!--).
+                        i += 3; // Skipping, the character of the start of the comment (<!--).
                         commentFlag = true;
                         continue;
                     }
@@ -111,6 +112,7 @@ namespace DEV_4
 
                 if (XmlString[i] == '>')
                 {
+                    // Check for closing only open tag.
                     if (!tagFlag)
                     {
                         throw new Exception("Incorrect brackets.");
@@ -130,7 +132,7 @@ namespace DEV_4
                         throw new Exception("This is not an XML file (there is no XML declaration at the beginning)."); 
                     }
                     
-                    // If this is an empty tag.
+                    // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
                         tagFlag = false;
