@@ -100,6 +100,7 @@ namespace DEV_4
                     {
                         i += 3; // Skipping, the character of the start of the comment(<!--).
                         commentFlag = true;
+                        continue;
                     }
 
                     tagFlag = true;
