@@ -12,8 +12,6 @@ namespace DEV_2
         /// Method Main
         /// Entry point.
         /// </summary>
-        /// <exception cref="WrongNumberOfArguments">Thrown when there is not one argument on the command line.</exception>
-        /// <exception cref="WrongDataInString">Thrown when the single argument is empty.</exception>
         public static void Main(string[] args)
         {
             try
@@ -21,12 +19,7 @@ namespace DEV_2
                 // Check whether the argument is the only one.
                 if (args.Length != 1)
                 {
-                    if (args.Length == 0)
-                    {
-                        throw new WrongNumberOfArgumentsException("You have not used any arguments in the console line.");
-                    }
-                    
-                    throw new WrongNumberOfArgumentsException($"You used {args.Length} arguments instead of 1 argument.");
+                    throw new WrongNumberOfArgumentsException("Wrong number of arguments.");
                 }
                 // Select the first argument from the command line.
                 var sequenceOfSymbols = args[0];

@@ -30,7 +30,6 @@ namespace DEV_2
         /// </summary>
         /// <param name="receivedString">String, which was inputed<</param>
         /// <returns>Type of string</returns>
-        /// <exception cref="UndefinedStringTypeException">Thrown when unable to find out the type of string.</exception>
         private TypeOfText GetTypeOfString(string receivedString)
         {
             var cyrillicCharFlag = false; // A variable that signals when the Cyrillic alphabet is in a string.
@@ -64,18 +63,26 @@ namespace DEV_2
         /// <returns>Transliterated string</returns>
         private string CyrillicLatinTransliteration(string receivedString, TypeOfText typeOfString)
         {
-            StringBuilder transliteratedString = new StringBuilder(receivedString.ToLower());
+            StringBuilder transliteratedString =new StringBuilder();
 
             if (typeOfString == TypeOfText.Cyrillic)
             {
-                foreach (var i in cyrillicLatinDictionary.Keys)
+                foreach (var i in receivedString)
                 {
-                    transliteratedString.Replace(i, cyrillicLatinDictionary[i]);
+                    if (char.IsLetter(i))
+                    {
+                        transliteratedString.Append(cyrillicLatinDictionary[i.ToString().ToLower()]);
+                    }
+                    else
+                    {
+                        transliteratedString.Append(i);
+                    }
                 }
             }
             
             if (typeOfString == TypeOfText.Latin)
             {
+                transliteratedString = new StringBuilder(receivedString);
                 foreach (var i in cyrillicLatinDictionary.Keys)
                 {
                     if (cyrillicLatinDictionary[i] != string.Empty)
