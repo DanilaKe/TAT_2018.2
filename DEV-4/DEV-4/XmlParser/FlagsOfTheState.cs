@@ -1,7 +1,12 @@
 ﻿namespace DEV_4
 {
+    /// <summary>
+    /// struct FlagsOfTheState
+    /// A structure consisting of flags that mark the current state of parsing.
+    /// </summary>
     public struct FlagsOfTheState
     {
+        // Notes if this is a XML file.
         public bool XmlFlag { get; set; }
         // Notes that the tag is being parsed.
         public bool TagFlag { get; set; }

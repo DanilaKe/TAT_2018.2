@@ -46,7 +46,7 @@
     <Compile Include="XmlParser\FlagsOfTheState.cs" />
     <Compile Include="XmlParser\ReadyArgument.cs" />
     <Compile Include="XmlParser\TagTypeSeparator.cs" />
-    <Compile Include="XmlParser\XmlComment.cs" />
+    <Compile Include="XmlParser\XmlTag.cs" />
     <Compile Include="XmlParser\XmlParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

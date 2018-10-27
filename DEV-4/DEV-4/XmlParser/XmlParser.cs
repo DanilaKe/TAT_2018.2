@@ -12,18 +12,27 @@ namespace DEV_4
     public class XmlParser
     {
         private string XmlString { get; set; }
-        FlagsOfTheState flagsOfTheState = new FlagsOfTheState();
-        XmlComment comment = new XmlComment();
-        ReadyArgument argument = new ReadyArgument();
-        TagTypeSeparator Separator = new TagTypeSeparator(); 
-        StringBuilder addString = new StringBuilder();
+        private List<string> parsedResult;
+
+        private FlagsOfTheState flagsOfTheState;
+        private XmlTag XmlTag;
+        private ReadyArgument argument;
+        private TagTypeSeparator Separator;
+
+        private StringBuilder addString;
         // Stack of open tags.
-        Stack<string> StackWithTags = new Stack<string>();
-        List<string> parsedResult = new List<string>();
+        private Stack<string> StackWithTags;
         
         public XmlParser(string receivedString)
         {
             XmlString = receivedString;
+            flagsOfTheState = new FlagsOfTheState();
+            XmlTag = new XmlTag();
+            argument = new ReadyArgument();
+            Separator = new TagTypeSeparator(); 
+            addString = new StringBuilder();
+            StackWithTags = new Stack<string>();
+            parsedResult = new List<string>();
         }
         
         /// <summary>
@@ -37,7 +46,7 @@ namespace DEV_4
             for (var i = 0; i < XmlString.Length; i++)
             {
                 // Skip XML comment.
-                comment.SkipComment(XmlString, ref flagsOfTheState, ref i);
+                XmlTag.SkipComment(XmlString, ref flagsOfTheState, ref i);
 
                 // Skip character if it is a space or a line break.
                 if (((XmlString[i] == ' ') && (!flagsOfTheState.TagFlag && !flagsOfTheState.ArgumentFlag)) || (XmlString[i] == '\n'))
@@ -54,7 +63,7 @@ namespace DEV_4
                     }
 
                     // If there is a ready argument, then write it down.
-                    argument.CreateArgument(addString, StackWithTags, parsedResult);
+                    argument.CreateArgument(addString, StackWithTags, parsedResult, ref flagsOfTheState);
 
                     Separator.GetTypeOfTag(XmlString, ref flagsOfTheState, ref i);
                     if (flagsOfTheState.CommentFlag)
@@ -72,10 +81,13 @@ namespace DEV_4
                         throw new Exception("Incorrect brackets.");
                     }
                     
+                    flagsOfTheState.TagFlag = false;
+                    
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
                         Separator.CheckForXmlDeclaration(addString,ref flagsOfTheState);
+                        continue;
                     }
                     
                     // If this is an empty tag. (< ... />)
@@ -90,21 +102,9 @@ namespace DEV_4
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.EndTagFlag)
                     {
-                        var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
-                        if (addString.ToString() != tagWithoutValues)
-                        {
-                            throw new Exception("Incorrectly closed tags.");
-                        }    
-
-                        flagsOfTheState.TagFlag = false;
-                        flagsOfTheState.EndTagFlag = false;
-                        // Remove a closed tag from the stack.
-                        StackWithTags.Pop();
-                        addString.Clear();
-                        continue;
+                        XmlTag.ImplementEndTag(StackWithTags, ref flagsOfTheState, addString);
                     }
                     
-                    flagsOfTheState.TagFlag = false;
                     // If the line with the new tag is not empty adds to the stack.
                     if (addString.ToString() != string.Empty)
                     {

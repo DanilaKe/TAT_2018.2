@@ -3,11 +3,21 @@ using System.Text;
 
 namespace DEV_4
 {
+    /// <summary>
+    /// class TagTypeSeparator
+    /// Engaged in the separation of tags into different types.
+    /// </summary>
     public class TagTypeSeparator
     {
+        /// <summary>
+        /// Method GetTypeOfTag
+        /// Gives type tag.
+        /// </summary>
+        /// <param name="XmlString">XML file is translated into a string.</param>
+        /// <param name="flagsOfTheState">The current state of the parser.</param>
+        /// <param name="index">The index of the character being processed.</param>
         public void GetTypeOfTag(string XmlString,ref FlagsOfTheState flagsOfTheState, ref int index)
         {
-            flagsOfTheState.ArgumentFlag = false;
             flagsOfTheState.TagFlag = true;
             // Separates the tag from the closing tag.
             if (XmlString[index + 1] == '/')
@@ -26,20 +36,26 @@ namespace DEV_4
 
             index++;
         }
-
-        public void CheckForXmlDeclaration(StringBuilder addString,ref FlagsOfTheState flagsOfTheState)
+        
+        /// <summary>
+        /// Method CheckForXmlDeclaration
+        /// Check for XML declaration at the beginning.
+        /// </summary>
+        /// <param name="declaration">The string is checked for the presence of XML declaration.</param>
+        /// <param name="flagsOfTheState">The current state of the parser.</param>
+        public void CheckForXmlDeclaration(StringBuilder checkedTag,ref FlagsOfTheState flagsOfTheState)
         {
             if (!flagsOfTheState.XmlFlag)
             {
-                if (addString.ToString().Contains("?xml"))
+                if (checkedTag.ToString().Contains("?xml"))
                 {
                     flagsOfTheState.TagFlag = false;
                     flagsOfTheState.XmlFlag = true;
-                    addString.Clear();
+                    checkedTag.Clear();
                 }
                 else
                 {
-                    throw new Exception("This is not an XML file (there is no XML declaration at the beginning)."); 
+                    throw new Exception("This is not an XML file (there is no XML checkedTag at the beginning)."); 
                 }           
             }
         }
