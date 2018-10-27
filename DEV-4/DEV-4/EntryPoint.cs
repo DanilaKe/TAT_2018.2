@@ -37,11 +37,11 @@ namespace DEV_4
                 var xmlParser = new XmlParser(xmlToString);
                 List<string> parsedResult = xmlParser.Parsing();
 
-                // Sort by arguments.
+               /* // Sort by arguments.
                 var Sorter = new ArgumentSorter(parsedResult);
-                List<string> parsedsortedResult = Sorter.Sort();
+                List<string> parsedsortedResult = Sorter.Sort();*/
                 
-                foreach (var i in parsedsortedResult)
+                foreach (var i in parsedResult)
                 {
                     Console.WriteLine(i);
                 }
