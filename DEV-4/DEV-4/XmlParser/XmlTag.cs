@@ -39,6 +39,41 @@ namespace DEV_4
         }
         
         /// <summary>
+        /// Method ImplemetTag
+        /// Implements simple tag and adds it from the stack.
+        /// </summary>
+        /// <param name="StackWithTags">A stack containing the current tags.</param>
+        /// <param name="tag">Added tag.</param>
+        /// <param name="flagsOfTheState">The current state of the parser.</param>
+        public void ImplemetTag(Stack<string> StackWithTags, StringBuilder tag, ref FlagsOfTheState flagsOfTheState)
+        {
+            flagsOfTheState.TagFlag = false;
+            // If the line with the new tag is not empty adds to the stack.
+            if (tag.ToString() != string.Empty)
+            {
+                StackWithTags.Push(tag.ToString());
+            }
+
+            tag.Clear();
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="StackWithTags">A stack containing the current tags.</param>
+        /// <param name="EmptyTag">Added tag.</param>
+        /// <param name="flagsOfTheState">A stack containing the current tags.</param>
+        /// <param name="parsedResult">List with parsed arguments.</param>
+        public void ImplemetEmptyTag(Stack<string> StackWithTags, StringBuilder EmptyTag, ref FlagsOfTheState flagsOfTheState, List<string> parsedResult)
+        {
+            var argument = new ReadyArgument();
+            flagsOfTheState.TagFlag = false;
+            // Remove character '/' from addString.
+            EmptyTag.Length = EmptyTag.Length - 1;
+            argument.CreateArgument(EmptyTag,StackWithTags, parsedResult,ref flagsOfTheState);
+        }
+        
+        /// <summary>
         /// Method SkipComment
         /// Moves the index of the character being processed to the end of the comment.
         /// </summary>

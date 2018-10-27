@@ -81,22 +81,10 @@ namespace DEV_4
                         throw new Exception("Incorrect brackets.");
                     }
                     
-                    flagsOfTheState.TagFlag = false;
-                    
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
                         Separator.CheckForXmlDeclaration(addString,ref flagsOfTheState);
-                        continue;
-                    }
-                    
-                    // If this is an empty tag. (< ... />)
-                    if (XmlString[i - 1] == '/')
-                    {
-                        flagsOfTheState.TagFlag = false;
-                        // Remove character '/' from addString.
-                        addString.Length = addString.Length - 1;
-                        continue;
                     }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
@@ -105,13 +93,14 @@ namespace DEV_4
                         XmlTag.ImplementEndTag(StackWithTags, ref flagsOfTheState, addString);
                     }
                     
-                    // If the line with the new tag is not empty adds to the stack.
-                    if (addString.ToString() != string.Empty)
+                    // If this is an empty tag. (< ... />)
+                    if (XmlString[i - 1] == '/')
                     {
-                        StackWithTags.Push(addString.ToString());
+                        XmlTag.ImplemetEmptyTag(StackWithTags, addString, ref flagsOfTheState, parsedResult);
                     }
-
-                    addString.Clear();
+                    
+                    XmlTag.ImplemetTag(StackWithTags,addString,ref flagsOfTheState);
+                    
                     continue;
                 }
 
