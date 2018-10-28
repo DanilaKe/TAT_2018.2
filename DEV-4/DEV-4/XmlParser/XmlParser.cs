@@ -10,28 +10,26 @@ namespace DEV_4
     /// </summary>
     public class XmlParser
     {
+        private FlagsOfTheState flagsOfTheState;  
         private string XmlString { get; set; }
-        private List<string> parsedResult;
-
-        private FlagsOfTheState flagsOfTheState;
-        private XmlTag XmlTag;
-        private ReadyArgument argument;
-        private TagTypeSeparator Separator;
-
-        private StringBuilder addString;
+        private List<string> ParsedResult { get; }
+        private XmlTag XmlTag { get; }
+        private ReadyArgument Argument { get; }
+        private TagTypeSeparator Separator { get; }
+        private StringBuilder AddString { get; }
         // Stack of open tags.
-        private Stack<string> StackWithTags;
+        private Stack<string> StackWithTags { get; }
         
         public XmlParser(string receivedString)
         {
             XmlString = receivedString;
             flagsOfTheState = new FlagsOfTheState();
             XmlTag = new XmlTag();
-            argument = new ReadyArgument();
+            Argument = new ReadyArgument();
             Separator = new TagTypeSeparator(); 
-            addString = new StringBuilder();
+            AddString = new StringBuilder();
             StackWithTags = new Stack<string>();
-            parsedResult = new List<string>();
+            ParsedResult = new List<string>();
         }
         
         /// <summary>
@@ -62,7 +60,7 @@ namespace DEV_4
                     }
 
                     // If there is a ready argument, then write it down.
-                    argument.CreateArgument(addString, StackWithTags, parsedResult, ref flagsOfTheState);
+                    Argument.CreateArgument(AddString, StackWithTags, ParsedResult, ref flagsOfTheState);
 
                     Separator.GetTypeOfTag(XmlString, ref flagsOfTheState, ref i);
                     if (flagsOfTheState.CommentFlag)
@@ -83,22 +81,22 @@ namespace DEV_4
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
-                        Separator.CheckForXmlDeclaration(addString,ref flagsOfTheState);
+                        Separator.CheckForXmlDeclaration(AddString,ref flagsOfTheState);
                     }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.EndTagFlag)
                     {
-                        XmlTag.ImplementEndTag(StackWithTags, ref flagsOfTheState, addString);
+                        XmlTag.ImplementEndTag(StackWithTags, ref flagsOfTheState, AddString);
                     }
                     
                     // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
-                        XmlTag.ImplemetEmptyTag(StackWithTags, addString, ref flagsOfTheState, parsedResult);
+                        XmlTag.ImplemetEmptyTag(StackWithTags, AddString, ref flagsOfTheState, ParsedResult);
                     }
                     
-                    XmlTag.ImplemetTag(StackWithTags,addString,ref flagsOfTheState);
+                    XmlTag.ImplemetTag(StackWithTags,AddString,ref flagsOfTheState);
                     
                     continue;
                 }
@@ -108,7 +106,7 @@ namespace DEV_4
                     flagsOfTheState.ArgumentFlag = true;
                 }
 
-                addString.Append(XmlString[i]);
+                AddString.Append(XmlString[i]);
             }
 
             if (StackWithTags.Count != 0)
@@ -116,7 +114,7 @@ namespace DEV_4
                 throw new Exception("Incorrectly closed tags.");
             }
             
-            return parsedResult;
+            return ParsedResult;
         }
     }
 }
