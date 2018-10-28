@@ -12,6 +12,7 @@ namespace DEV_4
     {
         private FlagsOfTheState flagsOfTheState;  
         private string XmlString { get; set; }
+        private string XmlAddress { get; }
         private List<string> ParsedResult { get; }
         private XmlTag XmlTag { get; }
         private ReadyArgument Argument { get; }
@@ -22,7 +23,7 @@ namespace DEV_4
         
         public XmlParser(string receivedString)
         {
-            XmlString = receivedString;
+            XmlAddress = receivedString;
             flagsOfTheState = new FlagsOfTheState();
             XmlTag = new XmlTag();
             Argument = new ReadyArgument();
@@ -31,6 +32,23 @@ namespace DEV_4
             StackWithTags = new Stack<string>();
             ParsedResult = new List<string>();
         }
+
+        public List<string> Parsing()
+        {
+            if (XmlAddress == null)
+            {
+                throw new Exception("Empty address.");
+            }
+            else
+            {
+                // Convert the file to a string.
+                var XmlToStringConverter = new FileToStringConverter(XmlAddress);
+                XmlString = XmlToStringConverter.ReturnedString;
+                ParsingXml();
+            }
+
+            return ParsedResult;
+        }
         
         /// <summary>
         /// Method Parsing
@@ -38,7 +56,7 @@ namespace DEV_4
         /// correctly, returns the result of the parsing.
         /// </summary>
         /// <returns>Parsed list of strings.</returns>
-        public List<string> Parsing()
+        private void ParsingXml()
         {   
             for (var i = 0; i < XmlString.Length; i++)
             {
@@ -114,8 +132,6 @@ namespace DEV_4
             {
                 throw new Exception("Incorrectly closed tags.");
             }
-            
-            return ParsedResult;
         }
     }
 }

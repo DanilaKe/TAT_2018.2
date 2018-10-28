@@ -29,12 +29,8 @@ namespace DEV_4
                     throw new ArgumentNullException("Empty argument");
                 }
                 
-                // Convert the file to a string.
-                var XmlToStringConverter = new FileToStringConverter(args[0]);
-                string xmlToString = XmlToStringConverter.ReturnedString;
-                
                 // Parsing the received string.
-                var xmlParser = new XmlParser(xmlToString);
+                var xmlParser = new XmlParser(args[0]);
                 List<string> parsedResult = xmlParser.Parsing();
 
                 // Sort by arguments.
