@@ -33,6 +33,11 @@ namespace DEV_4
             ParsedResult = new List<string>();
         }
 
+        /// <summary>
+        /// Method Parsing
+        /// Gets the address of the XML file and starts ParsingXML method.
+        /// </summary> 
+        /// <returns>Parsed list of strings.</returns>
         public List<string> Parsing()
         {
             if (XmlAddress == null)
@@ -51,11 +56,10 @@ namespace DEV_4
         }
         
         /// <summary>
-        /// Method Parsing
+        /// Method ParsingXml
         /// Parsing a string, if the XML file is compiled
         /// correctly, returns the result of the parsing.
         /// </summary>
-        /// <returns>Parsed list of strings.</returns>
         private void ParsingXml()
         {   
             for (var i = 0; i < XmlString.Length; i++)
