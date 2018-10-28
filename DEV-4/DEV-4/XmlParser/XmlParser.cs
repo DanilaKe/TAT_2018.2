@@ -96,6 +96,7 @@ namespace DEV_4
                         XmlTag.ImplemetEmptyTag(StackWithTags, AddString, ref flagsOfTheState, ParsedResult);
                     }
                     
+                    Separator.ChecKDoctype(AddString, ref flagsOfTheState);
                     XmlTag.ImplemetTag(StackWithTags,AddString,ref flagsOfTheState);
                     
                     continue;

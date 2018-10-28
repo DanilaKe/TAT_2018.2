@@ -36,12 +36,12 @@ namespace DEV_4
 
             index++;
         }
-        
+
         /// <summary>
         /// Method CheckForXmlDeclaration
         /// Check for XML declaration at the beginning.
         /// </summary>
-        /// <param name="declaration">The string is checked for the presence of XML declaration.</param>
+        /// <param name="checkedTag">The string is checked for the presence of XML declaration.</param>
         /// <param name="flagsOfTheState">The current state of the parser.</param>
         public void CheckForXmlDeclaration(StringBuilder checkedTag,ref FlagsOfTheState flagsOfTheState)
         {
@@ -57,6 +57,15 @@ namespace DEV_4
                 {
                     throw new Exception("This is not an XML file (there is no XML checkedTag at the beginning)."); 
                 }           
+            }
+        }
+        
+        public void ChecKDoctype(StringBuilder checkedTag,ref FlagsOfTheState flagsOfTheState)
+        {
+            if (checkedTag.ToString().Contains("!DOCTYPE"))
+            {
+                flagsOfTheState.TagFlag = false;
+                checkedTag.Clear();
             }
         }
         

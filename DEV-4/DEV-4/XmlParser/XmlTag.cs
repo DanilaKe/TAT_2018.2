@@ -58,8 +58,9 @@ namespace DEV_4
         }
         
         /// <summary>
-        /// 
-        /// </summary>
+        /// Method ImplemetEmptyTag
+        /// Implements empty tag and create new argument.
+        /// </summary> 
         /// <param name="StackWithTags">A stack containing the current tags.</param>
         /// <param name="EmptyTag">Added tag.</param>
         /// <param name="flagsOfTheState">A stack containing the current tags.</param>
