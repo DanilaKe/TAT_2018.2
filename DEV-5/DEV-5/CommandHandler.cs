@@ -36,7 +36,7 @@ namespace DEV_5
                     case TypeOfCommands.Add :
                         if (catalog == null)
                         {
-                            catalog = new Catalog(AddedCarHandler);
+                            catalog = new Catalog(AddedCarHandler,CountCarHandler,AverageCarPriceHandler);
                         }
                         catalog.AddCar(command[0], command[1], Convert.ToInt32(command[2]), Convert.ToInt32(command[3]));
                         break;
@@ -100,7 +100,17 @@ namespace DEV_5
             }
         }
         
-        private static void AddedCarHandler(object sender, CatalogEventArgs e)
+        private void AddedCarHandler(object sender, CatalogEventArgs e)
+        {    
+            Console.WriteLine(e.Message);
+        }
+        
+        private void CountCarHandler(object sender, CatalogEventArgs e)
+        {    
+            Console.WriteLine(e.Message);
+        }
+        
+        private void AverageCarPriceHandler(object sender, CatalogEventArgs e)
         {    
             Console.WriteLine(e.Message);
         }

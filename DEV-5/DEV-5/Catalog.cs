@@ -13,20 +13,25 @@ namespace DEV_5
         protected event CatalogStateHandler Counted;
         protected event CatalogStateHandler Calculated;
         
-        public Catalog(CatalogStateHandler added)
+        public Catalog(CatalogStateHandler added, CatalogStateHandler counted, CatalogStateHandler calculated)
         {
             CatalogOfCar = new List<Car>();
             Counter = 0;
             // Capacity is not set, it means it is not limited (-1).
             Capacity = -1;
             Added += added;
+            Counted += counted;
+            Calculated += calculated;
         }
         
-        public Catalog(int capacity)
+        public Catalog(CatalogStateHandler added, CatalogStateHandler counted, CatalogStateHandler calculated ,int capacity)
         {
             CatalogOfCar = new List<Car>();
             Counter = 0;
             Capacity = capacity; 
+            Added += added;
+            Counted += counted;
+            Calculated += calculated;
         }
         
         private void CallEvent(CatalogEventArgs e, CatalogStateHandler handler)
