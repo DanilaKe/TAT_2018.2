@@ -5,31 +5,35 @@ namespace DEV_5
     public class CommandHandler
     {
         private Catalog catalog;
+        private Printer printer;
         
         public CommandHandler()
         {
-            // TODO
+            printer = new Printer();
         }
 
         public void RunCommandReader()
         {
+            printer.DisplayBeginInfo(this);
             bool exit = false;
             while (!exit)
             {
+                Console.Write("Write a command : ");
                 var command = Console.ReadLine().Split(' ');
                 TypeOfCommands CommandType = GetTypeOfCommands(command);
                 
                 // Check for access to an empty catalog.
-                if ((CommandType != TypeOfCommands.Add) && (catalog == null))
+                if ((CommandType != TypeOfCommands.Add) && (CommandType != TypeOfCommands.None) &&
+                    (CommandType != TypeOfCommands.Exit) && (catalog == null))
                 {
-                    Console.WriteLine("Empty catalog.");
+                    printer.DisplayError(this, "Empty catalog.");
                     continue;
                 }
                 
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
-                        Console.WriteLine("Invalid command.");
+                        printer.DisplayError(this, "Invalid command.");
                         break;
                     case TypeOfCommands.Add :
                         if (catalog == null)
