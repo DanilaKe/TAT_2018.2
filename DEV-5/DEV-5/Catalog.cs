@@ -10,9 +10,9 @@ namespace DEV_5
         public int Counter { get; private set; }
         public int Capacity { get; private set; }
         
-        protected event CatalogStateHandler Added;
-        protected event CatalogStateHandler Counted;
-        protected event CatalogStateHandler Calculated;
+        private event CatalogStateHandler Added;
+        private event CatalogStateHandler Counted;
+        private event CatalogStateHandler Calculated;
         
         public Catalog(CatalogStateHandler added, CatalogStateHandler counted, CatalogStateHandler calculated)
         {
@@ -41,8 +41,13 @@ namespace DEV_5
                 handler(this, e);
         }
         
-        public void AddCar(string brand, string model, int numberOfCars, double price)
+        public void AddCar(object CallingClass, string brand, string model, int numberOfCars, double price)
         {
+            if (!(CallingClass is ICatalogCommand))
+            {
+                throw new Exception();
+            }
+            
             if ((Capacity < Counter + 1) && (Capacity != -1))
             {
                 throw new Exception();
@@ -51,7 +56,7 @@ namespace DEV_5
             var AddedCar = new Car(this, brand, model, numberOfCars, price);
             CatalogOfCar.Add(AddedCar);
             Counter++;
-            CallEvent(new CatalogEventArgs("New car. Id : " + Counter, 0, Counter), Added);
+            CallEvent(new CatalogEventArgs(numberOfCars, price, brand, model, Counter), Added);
         }    
         
         public void Count(object CallingClass, string type)
@@ -62,7 +67,7 @@ namespace DEV_5
             }
 
             var Count = CatalogOfCar.GroupBy(x => x.Brand).Count();
-            CallEvent(new CatalogEventArgs($"{Count}", 0, Count), Counted);
+            CallEvent(new CatalogEventArgs(Count), Counted);
         }
         
         public void Count(object CallingClass)
@@ -73,7 +78,7 @@ namespace DEV_5
             }
             
             var Count = CatalogOfCar.Select(x => x.NumberOfCars).Sum(y => y);
-            CallEvent(new CatalogEventArgs($"{Count}", 0, Count), Counted);
+            CallEvent(new CatalogEventArgs(Count), Counted);
         }
 
         public void AveragePrice(object CallingClass)
@@ -84,7 +89,7 @@ namespace DEV_5
             }
 
             var price = CatalogOfCar.Select(x => x.Price).Average(y => y);
-            CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
+            CallEvent(new CatalogEventArgs(price), Calculated);
         }
         
         public void AveragePrice(object CallingClass, string brand)
@@ -93,9 +98,17 @@ namespace DEV_5
             {
                 throw new Exception();
             }
-            
-            var price = CatalogOfCar.Where(x => x.Brand == brand).Select(x => x.Price).Average(y => y);
-            CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
+
+            var validBrand = CatalogOfCar.Select(x => x.Brand).Contains(brand);
+            if (validBrand)
+            {
+                var price = CatalogOfCar.Where(x => x.Brand == brand).Select(x => x.Price).Average(y => y);
+                CallEvent(new CatalogEventArgs(price, brand), Calculated);
+            }
+            else
+            {
+                CallEvent(null, Calculated);
+            }
         }
     }
 }

@@ -40,6 +40,10 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="Catalog.cs" />
+    <Compile Include="CatalogCommand\Add.cs" />
+    <Compile Include="CatalogCommand\AveragePrice.cs" />
+    <Compile Include="CatalogCommand\Count.cs" />
+    <Compile Include="CatalogCommand\ICatalogCommand.cs" />
     <Compile Include="CatalogStateHandler.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />

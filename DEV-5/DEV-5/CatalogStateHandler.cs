@@ -4,14 +4,35 @@
 
     public class CatalogEventArgs
     {
-        public string Message { get; private set;}
-        public double Sum { get; private set;}
-        public int Count { get; private set;}
-
-        public CatalogEventArgs(string _mes, double _sum, int _count)
+        public string Brand { get; private set; }
+        public string Model { get; private set; }
+        public int NumberOfCars { get; private set; }
+        public double Price { get; private set; }
+        public double Count { get; private set; }
+        
+        public CatalogEventArgs(int numberOfCars, double price,string brand, string model, int count)
         {
-            Message = _mes;
-            Sum = _sum;
+            NumberOfCars = numberOfCars;
+            Price = price;
+            Brand = brand;
+            Model = model;
+            Count = count;
+        }
+        
+        public CatalogEventArgs(double price, string brand)
+        {
+            NumberOfCars = 0;
+            Price = price;
+        }
+        
+        public CatalogEventArgs(int numberOfCars)
+        {
+            NumberOfCars = numberOfCars;
+        }
+        
+        public CatalogEventArgs(double price)
+        {
+            Price = price;
         }
     }
 }

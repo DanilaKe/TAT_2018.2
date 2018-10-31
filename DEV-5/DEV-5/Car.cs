@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace DEV_5
 {
     public class Car
     {
+        public string Brand { get; private set; }
+        public string Model { get; private set; }
+        public int NumberOfCars { get; private set; }
+        public double Price { get; private set; }
+        
         public Car(object CallingClass,string brand, string model, int numberOfCars, double price)
         {
             if (!(CallingClass is Catalog))
@@ -18,10 +21,5 @@ namespace DEV_5
             NumberOfCars = numberOfCars;
             Price = price;
         }
-
-        public string Brand { get; private set; }
-        public string Model { get; private set; }
-        public int NumberOfCars { get; private set; }
-        public double Price { get; private set; }
     }
 }

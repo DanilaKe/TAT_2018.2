@@ -8,7 +8,9 @@ namespace DEV_5
         {
             try
             {
-                var commandHandler = new CommandHandler();
+                var printer = new Printer();
+                var catalogOfCar = new Catalog(printer.AddedCarHandler, printer.CountCarHandler, printer.AverageCarPriceHandler);
+                var commandHandler = new CommandHandler(catalogOfCar, printer);
                 commandHandler.RunCommandReader();
             }
             catch (Exception e)

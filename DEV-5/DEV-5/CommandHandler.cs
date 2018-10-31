@@ -5,16 +5,18 @@ namespace DEV_5
     public class CommandHandler
     {
         private Catalog catalog;
-        private Printer printer;
+        private ICatalogCommand catalogCommand;
+        private readonly Printer printer;
         
-        public CommandHandler()
+        public CommandHandler(Catalog receivedCatalog, Printer receivedPrinter)
         {
-            printer = new Printer();
+            printer = receivedPrinter;
+            catalog = receivedCatalog;
         }
 
         public void RunCommandReader()
         {
-            printer.DisplayBeginInfo(this);
+            printer.DisplayBeginInfo();
             bool exit = false;
             while (!exit)
             {
@@ -24,23 +26,19 @@ namespace DEV_5
                 
                 // Check for access to an empty catalog.
                 if ((CommandType != TypeOfCommands.Add) && (CommandType != TypeOfCommands.None) &&
-                    (CommandType != TypeOfCommands.Exit) && (catalog == null))
+                    (CommandType != TypeOfCommands.Exit) && (catalog.Counter.Equals(0)))
                 {
-                    printer.DisplayError(this, "Empty catalog.");
+                    printer.DisplayError("Empty catalog.");
                     continue;
                 }
                 
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
-                        printer.DisplayError(this, "Invalid command.");
+                        printer.DisplayError("Invalid command.");
                         break;
                     case TypeOfCommands.Add :
-                        if (catalog == null)
-                        {
-                            catalog = new Catalog(AddedCarHandler, CountCarHandler, AverageCarPriceHandler);
-                        }
-                        catalog.AddCar(command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
+                        catalogCommand = new Add(catalog,command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
                         break;
                     case TypeOfCommands.CountAll :
                         catalog.Count(this);
@@ -49,14 +47,19 @@ namespace DEV_5
                         catalog.Count(this,"type");
                         break;
                     case TypeOfCommands.AveragePriceAll :
-                        catalog.AveragePrice(this);
+                        catalogCommand = new AveragePrice(catalog);
                         break;
                     case TypeOfCommands.AveragePriceType :
-                        catalog.AveragePrice(this, command[2]);
+                        catalogCommand = new AveragePrice(catalog, command[2]);
                         break;
                     case TypeOfCommands.Exit :
                         exit = true;
-                        break;    
+                        break;
+                }
+
+                if (!exit)
+                {
+                    catalogCommand.Execute();
                 }
             }
         }
@@ -105,21 +108,6 @@ namespace DEV_5
             {
                 return TypeOfCommands.None;
             }
-        }
-        
-        private void AddedCarHandler(object sender, CatalogEventArgs e)
-        {    
-            Console.WriteLine(e.Message);
-        }
-        
-        private void CountCarHandler(object sender, CatalogEventArgs e)
-        {    
-            Console.WriteLine(e.Message);
-        }
-        
-        private void AverageCarPriceHandler(object sender, CatalogEventArgs e)
-        {    
-            Console.WriteLine(e.Message);
         }
         
         enum TypeOfCommands
