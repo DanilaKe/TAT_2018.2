@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="Catalog.cs" />
+    <Compile Include="CatalogStateHandler.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Printer.cs" />
