@@ -87,7 +87,7 @@ namespace DEV_5
             CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
         }
         
-        public int AveragePrice(object CallingClass, string brand)
+        public void AveragePrice(object CallingClass, string brand)
         {
             if (!(CallingClass is CommandHandler))
             {
