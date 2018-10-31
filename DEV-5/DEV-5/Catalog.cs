@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DEV_5
 {
@@ -50,28 +51,31 @@ namespace DEV_5
             var AddedCar = new Car(this, brand, model, numberOfCars, price);
             CatalogOfCar.Add(AddedCar);
             Counter++;
-            CallEvent(new CatalogEventArgs("New car. Id : " + Counter, Counter), Added);
-        }
- /*       
-        public int Count(object CallingClass, string type)
+            CallEvent(new CatalogEventArgs("New car. Id : " + Counter, 0, Counter), Added);
+        }    
+        
+        public void Count(object CallingClass, string type)
         {
             if (!(CallingClass is CommandHandler))
             {
                 throw new Exception();
             }
-            
-            // TODO
-        }
 
-        public int Count(object CallingClass)
+            var Count = CatalogOfCar.GroupBy(x => x.Brand).Count();
+            CallEvent(new CatalogEventArgs($"{Count}", 0, Count), Counted);
+        }
+        
+        public void Count(object CallingClass)
         {
             if (!(CallingClass is CommandHandler))
             {
                 throw new Exception();
             }
             
-            // TODO
+            var Count = CatalogOfCar.Select(x => x.NumberOfCars).Sum(y => y);
+            CallEvent(new CatalogEventArgs($"{Count}", 0, Count), Counted);
         }
+        /*
 
         public int AveragePrice(object CallingClass)
         {

@@ -5,16 +5,6 @@ namespace DEV_5
     public class CommandHandler
     {
         private Catalog catalog;
-        enum TypeOfCommands
-        {
-            None,
-            Add,
-            CountAll,
-            CountTypes,
-            AveragePriceAll,
-            AveragePriceType,
-            Exit
-        }
         
         public CommandHandler()
         {
@@ -28,6 +18,14 @@ namespace DEV_5
             {
                 var command = Console.ReadLine().Split(' ');
                 TypeOfCommands CommandType = GetTypeOfCommands(command);
+                
+                // Check for access to an empty catalog.
+                if ((CommandType != TypeOfCommands.Add) && (catalog == null))
+                {
+                    Console.WriteLine("Empty catalog.");
+                    continue;
+                }
+                
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
@@ -36,22 +34,23 @@ namespace DEV_5
                     case TypeOfCommands.Add :
                         if (catalog == null)
                         {
-                            catalog = new Catalog(AddedCarHandler,CountCarHandler,AverageCarPriceHandler);
+                            catalog = new Catalog(AddedCarHandler, CountCarHandler, AverageCarPriceHandler);
                         }
-                        catalog.AddCar(command[0], command[1], Convert.ToInt32(command[2]), Convert.ToInt32(command[3]));
+                        catalog.AddCar(command[1], command[2], Convert.ToInt32(command[3]), Convert.ToInt32(command[4]));
                         break;
                     case TypeOfCommands.CountAll :
+                        catalog.Count(this);
                         break;
                     case TypeOfCommands.CountTypes :
+                        catalog.Count(this,"type");
                         break;
-                    case TypeOfCommands.AveragePriceAll:
+                    case TypeOfCommands.AveragePriceAll :
                         break;
                     case TypeOfCommands.AveragePriceType :
                         break;
                     case TypeOfCommands.Exit :
                         exit = true;
-                        break;
-                        
+                        break;    
                 }
             }
         }
@@ -90,7 +89,9 @@ namespace DEV_5
                 }
             }
             
-            if ((command.Length == 4) && (int.TryParse(command[2], out var numberOfCars)) && (int.TryParse(command[3], out var price)))
+            if ((command[0] == "add") && (command.Length == 5) && 
+                (int.TryParse(command[3], out var numberOfCars)) &&
+                (int.TryParse(command[4], out var price)))
             {
                 return TypeOfCommands.Add;
             }
@@ -113,6 +114,17 @@ namespace DEV_5
         private void AverageCarPriceHandler(object sender, CatalogEventArgs e)
         {    
             Console.WriteLine(e.Message);
+        }
+        
+        enum TypeOfCommands
+        {
+            None,
+            Add,
+            CountAll,
+            CountTypes,
+            AveragePriceAll,
+            AveragePriceType,
+            Exit
         }
     }
 }
