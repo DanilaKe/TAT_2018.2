@@ -6,7 +6,7 @@ namespace DEV_5
 {
     public class Car
     {
-        public Car(object CallingClass,string brand, string model, int numberOfCars, int price)
+        public Car(object CallingClass,string brand, string model, int numberOfCars, double price)
         {
             if (!(CallingClass is Catalog))
             {
@@ -22,6 +22,6 @@ namespace DEV_5
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public int NumberOfCars { get; private set; }
-        public int Price { get; private set; }
+        public double Price { get; private set; }
     }
 }

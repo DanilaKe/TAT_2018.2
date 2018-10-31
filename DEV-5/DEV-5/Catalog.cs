@@ -41,7 +41,7 @@ namespace DEV_5
                 handler(this, e);
         }
         
-        public void AddCar(string brand, string model, int numberOfCars, int price)
+        public void AddCar(string brand, string model, int numberOfCars, double price)
         {
             if ((Capacity < Counter + 1) && (Capacity != -1))
             {
@@ -75,18 +75,18 @@ namespace DEV_5
             var Count = CatalogOfCar.Select(x => x.NumberOfCars).Sum(y => y);
             CallEvent(new CatalogEventArgs($"{Count}", 0, Count), Counted);
         }
-        /*
 
-        public int AveragePrice(object CallingClass)
+        public void AveragePrice(object CallingClass)
         {
             if (!(CallingClass is CommandHandler))
             {
                 throw new Exception();
             }
-            
-            // TODO
+
+            var price = CatalogOfCar.Select(x => x.Price).Average(y => y);
+            CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
         }
-        
+        /*
         public int AveragePrice(object CallingClass, string type)
         {
             if (!(CallingClass is CommandHandler))

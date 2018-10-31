@@ -36,7 +36,7 @@ namespace DEV_5
                         {
                             catalog = new Catalog(AddedCarHandler, CountCarHandler, AverageCarPriceHandler);
                         }
-                        catalog.AddCar(command[1], command[2], Convert.ToInt32(command[3]), Convert.ToInt32(command[4]));
+                        catalog.AddCar(command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
                         break;
                     case TypeOfCommands.CountAll :
                         catalog.Count(this);
@@ -45,6 +45,7 @@ namespace DEV_5
                         catalog.Count(this,"type");
                         break;
                     case TypeOfCommands.AveragePriceAll :
+                        catalog.AveragePrice(this);
                         break;
                     case TypeOfCommands.AveragePriceType :
                         break;
@@ -91,7 +92,7 @@ namespace DEV_5
             
             if ((command[0] == "add") && (command.Length == 5) && 
                 (int.TryParse(command[3], out var numberOfCars)) &&
-                (int.TryParse(command[4], out var price)))
+                (double.TryParse(command[4], out var price)))
             {
                 return TypeOfCommands.Add;
             }
