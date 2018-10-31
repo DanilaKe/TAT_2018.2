@@ -86,16 +86,16 @@ namespace DEV_5
             var price = CatalogOfCar.Select(x => x.Price).Average(y => y);
             CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
         }
-        /*
-        public int AveragePrice(object CallingClass, string type)
+        
+        public int AveragePrice(object CallingClass, string brand)
         {
             if (!(CallingClass is CommandHandler))
             {
                 throw new Exception();
             }
             
-            // TODO
+            var price = CatalogOfCar.Where(x => x.Brand == brand).Select(x => x.Price).Average(y => y);
+            CallEvent(new CatalogEventArgs($"{price}", price, 1), Calculated);
         }
-        */
     }
 }

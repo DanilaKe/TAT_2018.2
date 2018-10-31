@@ -48,6 +48,7 @@ namespace DEV_5
                         catalog.AveragePrice(this);
                         break;
                     case TypeOfCommands.AveragePriceType :
+                        catalog.AveragePrice(this, command[2]);
                         break;
                     case TypeOfCommands.Exit :
                         exit = true;
