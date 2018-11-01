@@ -37,8 +37,10 @@ namespace DEV_5
         
         private void CallEvent(CatalogEventArgs e, CatalogStateHandler handler)
         {
-            if (handler != null && e!=null)
+            if ((handler != null) && (e != null))
+            {
                 handler(this, e);
+            }
         }
         
         public void AddCar(object CallingClass, string brand, string model, int numberOfCars, double price)
@@ -59,9 +61,9 @@ namespace DEV_5
             CallEvent(new CatalogEventArgs(numberOfCars, price, brand, model, Counter), Added);
         }    
         
-        public void Count(object CallingClass, string type)
+        public void Count(object CallingClass, bool thisIsCountTypes)
         {
-            if (!(CallingClass is CommandHandler))
+            if (!(CallingClass is ICatalogCommand))
             {
                 throw new Exception();
             }
@@ -72,7 +74,7 @@ namespace DEV_5
         
         public void Count(object CallingClass)
         {
-            if (!(CallingClass is CommandHandler))
+            if (!(CallingClass is ICatalogCommand))
             {
                 throw new Exception();
             }
@@ -83,7 +85,7 @@ namespace DEV_5
 
         public void AveragePrice(object CallingClass)
         {
-            if (!(CallingClass is CommandHandler))
+            if (!(CallingClass is ICatalogCommand))
             {
                 throw new Exception();
             }
@@ -94,7 +96,7 @@ namespace DEV_5
         
         public void AveragePrice(object CallingClass, string brand)
         {
-            if (!(CallingClass is CommandHandler))
+            if (!(CallingClass is ICatalogCommand))
             {
                 throw new Exception();
             }

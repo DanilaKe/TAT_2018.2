@@ -9,6 +9,7 @@
         public int NumberOfCars { get; private set; }
         public double Price { get; private set; }
         public double Count { get; private set; }
+        public bool ThisIsCountTypes { get; private set; }
         
         public CatalogEventArgs(int numberOfCars, double price,string brand, string model, int count)
         {
@@ -25,8 +26,9 @@
             Price = price;
         }
         
-        public CatalogEventArgs(int numberOfCars)
+        public CatalogEventArgs(int numberOfCars, bool thisIsCountTypes = false)
         {
+            ThisIsCountTypes = thisIsCountTypes;
             NumberOfCars = numberOfCars;
         }
         

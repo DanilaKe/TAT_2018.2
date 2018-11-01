@@ -11,12 +11,12 @@ namespace DEV_5
         
         public void CountCarHandler(object sender, CatalogEventArgs e)
         {    
-            // TODO
+            DisplayCountCar(e);
         }
         
         public void AverageCarPriceHandler(object sender, CatalogEventArgs e)
         {    
-            // TODO
+            DisplayAverageCost(e);
         }
         
         public void DisplayBeginInfo()
@@ -49,6 +49,36 @@ namespace DEV_5
             Console.WriteLine($"Model : {e.Model}");
             Console.WriteLine($"Number of cars : {e.NumberOfCars}");
             Console.WriteLine($"Price : {e.Price}\n");
+            Console.ForegroundColor = color;
+        }
+        
+        private void DisplayCountCar(CatalogEventArgs e)
+        {
+            ConsoleColor color = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            if (e.ThisIsCountTypes)
+            {
+                Console.WriteLine($"Number of car brands : {e.NumberOfCars}\n");
+            }
+            else
+            {
+                Console.WriteLine($"Total number of cars : {e.NumberOfCars}\n");
+            }
+            Console.ForegroundColor = color;
+        }
+        
+        private void DisplayAverageCost(CatalogEventArgs e)
+        {
+            ConsoleColor color = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            if (e.Brand.Equals(string.Empty))
+            {
+                Console.WriteLine($"Average cost of the car : {e.NumberOfCars}\n");
+            }
+            else
+            {
+                Console.WriteLine($"Average cost of {e.Brand} cars : {e.NumberOfCars}\n");
+            }
             Console.ForegroundColor = color;
         }
     }

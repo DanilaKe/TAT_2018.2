@@ -4,9 +4,9 @@ namespace DEV_5
 {
     public class CommandHandler
     {
-        private Catalog catalog;
-        private ICatalogCommand catalogCommand;
+        private readonly Catalog catalog;
         private readonly Printer printer;
+        private ICatalogCommand catalogCommand;
         
         public CommandHandler(Catalog receivedCatalog, Printer receivedPrinter)
         {
@@ -41,10 +41,10 @@ namespace DEV_5
                         catalogCommand = new Add(catalog,command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
                         break;
                     case TypeOfCommands.CountAll :
-                        catalog.Count(this);
+                        catalogCommand = new Count(catalog);
                         break;
                     case TypeOfCommands.CountTypes :
-                        catalog.Count(this,"type");
+                        catalogCommand = new Count(catalog, true);
                         break;
                     case TypeOfCommands.AveragePriceAll :
                         catalogCommand = new AveragePrice(catalog);
@@ -57,7 +57,7 @@ namespace DEV_5
                         break;
                 }
 
-                if (!exit)
+                if (!exit && (CommandType != TypeOfCommands.None))
                 {
                     catalogCommand.Execute();
                 }

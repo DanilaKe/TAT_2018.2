@@ -3,26 +3,20 @@
     public class Count : ICatalogCommand
     {
         private Catalog catalog;
-        private bool thisIsCountTypes;
+        private bool ThisIsCountTypes;
 
-        public Count(Catalog receivedCatalog)
+        public Count(Catalog receivedCatalog, bool thisIsCountTypes = false)
         {
             catalog = receivedCatalog;
-            thisIsCountTypes = false;
-        }
-        
-        public Count(Catalog receivedCatalog, string type)
-        {
-            catalog = receivedCatalog;
-            thisIsCountTypes = true;
+            ThisIsCountTypes = thisIsCountTypes;
         }
 
 
         public void Execute()
         {
-            if (thisIsCountTypes)
+            if (ThisIsCountTypes)
             {
-                catalog.Count(this, string.Empty);
+                catalog.Count(this, ThisIsCountTypes);
             }
             else
             {
