@@ -71,13 +71,13 @@ namespace DEV_5
         {
             ConsoleColor color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            if (e.Brand.Equals(string.Empty))
+            if (e.Brand == string.Empty)
             {
-                Console.WriteLine($"Average cost of the car : {e.NumberOfCars}\n");
+                Console.WriteLine($"Average cost of the car : {e.Price}\n");
             }
             else
             {
-                Console.WriteLine($"Average cost of {e.Brand} cars : {e.NumberOfCars}\n");
+                Console.WriteLine($"Average cost of {e.Brand} cars : {e.Price}\n");
             }
             Console.ForegroundColor = color;
         }

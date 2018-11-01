@@ -4,7 +4,7 @@ namespace DEV_5
 {
     internal class EntryPoint
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             try
             {
@@ -15,7 +15,7 @@ namespace DEV_5
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine($"Error : {e.Message}");
             }
         }
     }

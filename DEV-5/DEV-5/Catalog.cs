@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 
 namespace DEV_5
 {
@@ -54,11 +56,20 @@ namespace DEV_5
             {
                 throw new Exception();
             }
-            
-            var AddedCar = new Car(this, brand, model, numberOfCars, price);
-            CatalogOfCar.Add(AddedCar);
-            Counter++;
-            CallEvent(new CatalogEventArgs(numberOfCars, price, brand, model, Counter), Added);
+
+            var existingCar  = CatalogOfCar.Any(x => (x.Brand == brand) && (x.Model == model) && (x.Price == price));
+            if (!existingCar)
+            {
+                var AddedCar = new Car(this, brand, model, numberOfCars, price);
+                CatalogOfCar.Add(AddedCar);
+                Counter++;
+                CallEvent(new CatalogEventArgs(numberOfCars, price, brand, model, Counter), Added);
+            }
+            else
+            {
+                var numberOfExistingCar = CatalogOfCar.First(x => (x.Brand == brand) && (x.Model == model) && (x.Price == price));
+                numberOfExistingCar.AddCars(numberOfCars);
+            }
         }    
         
         public void Count(object CallingClass, bool thisIsCountTypes)

@@ -22,8 +22,8 @@
         
         public CatalogEventArgs(double price, string brand)
         {
-            NumberOfCars = 0;
             Price = price;
+            Brand = brand;
         }
         
         public CatalogEventArgs(int numberOfCars, bool thisIsCountTypes = false)

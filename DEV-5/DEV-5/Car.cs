@@ -21,5 +21,10 @@ namespace DEV_5
             NumberOfCars = numberOfCars;
             Price = price;
         }
+
+        public void AddCars(int addedCars)
+        {
+            NumberOfCars += addedCars;
+        }
     }
 }
