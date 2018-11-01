@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
 
 namespace DEV_5
 {
@@ -12,6 +10,7 @@ namespace DEV_5
         public int Counter { get; private set; }
         public int Capacity { get; private set; }
         
+        // Methods occurring after the event.
         private event CatalogStateHandler Added;
         private event CatalogStateHandler Counted;
         private event CatalogStateHandler Calculated;

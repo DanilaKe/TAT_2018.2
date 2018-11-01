@@ -1,9 +1,14 @@
 ﻿namespace DEV_5
 {
     public delegate void CatalogStateHandler(object sender, CatalogEventArgs e);
-
+    
+    /// <summary>
+    /// Class CatalogEventArgs
+    /// Data associated with changes in the status of the catalog.
+    /// </summary>
     public class CatalogEventArgs
     {
+        // Event data.
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public int NumberOfCars { get; private set; }

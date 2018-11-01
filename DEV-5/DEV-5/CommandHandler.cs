@@ -2,6 +2,10 @@
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Class CommandHandler
+    /// Handles console commands.
+    /// </summary>
     public class CommandHandler
     {
         private readonly Catalog catalog;
@@ -13,25 +17,32 @@ namespace DEV_5
             printer = receivedPrinter;
             catalog = receivedCatalog;
         }
-
+        
+        /// <summary>
+        /// Method RunCommandReader
+        /// Starts reading commands.
+        /// </summary>
         public void RunCommandReader()
         {
             printer.DisplayBeginInfo();
             bool exit = false;
+            // The cycle of reading commands, while there is no command "exit".
             while (!exit)
             {
                 Console.Write("Write a command : ");
                 var command = Console.ReadLine().Split(' ');
+                // Finds out the type of command.
                 TypeOfCommands CommandType = GetTypeOfCommands(command);
                 
                 // Check for access to an empty catalog.
                 if ((CommandType != TypeOfCommands.Add) && (CommandType != TypeOfCommands.None) &&
-                    (CommandType != TypeOfCommands.Exit) && (catalog.Counter.Equals(0)))
+                    (CommandType != TypeOfCommands.Exit) && (catalog.Counter == 0))
                 {
                     printer.DisplayError("Empty catalog.");
                     continue;
                 }
                 
+                // Execute the command, depending on the type.
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
@@ -64,6 +75,12 @@ namespace DEV_5
             }
         }
 
+        /// <summary>
+        /// Method GetTypeOfCommands
+        /// Finds out the type of command.
+        /// </summary>
+        /// <param name="command">Console command</param>
+        /// <returns>Type of command.</returns>
         private TypeOfCommands GetTypeOfCommands(string[] command)
         {   
             if ((command == null) || (command[0] == string.Empty))

@@ -2,23 +2,43 @@
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Class Printer
+    /// Engaged in the correct output to the screen.
+    /// </summary>
     public class Printer
     {
+        /// <summary>
+        /// Method AddedCarHandler
+        /// The method that handles the event of adding a car.
+        /// </summary>
         public void AddedCarHandler(object sender, CatalogEventArgs e)
         {    
             DisplayAddCar(e);
         }
         
+        /// <summary>
+        /// Method CountCarHandler
+        /// A method that handles a car counting event.
+        /// </summary>
         public void CountCarHandler(object sender, CatalogEventArgs e)
         {    
             DisplayCountCar(e);
         }
         
+        /// <summary>
+        /// Method AverageCarPriceHandler
+        /// The method that handles the event of calculating the average price of cars.
+        /// </summary>
         public void AverageCarPriceHandler(object sender, CatalogEventArgs e)
         {    
             DisplayAverageCost(e);
         }
         
+        /// <summary>
+        /// Method DisplayBeginInfo
+        /// Displays begin information about existing console commands.
+        /// </summary>
         public void DisplayBeginInfo()
         {
             ConsoleColor color = Console.ForegroundColor;
@@ -32,6 +52,10 @@ namespace DEV_5
             Console.ForegroundColor = color;
         }
         
+        /// <summary>
+        /// Method DisplayError
+        /// Displays errors associated with incorrect input.
+        /// </summary>
         public void DisplayError(string error)
         {
             ConsoleColor color = Console.ForegroundColor;
@@ -40,6 +64,10 @@ namespace DEV_5
             Console.ForegroundColor = color;
         }
 
+        /// <summary>
+        /// Method DisplayAddCar
+        /// Displays information about the added car.
+        /// </summary>
         private void DisplayAddCar(CatalogEventArgs e)
         {
             ConsoleColor color = Console.ForegroundColor;
@@ -52,6 +80,10 @@ namespace DEV_5
             Console.ForegroundColor = color;
         }
         
+        /// <summary>
+        /// Method DisplayCountCar
+        /// Displays information about the counting of cars.
+        /// </summary>
         private void DisplayCountCar(CatalogEventArgs e)
         {
             ConsoleColor color = Console.ForegroundColor;
@@ -67,6 +99,10 @@ namespace DEV_5
             Console.ForegroundColor = color;
         }
         
+        /// <summary>
+        /// Method DisplayAverageCost
+        /// Displays information on the calculation of the average price of cars.
+        /// </summary>
         private void DisplayAverageCost(CatalogEventArgs e)
         {
             ConsoleColor color = Console.ForegroundColor;
