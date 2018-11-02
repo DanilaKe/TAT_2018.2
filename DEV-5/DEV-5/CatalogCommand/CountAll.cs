@@ -1,8 +1,11 @@
 ﻿namespace DEV_5
 {
+    /// <summary>
+    /// This command is engaged in calling the method of counting the number of cars in the selected catalog.
+    /// </summary>
     public class CountAll : ICatalogCommand
     {
-        private Catalog catalog;
+        private readonly Catalog catalog;
 
         public CountAll(Catalog receivedCatalog)
         {

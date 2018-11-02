@@ -1,8 +1,7 @@
 ﻿namespace DEV_5
 {
     /// <summary>
-    /// Interface ICatalogCommand
-    /// Interface representing the command. Required for the command pattern.
+    /// Represents that the implemented classes are catalog commands.
     /// </summary>
     public interface ICatalogCommand
     {

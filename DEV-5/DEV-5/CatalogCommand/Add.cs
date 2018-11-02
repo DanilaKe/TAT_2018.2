@@ -1,8 +1,11 @@
 ﻿namespace DEV_5
 {
+    /// <summary>
+    /// This command is engaged in a call of a method of creation of new cars, in the chosen catalog.
+    /// </summary>
     public class Add : ICatalogCommand
     {
-        private Catalog catalog;
+        private readonly Catalog catalog;
         private string Brand { get; set; }
         private string Model { get; set; }
         private int NumberOfCars { get; set; }
