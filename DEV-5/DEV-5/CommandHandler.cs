@@ -38,7 +38,7 @@ namespace DEV_5
                 if ((CommandType != TypeOfCommands.Add) && (CommandType != TypeOfCommands.None) &&
                     (CommandType != TypeOfCommands.Exit) && (catalog.Counter == 0))
                 {
-                    printer.DisplayError("Empty catalog.");
+                    Console.WriteLine("Empty catalog.\n");
                     continue;
                 }
                 
@@ -46,22 +46,22 @@ namespace DEV_5
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
-                        printer.DisplayError("Invalid command.");
+                        Console.WriteLine("Invalid command.\n");
                         break;
                     case TypeOfCommands.Add :
                         catalogCommand = new Add(catalog,command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
                         break;
                     case TypeOfCommands.CountAll :
-                        catalogCommand = new Count(catalog);
+                        catalogCommand = new CountAll(catalog);
                         break;
                     case TypeOfCommands.CountTypes :
-                        catalogCommand = new Count(catalog, true);
+                        catalogCommand = new CountType(catalog);
                         break;
                     case TypeOfCommands.AveragePriceAll :
                         catalogCommand = new AveragePrice(catalog);
                         break;
                     case TypeOfCommands.AveragePriceType :
-                        catalogCommand = new AveragePrice(catalog, command[2]);
+                        catalogCommand = new AveragePriceType(catalog, command[2]);
                         break;
                     case TypeOfCommands.Exit :
                         exit = true;

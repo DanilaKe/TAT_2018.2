@@ -42,7 +42,9 @@
     <Compile Include="Catalog.cs" />
     <Compile Include="CatalogCommand\Add.cs" />
     <Compile Include="CatalogCommand\AveragePrice.cs" />
-    <Compile Include="CatalogCommand\Count.cs" />
+    <Compile Include="CatalogCommand\AveragePriceType.cs" />
+    <Compile Include="CatalogCommand\CountAll.cs" />
+    <Compile Include="CatalogCommand\CountType.cs" />
     <Compile Include="CatalogCommand\ICatalogCommand.cs" />
     <Compile Include="CatalogStateHandler.cs" />
     <Compile Include="CommandHandler.cs" />

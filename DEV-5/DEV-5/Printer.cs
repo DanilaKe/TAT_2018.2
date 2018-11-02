@@ -27,6 +27,15 @@ namespace DEV_5
         }
         
         /// <summary>
+        /// Method CountCarHandler
+        /// A method that handles a car counting event.
+        /// </summary>
+        public void CountTypeHandler(object sender, CatalogEventArgs e)
+        {    
+            DisplayCountBrand(e);
+        }
+        
+        /// <summary>
         /// Method AverageCarPriceHandler
         /// The method that handles the event of calculating the average price of cars.
         /// </summary>
@@ -49,18 +58,6 @@ namespace DEV_5
             Console.WriteLine("\t2. count types\t4. average price");
             Console.WriteLine("\t3. count all\t5. average price {brand}");
             Console.WriteLine("-----------------------------------------------------------\n");
-            Console.ForegroundColor = color;
-        }
-        
-        /// <summary>
-        /// Method DisplayError
-        /// Displays errors associated with incorrect input.
-        /// </summary>
-        public void DisplayError(string error)
-        {
-            ConsoleColor color = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($"{error}\n");
             Console.ForegroundColor = color;
         }
 
@@ -88,14 +85,19 @@ namespace DEV_5
         {
             ConsoleColor color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            if (e.ThisIsCountTypes)
-            {
-                Console.WriteLine($"Number of car brands : {e.NumberOfCars}\n");
-            }
-            else
-            {
-                Console.WriteLine($"Total number of cars : {e.NumberOfCars}\n");
-            }
+            Console.WriteLine($"Total number of cars : {e.NumberOfCars}\n");
+            Console.ForegroundColor = color;
+        }
+        
+        /// <summary>
+        /// Method DisplayCountCar
+        /// Displays information about the counting of car brands.
+        /// </summary>
+        private void DisplayCountBrand(CatalogEventArgs e)
+        {
+            ConsoleColor color = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"Number of car brands : {e.NumberOfCars}\n");
             Console.ForegroundColor = color;
         }
         
@@ -117,5 +119,7 @@ namespace DEV_5
             }
             Console.ForegroundColor = color;
         }
+        
+        
     }
 }

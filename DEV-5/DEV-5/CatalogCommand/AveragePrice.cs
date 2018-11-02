@@ -10,23 +10,10 @@
             catalog = receivedCatalog;
             Brand = string.Empty;
         }
-        
-        public AveragePrice(Catalog receivedCatalog, string brand)
-        {
-            catalog = receivedCatalog;
-            Brand = brand;
-        }
 
         public void Execute()
         {
-            if (Brand.Equals(string.Empty))
-            {
-                catalog.AveragePrice(this);
-            }
-            else
-            {
-                catalog.AveragePrice(this, Brand);
-            }
+            catalog.AveragePrice(this);
         }
     }
 }
