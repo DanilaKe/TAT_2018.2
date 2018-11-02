@@ -38,15 +38,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="Catalog.cs" />
     <Compile Include="CatalogCommand\Add.cs" />
     <Compile Include="CatalogCommand\AveragePrice.cs" />
     <Compile Include="CatalogCommand\AveragePriceType.cs" />
     <Compile Include="CatalogCommand\CountAll.cs" />
     <Compile Include="CatalogCommand\CountType.cs" />
     <Compile Include="CatalogCommand\ICatalogCommand.cs" />
-    <Compile Include="CatalogStateHandler.cs" />
+    <Compile Include="CatalogOfCars\Car.cs" />
+    <Compile Include="CatalogOfCars\Catalog.cs" />
+    <Compile Include="CatalogOfCars\CatalogStateHandler.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Printer.cs" />
