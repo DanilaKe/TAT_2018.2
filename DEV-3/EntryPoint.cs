@@ -13,7 +13,7 @@ namespace DEV_3
         /// Entry point.
         /// </summary>
         /// <param name="args">Arguments from the command line, the first argument is the number
-        /// in decimal notation, the second argument is the basis.</param>
+        /// in decimal notation, the second argument is the radix.</param>
         public static void Main(string[] args)
         {
             try
@@ -24,16 +24,16 @@ namespace DEV_3
                     throw new WrongNumberOfArgumentsException("Wrong number of arguments.");
                 }
 
-                if (!int.TryParse(args[0], out var receivedNumber) || !int.TryParse(args[1], out var receivedBasis))
+                if (!int.TryParse(args[0], out var receivedNumber) || !int.TryParse(args[1], out var receivedRadix))
                 {
                     throw new ArgumentOutOfRangeException("Arguments entered incorrectly.");
                 }
             
-                var numbersConverter = new NumbersConverter(receivedNumber, receivedBasis);
+                var numbersConverter = new NumbersConverter(receivedNumber, receivedRadix);
                 string convertedNumber = numbersConverter.ConvertNumberFromDecimal();
                 
                 Console.WriteLine($"Number in decimal : {receivedNumber}");
-                Console.WriteLine($"Converted number (basis {receivedBasis}) : {convertedNumber}");
+                Console.WriteLine($"Converted number (base {receivedRadix}) : {convertedNumber}");
             }
             catch (Exception e)
             {
