@@ -91,18 +91,18 @@ namespace DEV_4
                     {
                         throw new Exception("Incorrect brackets.");
                     }
-                    else
-                    {
-                        XmlTag = new XmlTag(StackWithTags,AddString.ToString());
-                    }
+                    
+                    SkipDoctype();
                     
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
                         XmlTag = new XmlDeclarationTag(flagsOfTheState, AddString.ToString());
                     }
-                    
-                    SkipDoctype();
+                    else
+                    {
+                        XmlTag = new XmlTag(StackWithTags,AddString.ToString());
+                    }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.ClosingTagFlag)
