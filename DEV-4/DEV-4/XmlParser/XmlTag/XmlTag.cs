@@ -2,6 +2,10 @@
 
 namespace DEV_4
 {
+    /// <summary>
+    /// class XmlTag
+    /// Default XML tag. (< ... >)
+    /// </summary>
     public class XmlTag : IXmlTag
     {
         private Stack<string> StackWithTags;
@@ -13,7 +17,7 @@ namespace DEV_4
             this.tag = tag;
         }
         
-        public void Implemet()
+        public void Implement()
         {
             if (tag != string.Empty)
             {

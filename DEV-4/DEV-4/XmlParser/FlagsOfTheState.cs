@@ -25,7 +25,7 @@
             ArgumentFlag = false;
             CommentFlag = false;
         }
-
+        
         public void DisableParsingTag()
         {
             TagFlag = false;

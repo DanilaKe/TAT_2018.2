@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DEV_4
 {
+    /// <summary>
+    /// Class ClosingXmlTag
+    /// Default closing XML tag. (< ... />)
+    /// </summary>
     public class ClosingXmlTag : IXmlTag
     {
         private Stack<string> StackWithTags;
@@ -16,7 +19,7 @@ namespace DEV_4
             this.tag = tag;
         }
         
-        public void Implemet()
+        public void Implement()
         {
             var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
             // Determines if the top of the stack matches the closing tag.

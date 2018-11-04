@@ -2,6 +2,10 @@
 
 namespace DEV_4
 {
+    /// <summary>
+    /// Class EmptyXmlTag
+    /// Self-closing tag. (< ... />)
+    /// </summary>
     public class EmptyXmlTag : IXmlTag
     {
         private StringBuilder tag = new StringBuilder();
@@ -13,7 +17,7 @@ namespace DEV_4
             Argument = argument;
         }
         
-        public void Implemet()
+        public void Implement()
         {
             // Remove character '/' from addString.
             tag.Length = tag.Length - 1;

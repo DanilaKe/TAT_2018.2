@@ -2,6 +2,10 @@
 
 namespace DEV_4
 {
+    /// <summary>
+    /// Class XmlDeclarationTag
+    /// Tag with XML declaration. (<?xml ... ?>)
+    /// </summary>
     public class XmlDeclarationTag : IXmlTag
     {
         private FlagsOfTheState flagsOfTheState;
@@ -13,7 +17,7 @@ namespace DEV_4
             this.tag = tag;
         }
         
-        public void Implemet()
+        public void Implement()
         {
             try
             {

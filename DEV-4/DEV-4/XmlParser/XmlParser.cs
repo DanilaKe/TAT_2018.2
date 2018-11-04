@@ -10,17 +10,16 @@ namespace DEV_4
     /// </summary>
     public class XmlParser
     {
-        
-        private List<string> ParsedResult;
         private FlagsOfTheState flagsOfTheState;  
+        private List<string> ParsedResult;
+        
         private string XmlString { get; set; }
+        public string XmlAddress { get; set; }
         private IXmlTag XmlTag { get; set; }
-        private ReadyArgument Argument { get; }
-        private StringBuilder AddString { get; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
-        
-        public string XmlAddress { get; set; }
+        private ReadyArgument Argument { get; }
+        private StringBuilder AddString { get; }
         
         public XmlParser(string receivedString)
         {
@@ -117,7 +116,7 @@ namespace DEV_4
                         XmlTag = new EmptyXmlTag(Argument, AddString.ToString());
                     }
                     
-                    XmlTag.Implemet();
+                    XmlTag.Implement();
                     flagsOfTheState.DisableParsingTag();
                     AddString.Clear();
                     
@@ -191,6 +190,10 @@ namespace DEV_4
             }
         }
         
+        /// <summary>
+        /// Method SkipDoctype
+        /// Skip doctype XML tag. (<!DOCTYPE ... >)
+        /// </summary>
         public void SkipDoctype()
         {
             if (AddString.ToString().Contains("!DOCTYPE"))
