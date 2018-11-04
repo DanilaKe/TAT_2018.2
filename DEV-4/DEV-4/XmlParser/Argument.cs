@@ -8,7 +8,7 @@ namespace DEV_4
     /// The class that creates the finished parsed argument for the output
     /// and adds it to the parsed list.
     /// </summary>
-    public class ReadyArgument
+    public class Argument
     {
         private Stack<string> StackWithTags;
         private List<string> ParsedResult;
@@ -17,7 +17,7 @@ namespace DEV_4
         /// <param name="stackWithTags">Stack with the corresponding tags.</param>
         /// <param name="parsedResult">List with parsed arguments.</param>
         /// <param name="flagsOfTheState">The current state of the parser.</param>
-        public ReadyArgument(Stack<string> stackWithTags, List<string> parsedResult, FlagsOfTheState flagsOfTheState)
+        public Argument(Stack<string> stackWithTags, List<string> parsedResult, FlagsOfTheState flagsOfTheState)
         {
             StackWithTags = stackWithTags;
             ParsedResult = parsedResult;

@@ -18,7 +18,7 @@ namespace DEV_4
         private IXmlTag XmlTag { get; set; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
-        private ReadyArgument Argument { get; }
+        private Argument Argument { get; }
         private StringBuilder AddString { get; }
         
         public XmlParser(string receivedString)
@@ -28,7 +28,7 @@ namespace DEV_4
             flagsOfTheState = new FlagsOfTheState();
             AddString = new StringBuilder();
             StackWithTags = new Stack<string>();
-            Argument = new ReadyArgument(StackWithTags, ParsedResult, flagsOfTheState);
+            Argument = new Argument(StackWithTags, ParsedResult, flagsOfTheState);
         }
 
         /// <summary>

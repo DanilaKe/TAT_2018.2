@@ -43,7 +43,7 @@
     <Compile Include="FileToStringConverter..cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlParser\FlagsOfTheState.cs" />
-    <Compile Include="XmlParser\ReadyArgument.cs" />
+    <Compile Include="XmlParser\Argument.cs" />
     <Compile Include="XmlParser\XmlParser.cs" />
     <Compile Include="XmlParser\XmlTag\EmptyXmlTag.cs" />
     <Compile Include="XmlParser\XmlTag\ClosingXmlTag.cs" />

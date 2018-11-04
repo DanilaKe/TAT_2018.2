@@ -9,9 +9,9 @@ namespace DEV_4
     public class EmptyXmlTag : IXmlTag
     {
         private StringBuilder tag = new StringBuilder();
-        private ReadyArgument Argument;
+        private Argument Argument;
         
-        public EmptyXmlTag(ReadyArgument argument, string emptyTag)
+        public EmptyXmlTag(Argument argument, string emptyTag)
         {
             tag.Append(emptyTag);
             Argument = argument;
