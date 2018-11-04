@@ -10,27 +10,26 @@ namespace DEV_4
     /// </summary>
     public class XmlParser
     {
+        
+        private List<string> ParsedResult;
         private FlagsOfTheState flagsOfTheState;  
         private string XmlString { get; set; }
-        private string XmlAddress { get; }
-        private List<string> ParsedResult { get; }
-        private XmlTag XmlTag { get; }
+        private IXmlTag XmlTag { get; set; }
         private ReadyArgument Argument { get; }
-        private TagTypeSeparator Separator { get; }
         private StringBuilder AddString { get; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
         
+        public string XmlAddress { get; set; }
+        
         public XmlParser(string receivedString)
         {
+            ParsedResult = new List<string>();
             XmlAddress = receivedString;
             flagsOfTheState = new FlagsOfTheState();
-            XmlTag = new XmlTag();
-            Argument = new ReadyArgument();
-            Separator = new TagTypeSeparator(); 
             AddString = new StringBuilder();
             StackWithTags = new Stack<string>();
-            ParsedResult = new List<string>();
+            Argument = new ReadyArgument(StackWithTags, ParsedResult, flagsOfTheState);
         }
 
         /// <summary>
@@ -44,13 +43,10 @@ namespace DEV_4
             {
                 throw new Exception("Empty address.");
             }
-            else
-            {
-                // Convert the file to a string.
-                var XmlToStringConverter = new FileToStringConverter(XmlAddress);
-                XmlString = XmlToStringConverter.ReturnedString;
-                ParsingXml();
-            }
+            // Convert the file to a string.
+            var XmlToStringConverter = new FileToStringConverter(XmlAddress);
+            XmlString = XmlToStringConverter.ReturnedString;
+            List<string> ParsedResult = ParsingXml();
 
             return ParsedResult;
         }
@@ -60,12 +56,11 @@ namespace DEV_4
         /// Parsing a string, if the XML file is compiled
         /// correctly, returns the result of the parsing.
         /// </summary>
-        private void ParsingXml()
+        private List<string> ParsingXml()
         {   
             for (var i = 0; i < XmlString.Length; i++)
             {
-                // Skip XML comment.
-                XmlTag.SkipComment(XmlString, ref flagsOfTheState, ref i);
+                SkipComment(ref i);
 
                 // Skip character if it is a space or a line break.
                 if (((XmlString[i] == ' ') && (!flagsOfTheState.TagFlag && !flagsOfTheState.ArgumentFlag)) || (XmlString[i] == '\n'))
@@ -82,13 +77,11 @@ namespace DEV_4
                     }
 
                     // If there is a ready argument, then write it down.
-                    Argument.CreateArgument(AddString, StackWithTags, ParsedResult, ref flagsOfTheState);
-
-                    Separator.GetTypeOfTag(XmlString, ref flagsOfTheState, ref i);
-                    if (flagsOfTheState.CommentFlag)
-                    {
-                        continue;
-                    }
+                    Argument.CreateArgument(AddString.ToString());
+                    AddString.Clear();
+                    GetTypeOfTag(XmlString, flagsOfTheState, ref i);
+                    
+                    continue;
                 }
 
 
@@ -99,27 +92,34 @@ namespace DEV_4
                     {
                         throw new Exception("Incorrect brackets.");
                     }
+                    else
+                    {
+                        XmlTag = new XmlTag(StackWithTags,AddString.ToString());
+                    }
                     
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
-                        Separator.CheckForXmlDeclaration(AddString,ref flagsOfTheState);
+                        XmlTag = new XmlDeclarationTag(flagsOfTheState, AddString.ToString());
                     }
                     
+                    SkipDoctype();
+                    
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
-                    if (flagsOfTheState.EndTagFlag)
+                    if (flagsOfTheState.ClosingTagFlag)
                     {
-                        XmlTag.ImplementEndTag(StackWithTags, ref flagsOfTheState, AddString);
+                        XmlTag = new ClosingXmlTag(StackWithTags, AddString.ToString());
                     }
                     
                     // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
-                        XmlTag.ImplemetEmptyTag(StackWithTags, AddString, ref flagsOfTheState, ParsedResult);
+                        XmlTag = new EmptyXmlTag(Argument, AddString.ToString());
                     }
                     
-                    Separator.ChecKDoctype(AddString, ref flagsOfTheState);
-                    XmlTag.ImplemetTag(StackWithTags,AddString,ref flagsOfTheState);
+                    XmlTag.Implemet();
+                    flagsOfTheState.DisableParsingTag();
+                    AddString.Clear();
                     
                     continue;
                 }
@@ -135,6 +135,68 @@ namespace DEV_4
             if (StackWithTags.Count != 0)
             {
                 throw new Exception("Incorrectly closed tags.");
+            }
+
+            return ParsedResult;
+        }
+        
+        /// <summary>
+        /// Method GetTypeOfTag
+        /// Gives type tag.
+        /// </summary>
+        /// <param name="XmlString">XML file is translated into a string.</param>
+        /// <param name="flagsOfTheState">The current state of the parser.</param>
+        /// <param name="index">The index of the character being processed.</param>
+        public void GetTypeOfTag(string XmlString,FlagsOfTheState flagsOfTheState, ref int index)
+        {
+            flagsOfTheState.TagFlag = true;
+            // Separates the tag from the closing tag.
+            if (XmlString[index + 1] == '/')
+            {
+                index++;
+                flagsOfTheState.ClosingTagFlag = true;
+            }
+                    
+            // Separates the tag from the comment.
+            if ((XmlString[index + 1] == '!') && (XmlString[index + 2] == '-') && (XmlString[index + 3] == '-'))
+            {
+                index += 3; // Skipping, the character of the start of the comment (<!--).
+                flagsOfTheState.CommentFlag = true;
+                flagsOfTheState.TagFlag = false;
+            }
+        }
+        
+        /// <summary>
+        /// Method SkipComment
+        /// Moves the index of the character being processed to the end of the comment.
+        /// </summary>
+        /// <param name="index">The index of the character being processed.</param>
+        private void SkipComment(ref int index)
+        {
+            while (flagsOfTheState.CommentFlag)
+            {
+                if (index+2 > XmlString.Length)
+                {
+                    throw new Exception("Comment is not closed.");
+                }
+                    
+                // Search end of comment
+                if ((XmlString[index] == '-') && (XmlString[index+1] == '-') && (XmlString[index+2] == '>'))
+                {
+                    index += 2; // Skipping, the character of the end of the comment(-->).
+                    flagsOfTheState.CommentFlag = false;
+                }
+
+                index++;
+            }
+        }
+        
+        public void SkipDoctype()
+        {
+            if (AddString.ToString().Contains("!DOCTYPE"))
+            {
+                AddString.Clear();
+                flagsOfTheState.DisableParsingTag();
             }
         }
     }

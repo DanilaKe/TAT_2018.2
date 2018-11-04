@@ -21,16 +21,17 @@ namespace DEV_4
             {
                 if (args.Length != 1)
                 {
-                    throw new WrongNumberOfArgumentsException("Wrong number of arguments.");
+                    throw new Exception("Wrong number of arguments.");
                 }
                 
                 if (args[0] == string.Empty)
                 {
                     throw new ArgumentNullException("Empty argument");
                 }
-                
+
+                string xmlAddress = args[0];
                 // Parsing the received string.
-                var xmlParser = new XmlParser(args[0]);
+                var xmlParser = new XmlParser(xmlAddress);
                 List<string> parsedResult = xmlParser.Parsing();
 
                 // Sort by arguments.

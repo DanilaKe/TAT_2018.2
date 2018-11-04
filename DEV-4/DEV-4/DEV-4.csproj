@@ -42,12 +42,14 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="FileToStringConverter..cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WrongNumberOfArgumentsException.cs" />
     <Compile Include="XmlParser\FlagsOfTheState.cs" />
     <Compile Include="XmlParser\ReadyArgument.cs" />
-    <Compile Include="XmlParser\TagTypeSeparator.cs" />
-    <Compile Include="XmlParser\XmlTag.cs" />
     <Compile Include="XmlParser\XmlParser.cs" />
+    <Compile Include="XmlParser\XmlTag\EmptyXmlTag.cs" />
+    <Compile Include="XmlParser\XmlTag\ClosingXmlTag.cs" />
+    <Compile Include="XmlParser\XmlTag\IXmlTag.cs" />
+    <Compile Include="XmlParser\XmlTag\XmlDeclarationTag.cs" />
+    <Compile Include="XmlParser\XmlTag\XmlTag.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

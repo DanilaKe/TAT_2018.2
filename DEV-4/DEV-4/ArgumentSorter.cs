@@ -19,7 +19,7 @@ namespace DEV_4
         // Sort using LINQ query.
         public List<string> Sort()
         {
-            var sortedList = ReceivedString.OrderBy(x => x).Select(x => x).ToList();
+            var sortedList = ReceivedString.OrderBy(x => x).ToList();
             return sortedList;
         }
     }
