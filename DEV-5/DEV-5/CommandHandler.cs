@@ -30,7 +30,7 @@ namespace DEV_5
             while (!exit)
             {
                 Console.Write("Write a command : ");
-                var command = Console.ReadLine().Split(' ');
+                var command = Console.ReadLine();
                 // Finds out the type of command.
                 TypeOfCommands CommandType = GetTypeOfCommands(command);
                 
@@ -41,7 +41,7 @@ namespace DEV_5
                     Console.WriteLine("Empty catalog.\n");
                     continue;
                 }
-                
+                var splitCommand = command.Split(' ');
                 // Execute the command, depending on the type.
                 switch (CommandType)
                 {
@@ -49,7 +49,8 @@ namespace DEV_5
                         Console.WriteLine("Invalid command.\n");
                         break;
                     case TypeOfCommands.Add :
-                        catalogCommand = new Add(catalog,command[1], command[2], Convert.ToInt32(command[3]), Convert.ToDouble(command[4]));
+                        catalogCommand = new Add(catalog,splitCommand[1], splitCommand[2],
+                            int.Parse(splitCommand[3]), int.Parse(splitCommand[4]));
                         break;
                     case TypeOfCommands.CountAll :
                         catalogCommand = new CountAll(catalog);
@@ -61,7 +62,7 @@ namespace DEV_5
                         catalogCommand = new AveragePrice(catalog);
                         break;
                     case TypeOfCommands.AveragePriceType :
-                        catalogCommand = new AveragePriceType(catalog, command[2]);
+                        catalogCommand = new AveragePriceType(catalog, splitCommand[2]);
                         break;
                     case TypeOfCommands.Exit :
                         exit = true;
@@ -81,43 +82,43 @@ namespace DEV_5
         /// </summary>
         /// <param name="command">Console command</param>
         /// <returns>Type of command.</returns>
-        private TypeOfCommands GetTypeOfCommands(string[] command)
+        private TypeOfCommands GetTypeOfCommands(string command)
         {   
-            if ((command == null) || (command[0] == string.Empty))
+            if ((command == null) || (command == string.Empty))
             {
                 return TypeOfCommands.None;
             }
             
-            if (command[0].ToLower() == "exit")
+            var splitCommand = command.Split(' ');
+            
+            if (command.ToLower() == "exit")
             {
                 return TypeOfCommands.Exit;
             }
             
-            if ((command.Length == 2) && ($"{command[0]} {command[1]}".ToLower()  == "count types"))
+            if (command.ToLower()  == "count types")
             {
                 return TypeOfCommands.CountTypes;
             }
             
-            if ((command.Length == 2) && ($"{command[0]} {command[1]}".ToLower()  == "count all"))
+            if (command.ToLower()  == "count all")
             {
                 return TypeOfCommands.CountAll;
             }
             
-            if ((command.Length >= 2) && ($"{command[0]} {command[1]}".ToLower()  == "average price"))
+            if (command.ToLower() == "average price")
             {
-                if (command.Length == 3)
-                {
-                    return TypeOfCommands.AveragePriceType;
-                }
-                else
-                {
-                    return TypeOfCommands.AveragePriceAll;
-                }
+                return TypeOfCommands.AveragePriceAll;
+            }
+
+            if (command.ToLower().Contains("average price") && (splitCommand.Length == 3) )
+            {
+                return TypeOfCommands.AveragePriceType;
             }
             
-            if ((command[0] == "add") && (command.Length == 5) && 
-                (int.TryParse(command[3], out var numberOfCars)) &&
-                (double.TryParse(command[4], out var price)))
+            if ((splitCommand[0] == "add") && (splitCommand.Length == 5) && 
+                (int.TryParse(splitCommand[3], out var numberOfCars)) &&
+                (double.TryParse(splitCommand[4], out var price)))
             {
                 return TypeOfCommands.Add;
             }

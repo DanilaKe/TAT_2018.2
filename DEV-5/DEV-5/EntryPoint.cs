@@ -18,7 +18,7 @@ namespace DEV_5
             try
             {
                 var printer = new Printer();
-                // Creates objects of the class catalog of cars and passes delegates there.
+                // Creates object of the class catalog of cars and passes delegates there.
                 var catalogOfCar = new Catalog(printer.AddedCarHandler, printer.CountCarHandler,
                     printer.CountTypeHandler, printer.AverageCarPriceHandler);
                 var commandHandler = new CommandHandler(catalogOfCar, printer);

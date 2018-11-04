@@ -75,7 +75,7 @@ namespace DEV_5
                 throw new Exception("Catalog overflow.");
             }
 
-            var existingCar  = CatalogOfCar.Any(x => (x.Brand == brand) && (x.Model == model) && (x.Price == price));
+            var existingCar  = CatalogOfCar.Any(x => (x.Brand == brand) && (x.Model == model));
             if (!existingCar)
             {
                 var AddedCar = new Car(this, brand, model, numberOfCars, price);
@@ -85,7 +85,11 @@ namespace DEV_5
             }
             else
             {
-                var numberOfExistingCar = CatalogOfCar.First(x => (x.Brand == brand) && (x.Model == model) && (x.Price == price));
+                var numberOfExistingCar = CatalogOfCar.First(x => (x.Brand == brand) && (x.Model == model));
+                if (numberOfExistingCar.Price != price)
+                {
+                    throw new Exception("Incorrect input of an existing car.");
+                }
                 numberOfExistingCar.AddCars(numberOfCars);
             }
         }    
