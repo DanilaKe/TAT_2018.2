@@ -6,22 +6,22 @@ namespace DEV_4
     /// class XmlTag
     /// Default XML tag. (< ... >)
     /// </summary>
-    public class XmlTag : IXmlTag
+    public class XmlTag : AbstractTag
     {
         private Stack<string> StackWithTags;
-        private string tag;
+        
 
         public XmlTag(Stack<string> stackWithTags, string tag)
         {
             StackWithTags = stackWithTags;
-            this.tag = tag;
+            this.actualTag = tag;
         }
         
-        public void Implement()
+        public sealed override void Implement()
         {
-            if (tag != string.Empty)
+            if (actualTag != string.Empty)
             {
-                StackWithTags.Push(tag);
+                StackWithTags.Push(actualTag);
             }
         }
     }

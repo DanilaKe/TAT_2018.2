@@ -6,22 +6,22 @@ namespace DEV_4
     /// Class XmlDeclarationTag
     /// Tag with XML declaration. (<?xml ... ?>)
     /// </summary>
-    public class XmlDeclarationTag : IXmlTag
+    public class XmlDeclarationTag : AbstractTag
     {
         private FlagsOfTheState flagsOfTheState;
-        private string tag;
+       
         
         public XmlDeclarationTag(FlagsOfTheState flagsOfTheState, string tag)
         {
             this.flagsOfTheState = flagsOfTheState;
-            this.tag = tag;
+            this.actualTag = tag;
         }
         
-        public void Implement()
+        public sealed override void Implement()
         {
             try
             {
-                if (tag.ToLower().Contains("?xml"))
+                if (actualTag.ToLower().Contains("?xml"))
                 {
                     flagsOfTheState.XmlFlag = true;
                 }

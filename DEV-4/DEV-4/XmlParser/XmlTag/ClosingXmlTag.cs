@@ -8,22 +8,22 @@ namespace DEV_4
     /// Class ClosingXmlTag
     /// Default closing XML tag. (< ... />)
     /// </summary>
-    public class ClosingXmlTag : IXmlTag
+    public class ClosingXmlTag : AbstractTag
     {
         private Stack<string> StackWithTags;
-        private string tag;
+        
         
         public ClosingXmlTag(Stack<string> stackWithTags, string tag)
         {
             StackWithTags = stackWithTags;
-            this.tag = tag;
+            this.actualTag = tag;
         }
         
-        public void Implement()
+        public sealed override void Implement()
         {
             var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
             // Determines if the top of the stack matches the closing tag.
-            if (tag != tagWithoutValues)
+            if (actualTag != tagWithoutValues)
             {
                 throw new Exception("Incorrectly closed tags.");
             } 

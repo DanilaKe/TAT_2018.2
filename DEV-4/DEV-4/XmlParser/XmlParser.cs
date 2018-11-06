@@ -15,18 +15,18 @@ namespace DEV_4
         
         private string XmlString { get; set; }
         public string XmlAddress { get; set; }
-        private IXmlTag XmlTag { get; set; }
+        private AbstractTag XmlTag { get; set; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
         private Argument Argument { get; }
-        private StringBuilder AddString { get; }
+        private StringBuilder parsingElement { get; }
         
         public XmlParser(string receivedString)
         {
             ParsedResult = new List<string>();
             XmlAddress = receivedString;
             flagsOfTheState = new FlagsOfTheState();
-            AddString = new StringBuilder();
+            parsingElement = new StringBuilder();
             StackWithTags = new Stack<string>();
             Argument = new Argument(StackWithTags, ParsedResult, flagsOfTheState);
         }
@@ -76,8 +76,8 @@ namespace DEV_4
                     }
 
                     // If there is a ready argument, then write it down.
-                    Argument.CreateArgument(AddString.ToString());
-                    AddString.Clear();
+                    Argument.CreateArgument(parsingElement.ToString());
+                    parsingElement.Clear();
                     GetTypeOfTag(XmlString, flagsOfTheState, ref i);
                     
                     continue;
@@ -97,28 +97,28 @@ namespace DEV_4
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
-                        XmlTag = new XmlDeclarationTag(flagsOfTheState, AddString.ToString());
+                        XmlTag = new XmlDeclarationTag(flagsOfTheState, parsingElement.ToString());
                     }
                     else
                     {
-                        XmlTag = new XmlTag(StackWithTags,AddString.ToString());
+                        XmlTag = new XmlTag(StackWithTags,parsingElement.ToString());
                     }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.ClosingTagFlag)
                     {
-                        XmlTag = new ClosingXmlTag(StackWithTags, AddString.ToString());
+                        XmlTag = new ClosingXmlTag(StackWithTags, parsingElement.ToString());
                     }
                     
                     // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
-                        XmlTag = new EmptyXmlTag(Argument, AddString.ToString());
+                        XmlTag = new EmptyXmlTag(Argument, parsingElement.ToString());
                     }
                     
                     XmlTag.Implement();
                     flagsOfTheState.DisableParsingTag();
-                    AddString.Clear();
+                    parsingElement.Clear();
                     
                     continue;
                 }
@@ -128,7 +128,7 @@ namespace DEV_4
                     flagsOfTheState.ArgumentFlag = true;
                 }
 
-                AddString.Append(XmlString[i]);
+                parsingElement.Append(XmlString[i]);
             }
 
             if (StackWithTags.Count != 0)
@@ -196,9 +196,9 @@ namespace DEV_4
         /// </summary>
         public void SkipDoctype()
         {
-            if (AddString.ToString().Contains("!DOCTYPE"))
+            if (parsingElement.ToString().Contains("!DOCTYPE"))
             {
-                AddString.Clear();
+                parsingElement.Clear();
                 flagsOfTheState.DisableParsingTag();
             }
         }

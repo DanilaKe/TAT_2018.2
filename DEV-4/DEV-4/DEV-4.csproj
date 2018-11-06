@@ -47,7 +47,7 @@
     <Compile Include="XmlParser\XmlParser.cs" />
     <Compile Include="XmlParser\XmlTag\EmptyXmlTag.cs" />
     <Compile Include="XmlParser\XmlTag\ClosingXmlTag.cs" />
-    <Compile Include="XmlParser\XmlTag\IXmlTag.cs" />
+    <Compile Include="XmlParser\XmlTag\AbstractTag.cs" />
     <Compile Include="XmlParser\XmlTag\XmlDeclarationTag.cs" />
     <Compile Include="XmlParser\XmlTag\XmlTag.cs" />
   </ItemGroup>

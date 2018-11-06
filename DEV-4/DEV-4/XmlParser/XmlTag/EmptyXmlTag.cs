@@ -6,22 +6,28 @@ namespace DEV_4
     /// Class EmptyXmlTag
     /// Self-closing tag. (< ... />)
     /// </summary>
-    public class EmptyXmlTag : IXmlTag
+    public class EmptyXmlTag : AbstractTag
     {
-        private StringBuilder tag = new StringBuilder();
-        private Argument Argument;
+       
+       private Argument Argument;
         
         public EmptyXmlTag(Argument argument, string emptyTag)
         {
-            tag.Append(emptyTag);
+            actualTag = emptyTag;
             Argument = argument;
         }
         
-        public void Implement()
+        public sealed override void Implement()
         {
             // Remove character '/' from addString.
-            tag.Length = tag.Length - 1;
-            Argument.CreateArgument(tag.ToString());
+            actualTag = DeleteLastSymbol();
+            Argument.CreateArgument(actualTag);
+        }
+
+        public string DeleteLastSymbol()
+        {
+            StringBuilder newString =new StringBuilder(actualTag);
+            return newString.Remove(actualTag.Length-1,1).ToString();
         }
     }
 }
