@@ -6,7 +6,7 @@
 
         public override ParsedResult Parse()
         {
-            return new JsonResult();
+            return new XmlResult();;
         }
     }
 }
