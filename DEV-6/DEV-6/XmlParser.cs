@@ -1,12 +1,14 @@
-﻿namespace DEV_6
+﻿using System.Collections.Generic;
+
+/*namespace DEV_6
 {
     public class XmlParser : Parser
     {
         public XmlParser(string fileAddress) : base(fileAddress) { }
 
-        public override ParsedResult Parse()
+        public override List<string> Parse()
         {
-            return new XmlResult();;
+            return new XmlParserResult();
         }
     }
-}
+}*/

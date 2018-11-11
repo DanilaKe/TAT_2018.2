@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DEV_6
 {
@@ -9,7 +10,11 @@ namespace DEV_6
             try
             {   
                 JsonParser a = new JsonParser(args[0]);
-                a.Parse();
+                List<string> b = a.Parse();
+                foreach (var i in b)
+                {
+                    Console.WriteLine(i);
+                }
             }
             catch (Exception e)
             {

@@ -1,4 +1,6 @@
-﻿namespace DEV_6
+﻿using System.Collections.Generic;
+
+namespace DEV_6
 {
     public abstract class Parser
     {
@@ -9,6 +11,6 @@
             FileAddress = fileAddress;
         }
         
-        public abstract ParsedResult Parse();
+        public abstract List<string> Parse();
     }
 }

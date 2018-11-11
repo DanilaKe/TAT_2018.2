@@ -1,6 +1,6 @@
 ﻿namespace DEV_6
 {
-    public class XmlResult : ParsedResult
+    public class XmlParserResult: ParsedResult
     {
         
     }
