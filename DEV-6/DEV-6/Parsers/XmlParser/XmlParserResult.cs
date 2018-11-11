@@ -5,11 +5,14 @@ using System.Text;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class XmlParserResult
     {
         public List<string> XmlResult;
         private readonly Stack<string> OpenObject;
-        private int spaceCount = 0;
+        private int spaceCount = 1;
         private string AddedElement;
         
         public XmlParserResult(Stack<string> openObject)
@@ -26,18 +29,33 @@ namespace DEV_6
                 Tabs.Append("    ");
             }
             
+            var TagWithoutValues = new string(OpenObject.Peek().TakeWhile(x => x != ' ').ToArray());
             if (OpenObject.Count != 0)
             {
-                spaceCount++;
-                AddedElement = $"{Tabs}\"{OpenObject.Peek()}\"";
+                AddedElement = $"{Tabs}\"{TagWithoutValues}\"";
             }
          
         }
 
         public void CloseTag()
         {
-            spaceCount--;
+            StringBuilder Tabs = new StringBuilder();
+            for (var i = 0; i < spaceCount; i++)
+            {
+                Tabs.Append("    ");
+            }
+            
             XmlResult.Add($"{AddedElement},");
+            var argumets = OpenObject.Peek().Split(' ');
+            if (argumets.Length > 1)
+            {
+                XmlResult.Add($"{Tabs}{{");
+                for (int i = 1; i < argumets.Length; i++)
+                {
+                    XmlResult.Add($"{Tabs}    {argumets[i].Replace('=',':')},");
+                }
+                XmlResult.Add($"{Tabs}}}");
+            }
         }
 
         public void CreateArg(string arg)
@@ -50,10 +68,8 @@ namespace DEV_6
 
         public void CreateEmptyArg(string arg)
         {
-            StringBuilder newArg  = new StringBuilder(arg);
-            newArg.Length -= 1;
-            var argWithoutValues = new string(newArg.ToString().TakeWhile(x => x != ' ').ToArray());
-            XmlResult.Add(argWithoutValues + newArg.Replace(argWithoutValues, String.Empty));
+            var argWithoutValues = new string(arg.TakeWhile(x => x != ' ').ToArray());
+            XmlResult.Add(argWithoutValues + arg.Replace(argWithoutValues, String.Empty));
         }
     }
 }
