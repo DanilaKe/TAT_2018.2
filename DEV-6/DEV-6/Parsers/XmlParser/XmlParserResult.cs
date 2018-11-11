@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DEV_6
@@ -63,7 +65,10 @@ namespace DEV_6
 
         public void CreateEmptyArg(string arg)
         {
-            
+            StringBuilder newArg  = new StringBuilder(arg);
+            newArg.Length -= 1;
+            var argWithoutValues = new string(newArg.ToString().TakeWhile(x => x != ' ').ToArray());
+            arg = argWithoutValues + newArg.Replace(argWithoutValues, String.Empty);
         }
     }
 }
