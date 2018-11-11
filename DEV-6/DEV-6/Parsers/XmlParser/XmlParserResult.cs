@@ -10,6 +10,7 @@ namespace DEV_6
         public List<string> XmlResult;
         private readonly Stack<string> OpenObject;
         private int spaceCount;
+        private string AddedElement;
         
         public XmlParserResult(Stack<string> openObject)
         {
@@ -28,7 +29,7 @@ namespace DEV_6
             if (OpenObject.Count != 0)
             {
                 spaceCount++;
-                XmlResult.Add($"{Tabs}{OpenObject.Peek()} : ");
+                AddedElement = $"{Tabs}\"{OpenObject.Peek()}\"";
             }
          
         }
@@ -36,30 +37,14 @@ namespace DEV_6
         public void CloseTag()
         {
             spaceCount--;
-            StringBuilder Tabs = new StringBuilder();
-            for (var i = 0; i < spaceCount; i++)
-            {
-                Tabs.Append("    ");
-            }
-            
-            if (OpenObject.Count != 0)
-            {
-                OpenObject.Peek();
-                XmlResult.Add($"{Tabs.ToString()},");
-            }
+            XmlResult.Add($"{AddedElement},");
         }
 
         public void CreateArg(string arg)
         {
-            StringBuilder Tabs = new StringBuilder();
-            for (var i = 0; i < spaceCount+1; i++)
-            {
-                Tabs.Append("    ");
-            }
-            
             if (arg != String.Empty)
             {
-                XmlResult.Add($"{Tabs.ToString()}{arg}");
+                AddedElement = ($"{AddedElement} : \"{arg}\"");
             }
         }
 
@@ -68,7 +53,7 @@ namespace DEV_6
             StringBuilder newArg  = new StringBuilder(arg);
             newArg.Length -= 1;
             var argWithoutValues = new string(newArg.ToString().TakeWhile(x => x != ' ').ToArray());
-            arg = argWithoutValues + newArg.Replace(argWithoutValues, String.Empty);
+            XmlResult.Add(argWithoutValues + newArg.Replace(argWithoutValues, String.Empty));
         }
     }
 }

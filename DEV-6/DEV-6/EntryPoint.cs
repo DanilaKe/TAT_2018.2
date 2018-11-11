@@ -9,16 +9,7 @@ namespace DEV_6
         {
             try
             {
-                Parser parser = new XmlParser("empty");
-                if (args[0].Contains(".xml"))
-                {
-                    parser = new JsonParser(args[0]);
-                }
-
-                if (args[0].Contains(".json"))
-                {
-                    parser = new JsonParser(args[0]);
-                }
+                Parser parser = new XmlParser(args[0]);
 
                 var result = parser.Parse();
                 foreach (var i in result)

@@ -22,7 +22,6 @@ namespace DEV_6
         
         public XmlParser(string fileAddress) : base(fileAddress)
         {
-            ParsedResult = new List<string>();
             flagsOfTheState = new FlagsOfTheState();
             parsingElement = new StringBuilder();
             StackWithTags = new Stack<string>();
@@ -43,9 +42,9 @@ namespace DEV_6
             // Convert the file to a string.
             var XmlToStringConverter = new FileToStringConverter();
             XmlString = XmlToStringConverter.Convert(FileAddress);
-            List<string> ParsedResult = ParsingXml();
-
-            return ParsedResult;
+            ParsingXml();
+            
+            return Result.XmlResult;
         }
         
         /// <summary>
@@ -53,7 +52,7 @@ namespace DEV_6
         /// Parsing a string, if the XML file is compiled
         /// correctly, returns the result of the parsing.
         /// </summary>
-        private List<string> ParsingXml()
+        private void ParsingXml()
         {   
             for (var i = 0; i < XmlString.Length; i++)
             {
@@ -116,7 +115,7 @@ namespace DEV_6
                     if (XmlString[i - 1] == '/')
                     {
                         Result.CreateEmptyArg(parsingElement.ToString());
-                        
+                        parsingElement.Clear();
                         flagsOfTheState.DisableParsingTag();
                         continue;
                     }
@@ -137,12 +136,11 @@ namespace DEV_6
                 parsingElement.Append(XmlString[i]);
             }
 
-            if (StackWithTags.Count != 0)
+        /*    if (StackWithTags.Count != 0)
             {
                 throw new Exception("Incorrectly closed tags.");
-            }
+            }*/
 
-            return ParsedResult;
         }
         
         /// <summary>
@@ -218,6 +216,7 @@ namespace DEV_6
                 throw new Exception("Incorrectly closed tags.");
             } 
             Result.CloseTag();
+            parsingElement.Clear();
             // Remove a closed tag from the stack.
             StackWithTags.Pop();
         }
@@ -229,6 +228,7 @@ namespace DEV_6
                 if (parsingElement.ToString().ToLower().Contains("?xml"))
                 {
                     flagsOfTheState.XmlFlag = true;
+                    parsingElement.Clear();
                 }
                 else
                 {
@@ -238,6 +238,7 @@ namespace DEV_6
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                throw;
             }  
         }
     }

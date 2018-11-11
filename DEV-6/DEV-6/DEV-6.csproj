@@ -43,7 +43,6 @@
     <Compile Include="Parsers\JsonParser\JsonParser.cs" />
     <Compile Include="Parsers\JsonParser\JsonParserResult.cs" />
     <Compile Include="Parsers\Parser.cs" />
-    <Compile Include="Parsers\XmlParser\Argument.cs" />
     <Compile Include="Parsers\XmlParser\FlagsOfTheState.cs" />
     <Compile Include="Parsers\XmlParser\XmlParser.cs" />
     <Compile Include="Parsers\XmlParser\XmlParserResult.cs" />
