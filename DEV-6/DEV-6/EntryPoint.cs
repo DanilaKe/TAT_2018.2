@@ -9,9 +9,24 @@ namespace DEV_6
         {
             try
             {
-                Parser parser = new XmlParser(args[0]);
+                if (args.Length != 1)
+                {
+                    throw new Exception("Wrong number of arguments.");
+                }
 
-                var result = parser.Parse();
+                Parser parser = null;
+                
+                if (args[0].Contains(".xml"))
+                {
+                    parser = new XmlParser(args[0]);
+                }
+                
+                if (args[0].Contains(".json"))
+                {
+                    parser = new JsonParser(args[0]);
+                }
+
+                var result = parser?.Parse();
                 foreach (var i in result)
                 {
                     Console.WriteLine(i);

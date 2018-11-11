@@ -6,7 +6,8 @@ using System.Text;
 namespace DEV_6
 {
     /// <summary>
-    /// 
+    /// Class XmlParserResult
+    /// The result of parsing XML file, in the form of a JSON file.
     /// </summary>
     public class XmlParserResult
     {
@@ -20,7 +21,11 @@ namespace DEV_6
             OpenObject = openObject;
             XmlResult = new List<string>();
         }
-
+        
+        /// <summary>
+        /// Method OpenTag
+        /// Creating an open tag according to the rules of the JSON file.
+        /// </summary>
         public void OpenTag()
         {
             StringBuilder Tabs = new StringBuilder();
@@ -37,6 +42,10 @@ namespace DEV_6
          
         }
 
+        /// <summary>
+        /// Method CloseTag
+        /// Creating an close tag according to the rules of the JSON file.
+        /// </summary>
         public void CloseTag()
         {
             StringBuilder Tabs = new StringBuilder();
@@ -58,6 +67,11 @@ namespace DEV_6
             }
         }
 
+        /// <summary>
+        /// Method CreateArg
+        /// Creating a argument according to the rules of the JSON file.
+        /// </summary>
+        /// <param name="arg">string containing the argument</param>
         public void CreateArg(string arg)
         {
             if (arg != String.Empty)
@@ -65,7 +79,12 @@ namespace DEV_6
                 AddedElement = ($"{AddedElement} : \"{arg}\"");
             }
         }
-
+        
+        /// <summary>
+        /// Method CreateEmptyArg
+        /// Creating a argument according to the rules of the JSON file.
+        /// </summary>
+        /// <param name="arg">string containing the argument</param>
         public void CreateEmptyArg(string arg)
         {
             var argWithoutValues = new string(arg.TakeWhile(x => x != ' ').ToArray());

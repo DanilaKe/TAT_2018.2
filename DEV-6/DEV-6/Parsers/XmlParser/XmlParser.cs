@@ -212,6 +212,10 @@ namespace DEV_6
             }
         }
 
+        /// <summary>
+        /// Method ImplementedClosingTag
+        /// Implements the logic associated with closing a tag.
+        /// </summary>
         private void ImplementedClosingTag()
         {
             var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
@@ -225,7 +229,11 @@ namespace DEV_6
             // Remove a closed tag from the stack.
             StackWithTags.Pop();
         }
-
+        
+        /// <summary>
+        /// Method ImplementDeclarationTag
+        /// Implements the logic associated with XML declaration.
+        /// </summary>
         private void ImplementDeclarationTag()
         {
             try
