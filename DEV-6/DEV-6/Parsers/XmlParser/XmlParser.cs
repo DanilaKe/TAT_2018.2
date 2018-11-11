@@ -22,11 +22,11 @@ namespace DEV_6
         
         public XmlParser(string fileAddress) : base(fileAddress)
         {
-            Result = new XmlParserResult(StackWithTags);
             ParsedResult = new List<string>();
             flagsOfTheState = new FlagsOfTheState();
             parsingElement = new StringBuilder();
             StackWithTags = new Stack<string>();
+            Result = new XmlParserResult(StackWithTags);
         }
 
         /// <summary>
@@ -78,7 +78,6 @@ namespace DEV_6
                     {
                         Result.CreateArg(parsingElement.ToString());
                     }
-
                     parsingElement.Clear();
                     GetTypeOfTag(XmlString, flagsOfTheState, ref i);
                     
@@ -125,6 +124,7 @@ namespace DEV_6
                     StackWithTags.Push(parsingElement.ToString());
                     Result.OpenTag();
                     parsingElement.Clear();
+                    flagsOfTheState.DisableParsingTag();
                     
                     continue;
                 }

@@ -8,10 +8,20 @@ namespace DEV_6
         public static void Main(string[] args)
         {
             try
-            {   
-                XmlParser a = new XmlParser(args[0]);
-                List<string> b = a.Parse();
-                foreach (var i in b)
+            {
+                Parser parser = new XmlParser("empty");
+                if (args[0].Contains(".xml"))
+                {
+                    parser = new JsonParser(args[0]);
+                }
+
+                if (args[0].Contains(".json"))
+                {
+                    parser = new JsonParser(args[0]);
+                }
+
+                var result = parser.Parse();
+                foreach (var i in result)
                 {
                     Console.WriteLine(i);
                 }
