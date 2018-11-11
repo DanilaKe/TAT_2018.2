@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DEV_6
 {
-    public class JsonParserResult : ParsedResult
+    public class JsonParserResult
     {
         public List<string> XmlResult;
         private Stack<string> OpenObject;

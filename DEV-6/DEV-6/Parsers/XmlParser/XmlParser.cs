@@ -17,16 +17,16 @@ namespace DEV_6
         private AbstractTag XmlTag { get; set; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
-        private Argument Argument { get; }
         private StringBuilder parsingElement { get; }
+        private XmlParserResult Result;
         
         public XmlParser(string fileAddress) : base(fileAddress)
         {
+            Result = new XmlParserResult(StackWithTags);
             ParsedResult = new List<string>();
             flagsOfTheState = new FlagsOfTheState();
             parsingElement = new StringBuilder();
             StackWithTags = new Stack<string>();
-            Argument = new Argument(StackWithTags, ParsedResult, flagsOfTheState);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace DEV_6
                     }
 
                     // If there is a ready argument, then write it down.
-                    Argument.CreateArgument(parsingElement.ToString());
+                    Result.CreateArg(parsingElement.ToString());
                     parsingElement.Clear();
                     GetTypeOfTag(XmlString, flagsOfTheState, ref i);
                     
@@ -97,23 +97,21 @@ namespace DEV_6
                     {
                         XmlTag = new XmlDeclarationTag(flagsOfTheState, parsingElement.ToString());
                     }
-                    else
-                    {
-                        XmlTag = new XmlTag(StackWithTags,parsingElement.ToString());
-                    }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.ClosingTagFlag)
                     {
                         XmlTag = new ClosingXmlTag(StackWithTags, parsingElement.ToString());
+                        Result.CloseTag();
                     }
                     
                     // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
-                        XmlTag = new EmptyXmlTag(Argument, parsingElement.ToString());
+                        Result.CreateEmptyArg(parsingElement.ToString());
                     }
                     
+                    Result.OpenTag();
                     XmlTag.Implement();
                     flagsOfTheState.DisableParsingTag();
                     parsingElement.Clear();
