@@ -59,34 +59,6 @@ namespace DEV_6
                 XmlResult.Add($"{Tabs.ToString()}{OpenObject.Pop()}");
             }
         }
-        
-        public void ExecuteArray(Queue<string> jsonArray)
-        {
-            spaceCount--;
-            XmlResult.RemoveAt(XmlResult.Count-1);
-            StringBuilder Tabs = new StringBuilder();
-            for (var i = 0; i < spaceCount; i++)
-            {
-                Tabs.Append("    ");
-            }
-
-            string tag;
-            if (OpenObject.Count > 0)
-            {
-                tag = OpenObject.Pop();
-            }
-            else
-            {
-                tag = "SomeArray";
-            }
-                
-            while (jsonArray.Count > 0)
-            {
-                XmlResult.Add($"{Tabs}<{tag}>");
-                XmlResult.Add($"{Tabs}    {jsonArray.Dequeue()}");
-                XmlResult.Add($"{Tabs}</{tag}>");
-            }
-        }
 
     }
     

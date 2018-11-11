@@ -8,24 +8,25 @@ namespace DEV_6
     {
         private Stack<char> OpenBrackets;
         private Stack<string> OpenObject;
-        private Queue<string> JsonArray;
         private int objectCount;
         private int arrayCount;
+        
         private bool stringFlag;
         private bool argFlag;
         private bool arrayFlag;
         private StringBuilder parsingElement;
         private JsonParserResult Result;
-        
-        public JsonParser(string fileAddress) : base(fileAddress) { }
 
-        public override List<string> Parse()
+        public JsonParser(string fileAddress) : base(fileAddress)
         {
             OpenBrackets = new Stack<char>();
             OpenObject = new Stack<string>();
-            JsonArray = new Queue<string>();
-            Result = new JsonParserResult(OpenObject);
             parsingElement = new StringBuilder();
+            Result = new JsonParserResult(OpenObject);
+        }
+
+        public override List<string> Parse()
+        {
             FileToStringConverter jsonConverter = new FileToStringConverter();
             string json = jsonConverter.Convert(FileAddress);
             
@@ -75,14 +76,8 @@ namespace DEV_6
                         parsingElement.Replace(',', '\0');
                         parsingElement.Replace('}', '\0');
                         parsingElement.Replace(']', '\0');
-                        OpenObject.Push(parsingElement.ToString());
-                        parsingElement.Clear();
-                        if (argFlag)
-                        {
-                            argFlag = false;
-                            Result.CreateArg();
-                            Result.CloseTag();
-                        }   
+                        
+                        CreateArgument();
                     }
                     continue;
                 }
@@ -97,9 +92,9 @@ namespace DEV_6
 
                 if (JsonString[i] == '[' && !stringFlag)
                 {
+                    arrayFlag = true;
                     OpenBrackets.Push(JsonString[i]);
                     Result.OpenTag();
-                    arrayFlag = true;
                     arrayCount++;
                     continue;
                 }
@@ -111,8 +106,9 @@ namespace DEV_6
                         throw new Exception();
                     }
           
-                    Result.CloseTag();
                     objectCount--;
+                    
+                    Result.CloseTag();
                     OpenBrackets.Pop();
                     continue;
                 }
@@ -123,10 +119,11 @@ namespace DEV_6
                     {
                         throw new Exception();
                     }
-
-                    Result.CloseTag();
+                    
                     arrayFlag = false;
                     arrayCount--;
+
+                    Result.CloseTag();
                     OpenBrackets.Pop();
                     continue;
                 }

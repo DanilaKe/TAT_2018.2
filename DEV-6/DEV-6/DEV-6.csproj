@@ -40,14 +40,20 @@
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="FileToStringConverter.cs" />
-    <Compile Include="JsonParser.cs" />
-    <Compile Include="JsonParserResult.cs" />
-    <Compile Include="JsonValues.cs" />
-    <Compile Include="ParsedResult.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="Parsers\JsonParser\JsonParser.cs" />
+    <Compile Include="Parsers\JsonParser\JsonParserResult.cs" />
+    <Compile Include="Parsers\ParsedResult.cs" />
+    <Compile Include="Parsers\Parser.cs" />
+    <Compile Include="Parsers\XmlParser\Argument.cs" />
+    <Compile Include="Parsers\XmlParser\FlagsOfTheState.cs" />
+    <Compile Include="Parsers\XmlParser\XmlParser.cs" />
+    <Compile Include="Parsers\XmlParser\XmlParserResult.cs" />
+    <Compile Include="Parsers\XmlParser\XmlTag\AbstractTag.cs" />
+    <Compile Include="Parsers\XmlParser\XmlTag\ClosingXmlTag.cs" />
+    <Compile Include="Parsers\XmlParser\XmlTag\EmptyXmlTag.cs" />
+    <Compile Include="Parsers\XmlParser\XmlTag\XmlDeclarationTag.cs" />
+    <Compile Include="Parsers\XmlParser\XmlTag\XmlTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlParser.cs" />
-    <Compile Include="XmlParserResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
