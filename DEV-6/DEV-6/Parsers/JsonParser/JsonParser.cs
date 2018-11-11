@@ -146,7 +146,7 @@ namespace DEV_6
 
             if (OpenBrackets.Count > 0)
             {
-                throw new Exception();
+                throw new Exception("Incorrect brackets.");
             }
         }
         
