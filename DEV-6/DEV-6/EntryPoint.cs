@@ -3,8 +3,18 @@ using System.Collections.Generic;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Class EntryPoint.
+    /// Receives the address of the xml or json file
+    /// from the command line, parses it.
+    /// </summary>
     internal class EntryPoint
     {
+        /// <summary>
+        /// Method Main
+        /// Entry point.
+        /// </summary>
+        /// <param name="args">Address of XML or JSON file.</param>
         public static void Main(string[] args)
         {
             try
@@ -27,14 +37,12 @@ namespace DEV_6
                 }
 
                 var result = parser?.Parse();
-                foreach (var i in result)
-                {
-                    Console.WriteLine(i);
-                }
+                var resultToFileConverter = new ResultToFileConverter("result.txt");
+                resultToFileConverter.Convert(result);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace DEV_6
     /// </summary>
     public class FileToStringConverter
     {
-        public string ReturnedString { get; private set; }
+        private string ReturnedString { get; set; }
 
         public string Convert(string AddressToTheFile)
         {
