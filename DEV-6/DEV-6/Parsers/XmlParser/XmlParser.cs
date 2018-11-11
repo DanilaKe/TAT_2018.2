@@ -7,7 +7,7 @@ namespace DEV_6
 {
     /// <summary>
     /// Class XmlParser
-    /// Parse XML string.
+    ///  Parsing a XML string in a JSON string.
     /// </summary>
     public class XmlParser : Parser
     {
@@ -29,7 +29,7 @@ namespace DEV_6
         }
 
         /// <summary>
-        /// Method Parsing
+        /// Method Parse
         /// Gets the address of the XML file and starts ParsingXML method.
         /// </summary> 
         /// <returns>Parsed list of strings.</returns>

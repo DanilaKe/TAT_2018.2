@@ -3,6 +3,10 @@ using System.Text;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Class XmlParserResult
+    /// The result of parsing XML file, in the form of a JSON file.
+    /// </summary>
     public class JsonParserResult
     {
         public List<string> XmlResult;
@@ -14,7 +18,11 @@ namespace DEV_6
             OpenObject = openObject;
             XmlResult = new List<string>();
         }
-
+        
+        /// <summary>
+        /// Method OpenTag
+        /// Creating an open tag according to the rules of the XML file.
+        /// </summary>
         public void OpenTag()
         {
             StringBuilder Tabs = new StringBuilder();
@@ -30,7 +38,11 @@ namespace DEV_6
             }
          
         }
-
+        
+        /// <summary>
+        /// Method CloseTag
+        /// Creating an close tag according to the rules of the XML file.
+        /// </summary>
         public void CloseTag()
         {
             spaceCount--;
@@ -45,7 +57,11 @@ namespace DEV_6
                 XmlResult.Add($"{Tabs.ToString()}</{OpenObject.Pop()}>");
             }
         }
-
+        
+        /// <summary>
+        /// Method CreateArg
+        /// Creating a argument according to the rules of the XML file.
+        /// </summary>
         public void CreateArg()
         {
             StringBuilder Tabs = new StringBuilder();

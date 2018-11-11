@@ -4,6 +4,10 @@ using System.Text;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Class JsonParser
+    /// Parsing a Json string in a XML string.
+    /// </summary>
     public class JsonParser : Parser
     {
         private Stack<char> OpenBrackets;
@@ -24,7 +28,12 @@ namespace DEV_6
             parsingElement = new StringBuilder();
             Result = new JsonParserResult(OpenObject);
         }
-
+        
+        /// <summary>
+        /// Method Parse
+        /// Gets the address of the Json file and starts ParseJsonFile method.
+        /// </summary> 
+        /// <returns>Parsed list of strings.</returns>
         public override List<string> Parse()
         {
             FileToStringConverter jsonConverter = new FileToStringConverter();
@@ -33,7 +42,12 @@ namespace DEV_6
             ParseJsonFile(json);
             return Result.XmlResult;
         }
-
+        
+        /// <summary>
+        /// Method ParseJsonFile
+        /// Parsing a string, if the Json string is compiled
+        /// correctly, returns the result of the parsing.
+        /// </summary>
         private void ParseJsonFile(string JsonString)
         {
             for (var i = 0; i < JsonString.Length; i++)
@@ -50,6 +64,7 @@ namespace DEV_6
                     
                     continue;
                 }
+                
                 
                 if (stringFlag || argFlag)
                 {
@@ -134,7 +149,12 @@ namespace DEV_6
                 throw new Exception();
             }
         }
-
+        
+        
+        /// <summary>
+        /// Method parseJsonString
+        /// Implements the logic associated with JSON string.
+        /// </summary>
         void parseJsonString(char separator)
         {
             if (stringFlag)
@@ -154,7 +174,11 @@ namespace DEV_6
                 stringFlag = true;
             }
         }
-
+        
+        /// <summary>
+        /// Method CreateArgument
+        /// Implements the logic associated with JSON argument.
+        /// </summary>
         void CreateArgument()
         {
             OpenObject.Push(parsingElement.ToString());
