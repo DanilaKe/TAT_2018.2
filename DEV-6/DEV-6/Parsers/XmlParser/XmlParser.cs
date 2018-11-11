@@ -54,6 +54,7 @@ namespace DEV_6
         /// </summary>
         private void ParsingXml()
         {   
+            Result.XmlResult.Add("{");
             for (var i = 0; i < XmlString.Length; i++)
             {
                 SkipComment(ref i);
@@ -119,10 +120,13 @@ namespace DEV_6
                         flagsOfTheState.DisableParsingTag();
                         continue;
                     }
-                    
-                    StackWithTags.Push(parsingElement.ToString());
-                    Result.OpenTag();
-                    parsingElement.Clear();
+
+                    if (parsingElement.ToString() != string.Empty)
+                    {
+                        StackWithTags.Push(parsingElement.ToString());
+                        Result.OpenTag();
+                        parsingElement.Clear();
+                    }
                     flagsOfTheState.DisableParsingTag();
                     
                     continue;
@@ -135,11 +139,12 @@ namespace DEV_6
 
                 parsingElement.Append(XmlString[i]);
             }
-
-        /*    if (StackWithTags.Count != 0)
+            
+            Result.XmlResult.Add("}");
+            if (StackWithTags.Count != 0)
             {
                 throw new Exception("Incorrectly closed tags.");
-            }*/
+            }
 
         }
         
@@ -227,8 +232,9 @@ namespace DEV_6
             {
                 if (parsingElement.ToString().ToLower().Contains("?xml"))
                 {
-                    flagsOfTheState.XmlFlag = true;
                     parsingElement.Clear();
+                    flagsOfTheState.XmlFlag = true;
+                    
                 }
                 else
                 {

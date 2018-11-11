@@ -9,7 +9,7 @@ namespace DEV_6
     {
         public List<string> XmlResult;
         private readonly Stack<string> OpenObject;
-        private int spaceCount;
+        private int spaceCount = 0;
         private string AddedElement;
         
         public XmlParserResult(Stack<string> openObject)
