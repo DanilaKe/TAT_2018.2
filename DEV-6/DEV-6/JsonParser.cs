@@ -8,7 +8,7 @@ namespace DEV_6
     {
         private Stack<char> OpenBrackets;
         private Stack<string> OpenObject;
-        private Stack<string> JsonArray;
+        private Queue<string> JsonArray;
         private int objectCount;
         private int arrayCount;
         private bool stringFlag;
@@ -23,7 +23,7 @@ namespace DEV_6
         {
             OpenBrackets = new Stack<char>();
             OpenObject = new Stack<string>();
-            JsonArray = new Stack<string>();
+            JsonArray = new Queue<string>();
             Result = new JsonParserResult(OpenObject);
             parsingElement = new StringBuilder();
             FileToStringConverter jsonConverter = new FileToStringConverter();
@@ -45,47 +45,20 @@ namespace DEV_6
                 
                 if (JsonString[i] == '"')
                 {
-                    if (stringFlag)
-                    {
-                        if (OpenBrackets.Peek() != JsonString[i])
-                        {
-                            throw new Exception();
-                        }
-                        
-                        stringFlag = false;
-                        OpenBrackets.Pop(); 
-                        if (arrayFlag)
-                        {
-                            JsonArray.Push(parsingElement.ToString());
-                            parsingElement.Clear();
-                            continue;
-                        }
-                        
-                        OpenObject.Push(parsingElement.ToString());
-                        parsingElement.Clear();
-                        if (argFlag)
-                        {
-                            argFlag = false;
-                            Result.CreateArg();
-                            Result.CloseTag();
-                        }
-                    }
-                    else
-                    {
-                        OpenBrackets.Push(JsonString[i]);
-                        stringFlag = true;
-                    }
+                    parseJsonString(JsonString[i]);
+                    
                     continue;
                 }
                 
-                if (stringFlag)
+                if (stringFlag || argFlag)
                 {
                     parsingElement.Append(JsonString[i]);
                 }
 
                 if (JsonString[i] == ':' && !stringFlag)
                 {
-                    if (JsonString[i+1] == '{' || JsonString[i+2] == '{')
+                    if (JsonString[i+1] == '{' || JsonString[i+2] == '{' ||
+                        JsonString[i+1] == '[' || JsonString[i+2] == '[' )
                     {
                         continue;
                     }
@@ -97,10 +70,24 @@ namespace DEV_6
 
                 if (JsonString[i] == ',' && !stringFlag)
                 {
+                    if (parsingElement.ToString() != string.Empty)
+                    {
+                        parsingElement.Replace(',', '\0');
+                        parsingElement.Replace('}', '\0');
+                        parsingElement.Replace(']', '\0');
+                        OpenObject.Push(parsingElement.ToString());
+                        parsingElement.Clear();
+                        if (argFlag)
+                        {
+                            argFlag = false;
+                            Result.CreateArg();
+                            Result.CloseTag();
+                        }   
+                    }
                     continue;
                 }
                  
-                if (JsonString[i] == '{' && !stringFlag)
+                if (JsonString[i] == '{' && !stringFlag && !arrayFlag)
                 {
                     OpenBrackets.Push(JsonString[i]);
                     Result.OpenTag();
@@ -111,12 +98,13 @@ namespace DEV_6
                 if (JsonString[i] == '[' && !stringFlag)
                 {
                     OpenBrackets.Push(JsonString[i]);
+                    Result.OpenTag();
                     arrayFlag = true;
                     arrayCount++;
                     continue;
                 }
                               
-                if (JsonString[i] == '}' && !stringFlag)
+                if (JsonString[i] == '}' && !stringFlag && !arrayFlag)
                 {
                     if ((objectCount < 1) || (OpenBrackets.Peek() != '{'))
                     {
@@ -136,14 +124,50 @@ namespace DEV_6
                         throw new Exception();
                     }
 
+                    Result.CloseTag();
                     arrayFlag = false;
-                    Result.ExecuteArray(JsonArray);
                     arrayCount--;
                     OpenBrackets.Pop();
                     continue;
                 }
             }
+
+            if (OpenBrackets.Count > 0)
+            {
+                throw new Exception();
+            }
         }
-        
+
+        void parseJsonString(char separator)
+        {
+            if (stringFlag)
+            {
+                if (OpenBrackets.Peek() != separator)
+                {
+                    throw new Exception();
+                }
+                        
+                stringFlag = false;
+                OpenBrackets.Pop();        
+                CreateArgument();
+            }
+            else
+            {
+                OpenBrackets.Push(separator);
+                stringFlag = true;
+            }
+        }
+
+        void CreateArgument()
+        {
+            OpenObject.Push(parsingElement.ToString());
+            parsingElement.Clear();
+            if (argFlag)
+            {
+                argFlag = false;
+                Result.CreateArg();
+                Result.CloseTag();
+            }
+        }
     }
 }

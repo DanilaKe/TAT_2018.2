@@ -60,7 +60,7 @@ namespace DEV_6
             }
         }
         
-        public void ExecuteArray(Stack<string> jsonArray)
+        public void ExecuteArray(Queue<string> jsonArray)
         {
             spaceCount--;
             XmlResult.RemoveAt(XmlResult.Count-1);
@@ -69,15 +69,23 @@ namespace DEV_6
             {
                 Tabs.Append("    ");
             }
-            
+
+            string tag;
+            if (OpenObject.Count > 0)
+            {
+                tag = OpenObject.Pop();
+            }
+            else
+            {
+                tag = "SomeArray";
+            }
+                
             while (jsonArray.Count > 0)
             {
-                XmlResult.Add($"{Tabs}<{OpenObject.Peek()}>");
-                XmlResult.Add($"{Tabs}    {jsonArray.Pop()}");
-                XmlResult.Add($"{Tabs}</{OpenObject.Peek()}>");
+                XmlResult.Add($"{Tabs}<{tag}>");
+                XmlResult.Add($"{Tabs}    {jsonArray.Dequeue()}");
+                XmlResult.Add($"{Tabs}</{tag}>");
             }
-
-            OpenObject.Pop();
         }
 
     }
