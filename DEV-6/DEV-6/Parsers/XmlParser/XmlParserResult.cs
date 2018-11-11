@@ -8,7 +8,7 @@ namespace DEV_6
     public class XmlParserResult
     {
         public List<string> XmlResult;
-        private Stack<string> OpenObject;
+        private readonly Stack<string> OpenObject;
         private int spaceCount;
         
         public XmlParserResult(Stack<string> openObject)
@@ -28,7 +28,7 @@ namespace DEV_6
             if (OpenObject.Count != 0)
             {
                 spaceCount++;
-                XmlResult.Add($"{Tabs.ToString()}{OpenObject.Peek()} : ");
+                XmlResult.Add($"{Tabs}{OpenObject.Peek()} : ");
             }
          
         }
@@ -44,7 +44,7 @@ namespace DEV_6
             
             if (OpenObject.Count != 0)
             {
-                OpenObject.Pop();
+                OpenObject.Peek();
                 XmlResult.Add($"{Tabs.ToString()},");
             }
         }
@@ -57,7 +57,7 @@ namespace DEV_6
                 Tabs.Append("    ");
             }
             
-            if (OpenObject.Count != 0)
+            if (arg != String.Empty)
             {
                 XmlResult.Add($"{Tabs.ToString()}{arg}");
             }

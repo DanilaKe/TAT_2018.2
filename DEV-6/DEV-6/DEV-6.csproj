@@ -47,11 +47,6 @@
     <Compile Include="Parsers\XmlParser\FlagsOfTheState.cs" />
     <Compile Include="Parsers\XmlParser\XmlParser.cs" />
     <Compile Include="Parsers\XmlParser\XmlParserResult.cs" />
-    <Compile Include="Parsers\XmlParser\XmlTag\AbstractTag.cs" />
-    <Compile Include="Parsers\XmlParser\XmlTag\ClosingXmlTag.cs" />
-    <Compile Include="Parsers\XmlParser\XmlTag\EmptyXmlTag.cs" />
-    <Compile Include="Parsers\XmlParser\XmlTag\XmlDeclarationTag.cs" />
-    <Compile Include="Parsers\XmlParser\XmlTag\XmlTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

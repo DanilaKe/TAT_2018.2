@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DEV_6
@@ -14,7 +15,6 @@ namespace DEV_6
         private List<string> ParsedResult;
         
         private string XmlString { get; set; }
-        private AbstractTag XmlTag { get; set; }
         // Stack of open tags.
         private Stack<string> StackWithTags { get; }
         private StringBuilder parsingElement { get; }
@@ -74,7 +74,11 @@ namespace DEV_6
                     }
 
                     // If there is a ready argument, then write it down.
-                    Result.CreateArg(parsingElement.ToString());
+                    if (parsingElement.ToString() != string.Empty)
+                    {
+                        Result.CreateArg(parsingElement.ToString());
+                    }
+
                     parsingElement.Clear();
                     GetTypeOfTag(XmlString, flagsOfTheState, ref i);
                     
@@ -95,25 +99,31 @@ namespace DEV_6
                     // Check for XML declaration at the beginning.
                     if (!flagsOfTheState.XmlFlag)
                     {
-                        XmlTag = new XmlDeclarationTag(flagsOfTheState, parsingElement.ToString());
+                        ImplementDeclarationTag();
+                        flagsOfTheState.DisableParsingTag();
+                        continue;
                     }
                     
                     // If it is a closing tag, it checks for consistency with the tags in the stack.
                     if (flagsOfTheState.ClosingTagFlag)
                     {
-                        XmlTag = new ClosingXmlTag(StackWithTags, parsingElement.ToString());
-                        Result.CloseTag();
+                        ImplementedClosingTag();
+                        
+                        flagsOfTheState.DisableParsingTag();
+                        continue;
                     }
                     
                     // If this is an empty tag. (< ... />)
                     if (XmlString[i - 1] == '/')
                     {
                         Result.CreateEmptyArg(parsingElement.ToString());
+                        
+                        flagsOfTheState.DisableParsingTag();
+                        continue;
                     }
                     
+                    StackWithTags.Push(parsingElement.ToString());
                     Result.OpenTag();
-                    XmlTag.Implement();
-                    flagsOfTheState.DisableParsingTag();
                     parsingElement.Clear();
                     
                     continue;
@@ -190,13 +200,45 @@ namespace DEV_6
         /// Method SkipDoctype
         /// Skip doctype XML tag. (<!DOCTYPE ... >)
         /// </summary>
-        public void SkipDoctype()
+        private void SkipDoctype()
         {
             if (parsingElement.ToString().Contains("!DOCTYPE"))
             {
                 parsingElement.Clear();
                 flagsOfTheState.DisableParsingTag();
             }
+        }
+
+        private void ImplementedClosingTag()
+        {
+            var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
+            // Determines if the top of the stack matches the closing tag.
+            if (parsingElement.ToString() != tagWithoutValues)
+            {
+                throw new Exception("Incorrectly closed tags.");
+            } 
+            Result.CloseTag();
+            // Remove a closed tag from the stack.
+            StackWithTags.Pop();
+        }
+
+        private void ImplementDeclarationTag()
+        {
+            try
+            {
+                if (parsingElement.ToString().ToLower().Contains("?xml"))
+                {
+                    flagsOfTheState.XmlFlag = true;
+                }
+                else
+                {
+                    throw new Exception("This is not an XML file (there is no XML tag at the beginning)."); 
+                }   
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }  
         }
     }
 }

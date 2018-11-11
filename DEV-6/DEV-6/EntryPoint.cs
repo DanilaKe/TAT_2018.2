@@ -9,7 +9,7 @@ namespace DEV_6
         {
             try
             {   
-                JsonParser a = new JsonParser(args[0]);
+                XmlParser a = new XmlParser(args[0]);
                 List<string> b = a.Parse();
                 foreach (var i in b)
                 {
@@ -18,7 +18,7 @@ namespace DEV_6
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e);
             }
         }
     }
