@@ -96,7 +96,7 @@ namespace DEV_6
                     }
                     continue;
                 }
-                 
+                
                 if (JsonString[i] == '{' && !stringFlag && !arrayFlag)
                 {
                     OpenBrackets.Push(JsonString[i]);

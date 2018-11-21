@@ -34,7 +34,7 @@ namespace DEV_6
             if (OpenObject.Count != 0)
             {
                 spaceCount++;
-                XmlResult.Add($"{Tabs.ToString()}<{OpenObject.Peek()}>");
+                XmlResult.Add($"{Tabs}<{OpenObject.Peek()}>");
             }
          
         }

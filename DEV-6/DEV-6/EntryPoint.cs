@@ -36,8 +36,12 @@ namespace DEV_6
                 }
 
                 var result = parser?.Parse();
-                var resultToFileConverter = new ResultToFileConverter("result.txt");
-                resultToFileConverter.Convert(result);
+                foreach (var i in result)
+                {
+                    Console.WriteLine(i);
+                }
+                /*9var resultToFileConverter = new ResultToFileConverter("result.txt");
+                resultToFileConverter.Convert(result);*/
             }
             catch (Exception e)
             {

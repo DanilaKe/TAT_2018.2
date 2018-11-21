@@ -35,16 +35,24 @@ namespace DEV_6
         /// <returns>Parsed list of strings.</returns>
         public override List<string> Parse()
         {
-            if (FileAddress == null)
+            try
             {
-                throw new Exception("Empty address.");
-            }
-            // Convert the file to a string.
-            var XmlToStringConverter = new FileToStringConverter();
-            XmlString = XmlToStringConverter.Convert(FileAddress);
-            ParsingXml();
+                if (FileAddress == null)
+                {
+                    throw new Exception("Empty address.");
+                }
+                // Convert the file to a string.
+                var XmlToStringConverter = new FileToStringConverter();
+                XmlString = XmlToStringConverter.Convert(FileAddress);
+                ParsingXml();
             
-            return Result.XmlResult;
+                return Result.XmlResult;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
         
         /// <summary>

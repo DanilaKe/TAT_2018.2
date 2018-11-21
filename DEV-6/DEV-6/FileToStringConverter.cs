@@ -12,11 +12,13 @@ namespace DEV_6
 
         public string Convert(string AddressToTheFile)
         {
-            FileStream fileStream = File.OpenRead(AddressToTheFile);
-            byte[] fileIntoArray = new byte[fileStream.Length];
-            fileStream.Read(fileIntoArray, 0, fileIntoArray.Length);
-            ReturnedString = System.Text.Encoding.Default.GetString(fileIntoArray);
-
+            using (FileStream fileStream = File.OpenRead(AddressToTheFile))
+            {
+                byte[] fileIntoArray = new byte[fileStream.Length];
+                fileStream.Read(fileIntoArray, 0, fileIntoArray.Length);
+                ReturnedString = System.Text.Encoding.Default.GetString(fileIntoArray);
+            }
+            
             return ReturnedString;
         }
     }
