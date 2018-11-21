@@ -33,7 +33,7 @@ namespace DEV_3
                 string convertedNumber = numbersConverter.ConvertNumberFromDecimal();
                 
                 Console.WriteLine($"Number in decimal : {receivedNumber}");
-                Console.WriteLine($"Converted number (base {receivedRadix}) : {convertedNumber}");
+                Console.WriteLine($"Converted number (radix {receivedRadix}) : {convertedNumber}");
             }
             catch (Exception e)
             {
