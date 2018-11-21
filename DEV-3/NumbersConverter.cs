@@ -18,6 +18,12 @@ namespace DEV_3
         // Matching numbers with letters.
         private readonly string lettersInNumbers = "0123456789ABCDEFGHIJ";
 
+        public NumbersConverter()
+        {
+            NumberInDecimal = 0;
+            Radix = 0;
+        }
+        
         public NumbersConverter(int receivedNumber, int radixOfTheNewNumberSystem)
         {
             if (radixOfTheNewNumberSystem < MinRadix || radixOfTheNewNumberSystem > MaxRadix)
