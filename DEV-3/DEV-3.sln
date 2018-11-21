@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEV-3", "DEV-3.csproj", "{1E13DADA-B5D2-4D04-9672-FA2B127C382C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEV-7", "DEV-7\DEV-7.csproj", "{D29122EB-4D7A-4001-9764-7E39C1836F2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEV-7", "..\DEV-7\DEV-7.csproj", "{D29122EB-4D7A-4001-9764-7E39C1836F2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
