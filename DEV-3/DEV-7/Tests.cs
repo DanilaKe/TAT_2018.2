@@ -21,6 +21,7 @@ namespace DEV_7
         [TestCase(326443,20,"20G23")]
         [TestCase(int.MaxValue,20,"1DB1F927")]
         [TestCase(int.MaxValue,2,"1111111111111111111111111111111")]
+        [TestCase(0,2,"0")]
         //[TestCase(int.MinValue,2,"-11111111111111111111111111111111")]
         public void PositiveTest(int Number, int radixOfTheNewNumberSystem, string expectedResult)
         {

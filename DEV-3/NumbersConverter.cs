@@ -10,18 +10,33 @@ namespace DEV_3
     /// </summary>
     public class NumbersConverter
     {
+        private int radix;
         public int NumberInDecimal { get; set; }
-        public int Radix { get; set; }
-
         private const int MaxRadix = 20;
         private const int MinRadix = 2;
+
+        public int Radix
+        {
+            get => radix;
+
+            set
+            {
+                if (value < MinRadix || value > MaxRadix)
+                {
+                    throw new ArgumentOutOfRangeException("Radix is not in the desired range.");
+                }
+
+                radix = value;
+            }
+        }
+        
         // Matching numbers with letters.
         private readonly string lettersInNumbers = "0123456789ABCDEFGHIJ";
 
         public NumbersConverter()
         {
             NumberInDecimal = 0;
-            Radix = 0;
+            Radix = 2;
         }
         
         public NumbersConverter(int receivedNumber, int radixOfTheNewNumberSystem)
