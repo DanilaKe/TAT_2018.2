@@ -11,10 +11,25 @@ namespace DEV_3
     public class NumbersConverter
     {
         private int radix;
-        public int NumberInDecimal { get; set; }
+        private int numberInDecimal;
         private const int MaxRadix = 20;
         private const int MinRadix = 2;
 
+        public int NumberInDecimal
+        {
+            get => numberInDecimal;
+
+            set
+            {
+                if (value == int.MinValue)
+                {
+                    throw new ArgumentOutOfRangeException("Number in decimal is not in the desired range.");
+                }
+
+                numberInDecimal = value;
+            }
+        }
+        
         public int Radix
         {
             get => radix;

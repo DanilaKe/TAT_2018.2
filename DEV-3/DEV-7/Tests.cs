@@ -16,39 +16,33 @@ namespace DEV_7
         }
        
         [Test]
-        [TestCase(1,2,"1")]
-        [TestCase(-1,2,"-1")]
-        [TestCase(326443,20,"20G23")]
-        [TestCase(int.MaxValue,20,"1DB1F927")]
-        [TestCase(int.MaxValue,2,"1111111111111111111111111111111")]
-        [TestCase(0,2,"0")]
-        //[TestCase(int.MinValue,2,"-11111111111111111111111111111111")]
-        public void PositiveTest(int Number, int radixOfTheNewNumberSystem, string expectedResult)
+        [TestCase(1,2,ExpectedResult = "1")]
+        [TestCase(-1,2,ExpectedResult = "-1")]
+        [TestCase(326443,20,ExpectedResult = "20G23")]
+        [TestCase(-326443,20,ExpectedResult = "-20G23")]
+        [TestCase(int.MaxValue,2,ExpectedResult = "1111111111111111111111111111111")]
+        [TestCase(-int.MaxValue,2,ExpectedResult = "-1111111111111111111111111111111")]
+        [TestCase(int.MaxValue,20,ExpectedResult = "1DB1F927")]
+        [TestCase(-int.MaxValue,20,ExpectedResult = "-1DB1F927")]
+        [TestCase(0,2,ExpectedResult = "0")]
+        public string PositiveTest(int Number, int radixOfTheNewNumberSystem)
         {
             numbersConverter.NumberInDecimal = Number;
             numbersConverter.Radix = radixOfTheNewNumberSystem;
             var actualResult = numbersConverter.ConvertNumberFromDecimal();
-            Assert.AreEqual(expectedResult,actualResult);
-        }
-        
-        [Test]
-        [ExpectedException(typeof(OverflowException))]
-        [TestCase(int.MinValue,2)]
-        public void OverflowExceptionTest(int Number, int radixOfTheNewNumberSystem)
-        {
-            numbersConverter.NumberInDecimal = Number;
-            numbersConverter.Radix = radixOfTheNewNumberSystem;
-            var actualResult = numbersConverter.ConvertNumberFromDecimal();
+            return actualResult;
         }
         
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCase(23,21)]
+        [TestCase(23,1)]
+        [TestCase(int.MinValue,2)]
         public void ArgumentOutOfRangeExceptionTest(int Number, int radixOfTheNewNumberSystem)
         {
             numbersConverter.NumberInDecimal = Number;
             numbersConverter.Radix = radixOfTheNewNumberSystem;
-            var actualResult = numbersConverter.ConvertNumberFromDecimal();
+            numbersConverter.ConvertNumberFromDecimal();
         }
     }
 }
