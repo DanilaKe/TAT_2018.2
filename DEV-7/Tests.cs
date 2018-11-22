@@ -25,9 +25,9 @@ namespace DEV_7
         [TestCase(int.MaxValue,20,ExpectedResult = "1DB1F927")]
         [TestCase(-int.MaxValue,20,ExpectedResult = "-1DB1F927")]
         [TestCase(0,2,ExpectedResult = "0")]
-        public string PositiveTest(int Number, int radixOfTheNewNumberSystem)
+        public string PositiveTest(int number, int radixOfTheNewNumberSystem)
         {
-            numbersConverter.NumberInDecimal = Number;
+            numbersConverter.NumberInDecimal = number;
             numbersConverter.Radix = radixOfTheNewNumberSystem;
             var actualResult = numbersConverter.ConvertNumberFromDecimal();
             return actualResult;
@@ -38,9 +38,9 @@ namespace DEV_7
         [TestCase(23,21)]
         [TestCase(23,1)]
         [TestCase(int.MinValue,2)]
-        public void ArgumentOutOfRangeExceptionTest(int Number, int radixOfTheNewNumberSystem)
+        public void ArgumentOutOfRangeExceptionTest(int number, int radixOfTheNewNumberSystem)
         {
-            numbersConverter.NumberInDecimal = Number;
+            numbersConverter.NumberInDecimal = number;
             numbersConverter.Radix = radixOfTheNewNumberSystem;
             numbersConverter.ConvertNumberFromDecimal();
         }

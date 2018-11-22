@@ -50,13 +50,19 @@ namespace DEV_7
                 }
 
                 if (caughtType == _expectedType)
+                {
                     context.CurrentResult.SetResult(ResultState.Success);
+                }
                 else if (caughtType != null)
+                {
                     context.CurrentResult.SetResult(ResultState.Failure,
                         string.Format("Expected {0} but got {1}", _expectedType.Name, caughtType.Name));
+                }
                 else
+                {
                     context.CurrentResult.SetResult(ResultState.Failure,
                         string.Format("Expected {0} but no exception was thrown", _expectedType.Name));
+                }
 
                 return context.CurrentResult;
             }

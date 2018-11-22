@@ -30,7 +30,7 @@ namespace DEV_3
                 }
             
                 var numbersConverter = new NumbersConverter(receivedNumber, receivedRadix);
-                string convertedNumber = numbersConverter.ConvertNumberFromDecimal();
+                var convertedNumber = numbersConverter.ConvertNumberFromDecimal();
                 
                 Console.WriteLine($"Number in decimal : {receivedNumber}");
                 Console.WriteLine($"Converted number (radix {receivedRadix}) : {convertedNumber}");
