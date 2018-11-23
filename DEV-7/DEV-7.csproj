@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpectedExceptionAttribute.cs" />
-    <Compile Include="Tests.cs" />
+    <Compile Include="Dev3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AutotestReport.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

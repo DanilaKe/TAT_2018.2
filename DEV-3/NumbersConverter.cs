@@ -12,8 +12,8 @@ namespace DEV_3
     {
         private int radix;
         private int numberInDecimal;
-        private const int MaxRadix = 20;
-        private const int MinRadix = 2;
+        public const int MaxRadix = 20;
+        public const int MinRadix = 2;
         
         public int Radix
         {
