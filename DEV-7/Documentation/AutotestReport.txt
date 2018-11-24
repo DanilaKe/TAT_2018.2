@@ -127,7 +127,7 @@ Test ArgumentOutOfRangeExceptionTest :
         Test description : Check for correct response to incorrect data. ﻿
         Initial data :
             number = 23
-            radixOfTheNumberSystem = -1
+            radixOfTheNumberSystem = 1
         Expected result : ArgumentOutOfRangeException
         Actual result : ArgumentOutOfRangeException
         Test result : success
@@ -135,11 +135,11 @@ Test ArgumentOutOfRangeExceptionTest :
     TestCase "Exception when decimal number out range" :
         Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 3
         Module : NumbersConverter
-        Submodule : set_Radix()
+        Submodule : set_NumberInDecimal.()
         Test description : Check for correct response to incorrect data. ﻿
-        Initial data :
-            number = 23
-            radixOfTheNumberSystem = -1
+        Initial data : 
+            number = -2147483648
+            radixOfTheNumberSystem = 2
         Expected result : ArgumentOutOfRangeException
         Actual result : ArgumentOutOfRangeException
         Test result : success

@@ -58,7 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AutotestReport.txt" />
+    <Content Include="Documentation\AutotestReport.txt" />
+    <Content Include="Documentation\TestCases.txt" />
+    <Content Include="Documentation\﻿Specification.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

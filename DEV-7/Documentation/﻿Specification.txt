@@ -1,0 +1,9 @@
+Formulation of the problem:
+Develop a program that conveys the number from the decimal system to a number system with another radix.
+
+Task constraints :
+1) Radix of the numeral system should be in the range of binary to vigesimal numeral system.
+2) Number in decimal should be in the range from -2147483647 to 2147483647.
+3) Number and radix of the numeral system are entered as a command line argument.
+4) The result of the program is the number in the new number system entered in the console.
+5) In case of non-compliance with the stated conditions, an error should be displayed in the console.
