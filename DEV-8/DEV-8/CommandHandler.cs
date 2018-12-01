@@ -10,15 +10,15 @@ namespace DEV_8
     /// </summary>
     public class CommandHandler
     {
-        private readonly Catalog<Car> catalogOfCar;
-        private readonly Catalog<Track> catalogOfTrack;
-        private readonly Printer printer;
-        private ICatalogCommand catalogCommand;
+        private readonly Catalog<Car> CatalogOfCar;
+        private readonly Catalog<Truck> CatalogOfTruck;
+        private readonly Printer Printer;
+        private ICatalogCommand CatalogCommand;
         
-        public CommandHandler(Catalog receivedCatalog, Printer receivedPrinter)
+        public CommandHandler(Catalog<Car> catalogOfCar,Catalog<Truck> catalogOfTruck)
         {
-            printer = receivedPrinter;
-            catalog = receivedCatalog;
+            CatalogOfCar = catalogOfCar;
+            CatalogOfTruck = catalogOfTruck;
         }
         
         /// <summary>
@@ -27,7 +27,6 @@ namespace DEV_8
         /// </summary>
         public void RunCommandReader()
         {
-            printer.DisplayBeginInfo();
             bool exit = false;
             // The cycle of reading commands, while there is no command "exit".
             while (!exit)
@@ -35,35 +34,8 @@ namespace DEV_8
                 Console.Write("Write a command : ");
                 var command = Console.ReadLine();
                 // Finds out the type of command.
-                TypeOfCommands CommandType = GetTypeOfCommands(command);
-                var splitCommand = command.Split(' ');
+                ICatalogCommand CommandType = GetTypeOfCommands(command);
                 // Execute the command, depending on the type.
-                switch (CommandType)
-                {
-                    case TypeOfCommands.None :
-                        Console.WriteLine("Invalid command.\n");
-                        break;
-                    case TypeOfCommands.CountAll :
-                        catalogCommand = new CountAll(catalog);
-                        break;
-                    case TypeOfCommands.CountTypes :
-                        catalogCommand = new CountType(catalog);
-                        break;
-                    case TypeOfCommands.AveragePriceAll :
-                        catalogCommand = new AveragePrice(catalog);
-                        break;
-                    case TypeOfCommands.AveragePriceType :
-                        catalogCommand = new AveragePriceType(catalog, splitCommand[2]);
-                        break;
-                    case TypeOfCommands.Exit :
-                        exit = true;
-                        break;
-                }
-
-                if (!exit && (CommandType != TypeOfCommands.None))
-                {
-                    catalogCommand.Execute();
-                }
             }
         }
 
@@ -73,30 +45,41 @@ namespace DEV_8
         /// </summary>
         /// <param name="command">Console command</param>
         /// <returns>Type of command.</returns>
-        private ICommand GetTypeOfCommands(string command)
+        private ICatalogCommand GetTypeOfCommands(string command)
         {   
             if ((command == null) || (command == string.Empty))
             {
                 return null;
             }
-            
-            switch (command.ToLower())
-            {
-                case "count all":
-                    return TypeOfCommands.CountAll;
-                case "count types":
-                    return TypeOfCommands.CountTypes;
-                case "average price":
-                    return TypeOfCommands.AveragePriceAll;
-                case command.TakeWhile("average price")
-            }
 
-            if (command.ToLower().Contains("average price"))
+            var splitCommand = command.ToLower().Split(' ');
+
+            Receiver catalog;
+            switch (splitCommand[1])
             {
-                return TypeOfCommands.AveragePriceType;
+                case "car" :
+                    catalog = CatalogOfCar;
+                    break;
+                case "truck" :
+                    catalog = CatalogOfTruck;
+                    break;
+                default :
+                    throw new Exception();
             }
             
-            return TypeOfCommands.None;
+            switch (splitCommand[0])
+            {
+                case "count_all":
+                    return new CountAll(catalog);
+                case "count_types":
+                    return new CountType(catalog);
+                case "average_price":    
+                    return new AveragePrice(catalog);
+                case "average_price_type":    
+                    return new AveragePriceType(catalog, splitCommand[2]);
+            }
+            
+            return null;
         }
     }
 }

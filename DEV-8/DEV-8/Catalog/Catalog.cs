@@ -9,19 +9,21 @@ namespace DEV_8
     /// Engaged in the addition of new machines, and implements
     /// some methods for searching and counting.
     /// </summary>
-    public class Catalog<T>
+    public class Catalog<T> : Receiver
         where T : Machine
     {
         private List<T> ListOfMachines { get; set; }
         
         // Methods occurring after the event.
         private event CatalogStateHandler Counted;
+        private event CatalogStateHandler CountedType;
         private event CatalogStateHandler Calculated;
         
-        public Catalog(CatalogStateHandler counted, CatalogStateHandler calculated)
+        public Catalog(CatalogStateHandler counted,CatalogStateHandler countedType, CatalogStateHandler calculated)
         {
             ListOfMachines = new List<T>();
             Counted += counted;
+            CountedType += countedType;
             Calculated += calculated;
         }
         
@@ -52,13 +54,8 @@ namespace DEV_8
         /// Counts the number of car brands.
         /// </summary>
         /// <param name="CallingClass">The object needed to check the correct call.</param>
-        public void CountBrand(object CallingClass)
+        public void CountBrand()
         {
-            if (!(CallingClass is ICatalogCommand))
-            {
-                throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
-            }
-
             var Count = ListOfMachines.GroupBy(x => x.Brand).Count();
             CallEvent(new CatalogEventArgs(Count), Counted);
         }
@@ -68,13 +65,8 @@ namespace DEV_8
         /// Counts the number of cars.
         /// </summary>
         /// <param name="CallingClass">The object needed to check the correct call.</param>
-        public void CountCars(object CallingClass)
+        public void Count()
         {
-            if (!(CallingClass is ICatalogCommand))
-            {
-                throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
-            }
-            
             var Count = ListOfMachines.Select(x => x.NumberOfCars).Sum(y => y);
             CallEvent(new CatalogEventArgs(Count), Counted);
         }
@@ -84,13 +76,8 @@ namespace DEV_8
         /// Considers the average cost of the car.
         /// </summary>
         /// <param name="CallingClass">The object needed to check the correct call.</param>
-        public void AveragePrice(object CallingClass)
+        public void AveragePrice()
         {
-            if (!(CallingClass is ICatalogCommand))
-            {
-                throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
-            }
-
             var price = ListOfMachines.Select(x => x.Price).Average(y => y);
             CallEvent(new CatalogEventArgs(price), Calculated);
         }
@@ -101,13 +88,8 @@ namespace DEV_8
         /// </summary>
         /// <param name="CallingClass">The object needed to check the correct call.</param>
         /// <param name="brand">required brand</param>
-        public void AveragePrice(object CallingClass, string brand)
+        public void AveragePrice(string brand)
         {
-            if (!(CallingClass is ICatalogCommand))
-            {
-                throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
-            }
-    
             var validBrand = ListOfMachines.Select(x => x.Brand).Contains(brand);
             if (validBrand)
             {

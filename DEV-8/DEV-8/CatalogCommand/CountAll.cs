@@ -5,16 +5,16 @@
     /// </summary>
     public class CountAll : ICatalogCommand
     {
-        private readonly Catalog catalog;
+        private readonly Receiver catalog;
 
-        public CountAll(Catalog receivedCatalog)
+        public CountAll(Receiver receivedCatalog)
         {
             catalog = receivedCatalog;
         }
 
         public void Execute()
         {
-            catalog.CountCars(this);
+            catalog.Count();
         }
     }
 }

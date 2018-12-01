@@ -38,7 +38,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatalogCommand\Add.cs" />
     <Compile Include="CatalogCommand\AveragePrice.cs" />
     <Compile Include="CatalogCommand\AveragePriceType.cs" />
     <Compile Include="CatalogCommand\CountAll.cs" />
@@ -48,6 +47,7 @@
     <Compile Include="Catalog\Catalog.cs" />
     <Compile Include="Catalog\CatalogStateHandler.cs" />
     <Compile Include="Catalog\Machine.cs" />
+    <Compile Include="Catalog\Receiver.cs" />
     <Compile Include="Catalog\Truck.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />

@@ -5,16 +5,16 @@
     /// </summary>
     public class CountType : ICatalogCommand
     {
-        private readonly Catalog catalog; 
+        private readonly Receiver catalog; 
         
-        public CountType(Catalog receivedCatalog)
+        public CountType(Receiver receivedCatalog)
         {
             catalog = receivedCatalog;
         }
         
         public void Execute()
         {
-            catalog.CountBrand(this);
+            catalog.CountBrand();
         }
     }
 }

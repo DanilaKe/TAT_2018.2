@@ -6,10 +6,10 @@
     /// </summary>
     public class AveragePriceType : ICatalogCommand
     {
-        private readonly Catalog catalog;
+        private readonly Receiver catalog;
         private readonly string Brand;
             
-        public AveragePriceType(Catalog receivedCatalog, string brand)
+        public AveragePriceType(Receiver receivedCatalog, string brand)
         {
             catalog = receivedCatalog;
             Brand = brand;
@@ -17,7 +17,7 @@
 
         public void Execute()
         {
-            catalog.AveragePrice(this, Brand);
+            catalog.AveragePrice(Brand);
         }
     }
 }

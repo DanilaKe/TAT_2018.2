@@ -6,16 +6,16 @@
     /// </summary>
     public class AveragePrice : ICatalogCommand
     {
-        private readonly Catalog catalog;
+        private readonly Receiver catalog;
 
-        public AveragePrice(Catalog receivedCatalog)
+        public AveragePrice(Receiver receivedCatalog)
         {
             catalog = receivedCatalog;
         }
 
         public void Execute()
         {
-            catalog.AveragePrice(this);
+            catalog.AveragePrice();
         }
     }
 }
