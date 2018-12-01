@@ -44,9 +44,11 @@
     <Compile Include="CatalogCommand\CountAll.cs" />
     <Compile Include="CatalogCommand\CountType.cs" />
     <Compile Include="CatalogCommand\ICatalogCommand.cs" />
-    <Compile Include="CatalogOfCars\Car.cs" />
-    <Compile Include="CatalogOfCars\Catalog.cs" />
-    <Compile Include="CatalogOfCars\CatalogStateHandler.cs" />
+    <Compile Include="Catalog\Car.cs" />
+    <Compile Include="Catalog\Catalog.cs" />
+    <Compile Include="Catalog\CatalogStateHandler.cs" />
+    <Compile Include="Catalog\Machine.cs" />
+    <Compile Include="Catalog\Truck.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Printer.cs" />

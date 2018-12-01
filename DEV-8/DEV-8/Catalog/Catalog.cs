@@ -9,38 +9,19 @@ namespace DEV_8
     /// Engaged in the addition of new machines, and implements
     /// some methods for searching and counting.
     /// </summary>
-    public class Catalog
+    public class Catalog<T>
+        where T : Machine
     {
-        private List<Car> CatalogOfCar { get; set; }
-        public int Counter { get; private set; }
-        public int Capacity { get; private set; }
+        private List<T> ListOfMachines { get; set; }
         
         // Methods occurring after the event.
-        private event CatalogStateHandler Added;
-        private event CatalogStateHandler CountedCars;
-        private event CatalogStateHandler CountedBrands;
+        private event CatalogStateHandler Counted;
         private event CatalogStateHandler Calculated;
         
-        public Catalog(CatalogStateHandler added, CatalogStateHandler countedCars, CatalogStateHandler countedBrands, CatalogStateHandler calculated)
+        public Catalog(CatalogStateHandler counted, CatalogStateHandler calculated)
         {
-            CatalogOfCar = new List<Car>();
-            Counter = 0;
-            // Capacity is not set, it means it is not limited (-1).
-            Capacity = -1;
-            Added += added;
-            CountedCars += countedCars;
-            CountedBrands += countedBrands;
-            Calculated += calculated;
-        }
-        
-        public Catalog(CatalogStateHandler added, CatalogStateHandler countedCars,CatalogStateHandler countedBrands , CatalogStateHandler calculated ,int capacity)
-        {
-            CatalogOfCar = new List<Car>();
-            Counter = 0;
-            Capacity = capacity; 
-            Added += added;
-            CountedCars += countedCars;
-            CountedBrands += countedBrands;
+            ListOfMachines = new List<T>();
+            Counted += counted;
             Calculated += calculated;
         }
         
@@ -61,37 +42,9 @@ namespace DEV_8
         /// Adds a new car to the catalog or if it exists in
         /// the catalog complements the information.
         /// </summary>
-        /// <param name="CallingClass">The object needed to check the correct call.</param>
-        public void AddCar(object CallingClass, string brand, string model, int numberOfCars, double price)
+        public void AddMachine(T machine)
         {
-            if (!(CallingClass is ICatalogCommand))
-            {
-                throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
-            }
-            
-            // Capacity check (if Capacity = -1, this means that capacity is unlimited).
-            if ((Capacity < Counter + 1) && (Capacity != -1))
-            {
-                throw new Exception("Catalog overflow.");
-            }
-
-            var existingCar  = CatalogOfCar.Any(x => (x.Brand == brand) && (x.Model == model));
-            if (!existingCar)
-            {
-                var AddedCar = new Car(this, brand, model, numberOfCars, price);
-                CatalogOfCar.Add(AddedCar);
-                Counter++;
-                CallEvent(new CatalogEventArgs(numberOfCars, price, brand, model, Counter), Added);
-            }
-            else
-            {
-                var numberOfExistingCar = CatalogOfCar.First(x => (x.Brand == brand) && (x.Model == model));
-                if (numberOfExistingCar.Price != price)
-                {
-                    throw new Exception("Incorrect input of an existing car.");
-                }
-                numberOfExistingCar.AddCars(numberOfCars);
-            }
+            ListOfMachines.Add(machine);
         }    
         
         /// <summary>
@@ -106,8 +59,8 @@ namespace DEV_8
                 throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
             }
 
-            var Count = CatalogOfCar.GroupBy(x => x.Brand).Count();
-            CallEvent(new CatalogEventArgs(Count), CountedCars);
+            var Count = ListOfMachines.GroupBy(x => x.Brand).Count();
+            CallEvent(new CatalogEventArgs(Count), Counted);
         }
         
         /// <summary>
@@ -122,8 +75,8 @@ namespace DEV_8
                 throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
             }
             
-            var Count = CatalogOfCar.Select(x => x.NumberOfCars).Sum(y => y);
-            CallEvent(new CatalogEventArgs(Count), CountedBrands);
+            var Count = ListOfMachines.Select(x => x.NumberOfCars).Sum(y => y);
+            CallEvent(new CatalogEventArgs(Count), Counted);
         }
 
         /// <summary>
@@ -138,7 +91,7 @@ namespace DEV_8
                 throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
             }
 
-            var price = CatalogOfCar.Select(x => x.Price).Average(y => y);
+            var price = ListOfMachines.Select(x => x.Price).Average(y => y);
             CallEvent(new CatalogEventArgs(price), Calculated);
         }
         
@@ -155,11 +108,11 @@ namespace DEV_8
                 throw new Exception("Attempting to access the catalog of cars without using the CatalogCommand.");
             }
     
-            var validBrand = CatalogOfCar.Select(x => x.Brand).Contains(brand);
+            var validBrand = ListOfMachines.Select(x => x.Brand).Contains(brand);
             if (validBrand)
             {
-                var price = CatalogOfCar.Where(x => x.Brand == brand).Select(x => x.Price).Average(y => y);
-                CallEvent(new CatalogEventArgs(price, brand), Calculated);
+                var price = ListOfMachines.Where(x => x.Brand == brand).Select(x => x.Price).Average(y => y);
+                CallEvent(new CatalogEventArgs(price), Calculated);
             }
             else
             {

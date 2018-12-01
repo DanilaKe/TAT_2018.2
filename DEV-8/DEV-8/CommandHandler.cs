@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Windows.Input;
 
 namespace DEV_8
 {
@@ -8,7 +10,8 @@ namespace DEV_8
     /// </summary>
     public class CommandHandler
     {
-        private readonly Catalog catalog;
+        private readonly Catalog<Car> catalogOfCar;
+        private readonly Catalog<Track> catalogOfTrack;
         private readonly Printer printer;
         private ICatalogCommand catalogCommand;
         
@@ -33,24 +36,12 @@ namespace DEV_8
                 var command = Console.ReadLine();
                 // Finds out the type of command.
                 TypeOfCommands CommandType = GetTypeOfCommands(command);
-                
-                // Check for access to an empty catalog.
-                if ((CommandType != TypeOfCommands.Add) && (CommandType != TypeOfCommands.None) &&
-                    (CommandType != TypeOfCommands.Exit) && (catalog.Counter == 0))
-                {
-                    Console.WriteLine("Empty catalog.\n");
-                    continue;
-                }
                 var splitCommand = command.Split(' ');
                 // Execute the command, depending on the type.
                 switch (CommandType)
                 {
                     case TypeOfCommands.None :
                         Console.WriteLine("Invalid command.\n");
-                        break;
-                    case TypeOfCommands.Add :
-                        catalogCommand = new Add(catalog,splitCommand[1], splitCommand[2],
-                            int.Parse(splitCommand[3]), int.Parse(splitCommand[4]));
                         break;
                     case TypeOfCommands.CountAll :
                         catalogCommand = new CountAll(catalog);
@@ -82,61 +73,30 @@ namespace DEV_8
         /// </summary>
         /// <param name="command">Console command</param>
         /// <returns>Type of command.</returns>
-        private TypeOfCommands GetTypeOfCommands(string command)
+        private ICommand GetTypeOfCommands(string command)
         {   
             if ((command == null) || (command == string.Empty))
             {
-                return TypeOfCommands.None;
+                return null;
             }
             
-            var splitCommand = command.Split(' ');
-            
-            if (command.ToLower() == "exit")
+            switch (command.ToLower())
             {
-                return TypeOfCommands.Exit;
-            }
-            
-            if (command.ToLower()  == "count types")
-            {
-                return TypeOfCommands.CountTypes;
-            }
-            
-            if (command.ToLower()  == "count all")
-            {
-                return TypeOfCommands.CountAll;
-            }
-            
-            if (command.ToLower() == "average price")
-            {
-                return TypeOfCommands.AveragePriceAll;
+                case "count all":
+                    return TypeOfCommands.CountAll;
+                case "count types":
+                    return TypeOfCommands.CountTypes;
+                case "average price":
+                    return TypeOfCommands.AveragePriceAll;
+                case command.TakeWhile("average price")
             }
 
-            if (command.ToLower().Contains("average price") && (splitCommand.Length == 3) )
+            if (command.ToLower().Contains("average price"))
             {
                 return TypeOfCommands.AveragePriceType;
             }
             
-            if ((splitCommand[0] == "add") && (splitCommand.Length == 5) && 
-                (int.TryParse(splitCommand[3], out var numberOfCars)) &&
-                (double.TryParse(splitCommand[4], out var price)))
-            {
-                return TypeOfCommands.Add;
-            }
-            else
-            {
-                return TypeOfCommands.None;
-            }
-        }
-        
-        enum TypeOfCommands
-        {
-            None,
-            Add,
-            CountAll,
-            CountTypes,
-            AveragePriceAll,
-            AveragePriceType,
-            Exit
+            return TypeOfCommands.None;
         }
     }
 }
