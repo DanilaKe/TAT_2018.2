@@ -1,4 +1,4 @@
-﻿namespace DEV_5
+﻿namespace DEV_8
 {
     /// <summary>
     /// This command calls the brand counting method in the selected catalog.

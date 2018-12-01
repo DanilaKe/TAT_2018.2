@@ -1,4 +1,4 @@
-﻿namespace DEV_5
+﻿namespace DEV_8
 {
     /// <summary>
     /// Represents that the implemented classes are catalog commands.

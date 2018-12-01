@@ -1,4 +1,4 @@
-﻿namespace DEV_5
+﻿namespace DEV_8
 {
     public delegate void CatalogStateHandler(object sender, CatalogEventArgs e);
     
