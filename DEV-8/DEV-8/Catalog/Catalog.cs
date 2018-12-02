@@ -13,18 +13,32 @@ namespace DEV_8
         where T : Machine
     {
         private List<T> ListOfMachines { get; set; }
+        private static Catalog<T> instance;
         
         // Methods occurring after the event.
         private event CatalogStateHandler Counted;
         private event CatalogStateHandler CountedType;
         private event CatalogStateHandler Calculated;
         
-        public Catalog(CatalogStateHandler counted,CatalogStateHandler countedType, CatalogStateHandler calculated)
+        public static Catalog<T> getInstance(CatalogStateHandler counted = null,
+            CatalogStateHandler countedType = null, CatalogStateHandler calculated = null)
+        {
+            return instance ?? (instance = new Catalog<T>(counted, countedType, calculated));
+        }
+        private Catalog(CatalogStateHandler counted,CatalogStateHandler countedType, CatalogStateHandler calculated)
         {
             ListOfMachines = new List<T>();
             Counted += counted;
             CountedType += countedType;
             Calculated += calculated;
+        }
+        
+        public void Add(List<T> listOfMachines)
+        {
+            foreach (var i in listOfMachines)
+            {
+                ListOfMachines.Add(i);
+            }
         }
         
         /// <summary>
@@ -37,17 +51,7 @@ namespace DEV_8
             {
                 handler(this, e);
             }
-        }
-        
-        /// <summary>
-        /// Method AddCar
-        /// Adds a new car to the catalog or if it exists in
-        /// the catalog complements the information.
-        /// </summary>
-        public void AddMachine(T machine)
-        {
-            ListOfMachines.Add(machine);
-        }    
+        } 
         
         /// <summary>
         /// Method CountBrand
@@ -57,7 +61,7 @@ namespace DEV_8
         public void CountBrand()
         {
             var Count = ListOfMachines.GroupBy(x => x.Brand).Count();
-            CallEvent(new CatalogEventArgs(Count), Counted);
+            CallEvent(new CatalogEventArgs(Count), CountedType);
         }
         
         /// <summary>

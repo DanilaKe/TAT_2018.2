@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -13,12 +14,13 @@ namespace DEV_8
         private readonly Catalog<Car> CatalogOfCar;
         private readonly Catalog<Truck> CatalogOfTruck;
         private readonly Printer Printer;
-        private ICatalogCommand CatalogCommand;
+        private List<ICatalogCommand> ListOfCommand;
         
         public CommandHandler(Catalog<Car> catalogOfCar,Catalog<Truck> catalogOfTruck)
         {
             CatalogOfCar = catalogOfCar;
             CatalogOfTruck = catalogOfTruck;
+            ListOfCommand = new List<ICatalogCommand>();
         }
         
         /// <summary>
@@ -33,9 +35,22 @@ namespace DEV_8
             {
                 Console.Write("Write a command : ");
                 var command = Console.ReadLine();
+                if ("execute" == command)
+                {
+                    foreach (var i in ListOfCommand)
+                    {
+                        i.Execute();
+                    }
+                    continue;
+                }
+                if ("exit" == command)
+                {
+                    exit = true;
+                    continue;
+                }
                 // Finds out the type of command.
-                ICatalogCommand CommandType = GetTypeOfCommands(command);
-                // Execute the command, depending on the type.
+                AddCommandInList(command);
+                // Execute the command, depending ocon the type.
             }
         }
 
@@ -45,15 +60,16 @@ namespace DEV_8
         /// </summary>
         /// <param name="command">Console command</param>
         /// <returns>Type of command.</returns>
-        private ICatalogCommand GetTypeOfCommands(string command)
-        {   
-            if ((command == null) || (command == string.Empty))
+        private void AddCommandInList(string command)
+        {
+            ICatalogCommand catalogCommand = null;
+            var splitCommand = command?.ToLower().Split(' ');
+
+            if ((command == null) || (command == string.Empty) || (2 > splitCommand.Length))
             {
-                return null;
+                Console.WriteLine("Invalid command.");
+                return;
             }
-
-            var splitCommand = command.ToLower().Split(' ');
-
             Receiver catalog;
             switch (splitCommand[1])
             {
@@ -70,16 +86,27 @@ namespace DEV_8
             switch (splitCommand[0])
             {
                 case "count_all":
-                    return new CountAll(catalog);
+                    catalogCommand = new CountAll(catalog);
+                    break;
                 case "count_types":
-                    return new CountType(catalog);
+                    catalogCommand = new CountType(catalog);
+                    break;
                 case "average_price":    
-                    return new AveragePrice(catalog);
+                    catalogCommand = new AveragePrice(catalog);
+                    break;
                 case "average_price_type":    
-                    return new AveragePriceType(catalog, splitCommand[2]);
+                    catalogCommand = new AveragePriceType(catalog, splitCommand[2]);
+                    break;
             }
-            
-            return null;
+
+            if (catalogCommand != null)
+            {
+                ListOfCommand.Add(catalogCommand);
+            }
+            else
+            {
+                Console.WriteLine("Invalid command.");
+            }
         }
     }
 }
