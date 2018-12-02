@@ -3,18 +3,18 @@
     /// <summary>
     /// This command is engaged in calling the method of counting the number of cars in the selected catalog.
     /// </summary>
-    public class CountAll : ICatalogCommand
+    public class CountAllCommand : ICatalogCommand
     {
-        private readonly Receiver catalog;
+        private readonly IReceiver Catalog;
 
-        public CountAll(Receiver receivedCatalog)
+        public CountAllCommand(IReceiver receivedCatalog)
         {
-            catalog = receivedCatalog;
+            Catalog = receivedCatalog;
         }
 
         public void Execute()
         {
-            catalog.Count();
+            Catalog.Count();
         }
     }
 }

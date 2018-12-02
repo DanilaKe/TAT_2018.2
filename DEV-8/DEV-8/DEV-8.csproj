@@ -39,16 +39,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatalogCommand\AveragePrice.cs" />
-    <Compile Include="CatalogCommand\AveragePriceType.cs" />
-    <Compile Include="CatalogCommand\CountAll.cs" />
-    <Compile Include="CatalogCommand\CountType.cs" />
+    <Compile Include="CatalogCommand\AveragePriceCommand.cs" />
+    <Compile Include="CatalogCommand\AveragePriceTypeCommand.cs" />
+    <Compile Include="CatalogCommand\CountAllCommand.cs" />
+    <Compile Include="CatalogCommand\CountTypeCommand.cs" />
     <Compile Include="CatalogCommand\ICatalogCommand.cs" />
     <Compile Include="Catalog\Car.cs" />
     <Compile Include="Catalog\Catalog.cs" />
     <Compile Include="Catalog\CatalogStateHandler.cs" />
     <Compile Include="Catalog\Machine.cs" />
-    <Compile Include="Catalog\Receiver.cs" />
+    <Compile Include="Catalog\IReceiver.cs" />
     <Compile Include="Catalog\Truck.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EntryPoint.cs" />

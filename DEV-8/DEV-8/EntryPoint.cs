@@ -17,16 +17,22 @@ namespace DEV_8
         {
             try
             {
+                if (args.Length != 1)
+                {
+                    throw new ArgumentException("Invalid argument.");
+                }
+                
                 var parser = new XmlParser(args[0]);
                 var printer = new Printer();
+                
                 // Creates object of the class catalog of cars and passes delegates there.
-                var catalogOfCar = Catalog<Car>.getInstance(printer.CountMachineHandler,printer.CountTypeHandler,printer.AveragePriceHandler);
-                Catalog<Car>.getInstance().Add(parser.parseInListOfCars());
+                var CatalogOfCar = Catalog<Car>.getInstance(printer.CountMachineHandler,printer.CountTypeHandler,printer.AveragePriceHandler);
+                Catalog<Car>.getInstance().Add(parser.ParseInListOfCars());
                 
-                var catalogOfTruck = Catalog<Truck>.getInstance(printer.CountMachineHandler,printer.CountTypeHandler,printer.AveragePriceHandler);
-                Catalog<Truck>.getInstance().Add(parser.parseInListOfTrucks());
+                var CatalogOfTruck = Catalog<Truck>.getInstance(printer.CountMachineHandler,printer.CountTypeHandler,printer.AveragePriceHandler);
+                Catalog<Truck>.getInstance().Add(parser.ParseInListOfTrucks());
                 
-                var commandHandler = new CommandHandler(catalogOfCar, catalogOfTruck);
+                var commandHandler = new CommandHandler(CatalogOfCar, CatalogOfTruck);
                 printer.DisplayBeginInfo();
                 commandHandler.RunCommandReader();
             }

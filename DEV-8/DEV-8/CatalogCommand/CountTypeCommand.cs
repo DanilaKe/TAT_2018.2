@@ -3,18 +3,18 @@
     /// <summary>
     /// This command calls the brand counting method in the selected catalog.
     /// </summary>
-    public class CountType : ICatalogCommand
+    public class CountTypeCommand : ICatalogCommand
     {
-        private readonly Receiver catalog; 
+        private readonly IReceiver Catalog; 
         
-        public CountType(Receiver receivedCatalog)
+        public CountTypeCommand(IReceiver receivedCatalog)
         {
-            catalog = receivedCatalog;
+            Catalog = receivedCatalog;
         }
         
         public void Execute()
         {
-            catalog.CountBrand();
+            Catalog.CountBrand();
         }
     }
 }

@@ -16,19 +16,20 @@ namespace DEV_8
         {    
             ConsoleColor color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Total number of cars : {(int)e.ResultOfOperation}\n");
+            Console.WriteLine($"{sender.GetType()}\n");
+            Console.WriteLine($"Total number of machine : {(int)e.ResultOfOperation}\n");
             Console.ForegroundColor = color;
         }
         
         /// <summary>
-        /// Method CountCarHandler
-        /// A method that handles a car counting event.
+        /// Method CountTypeHandler
+        /// A method that handles a car counting type event.
         /// </summary>
         public void CountTypeHandler(object sender, CatalogEventArgs e)
         {    
             ConsoleColor color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Number of car brands : {(int)e.ResultOfOperation}\n");
+            Console.WriteLine($"Number of brands : {(int)e.ResultOfOperation}\n");
             Console.ForegroundColor = color;
         }
         
@@ -40,7 +41,7 @@ namespace DEV_8
         {    
             ConsoleColor color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"Average cost of the car : {e.ResultOfOperation}\n");
+            Console.WriteLine($"Average cost of the machine : {e.ResultOfOperation}\n");
             Console.ForegroundColor = color;
         }
         

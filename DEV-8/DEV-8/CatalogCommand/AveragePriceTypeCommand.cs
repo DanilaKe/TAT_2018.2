@@ -4,20 +4,20 @@
     /// This command is engaged in calling the method of calculating
     /// the average price of the chosen brand in the selected catalog.
     /// </summary>
-    public class AveragePriceType : ICatalogCommand
+    public sealed class AveragePriceTypeCommand : ICatalogCommand
     {
-        private readonly Receiver catalog;
+        private readonly IReceiver Catalog;
         private readonly string Brand;
             
-        public AveragePriceType(Receiver receivedCatalog, string brand)
+        public AveragePriceTypeCommand(IReceiver receivedCatalog, string brand)
         {
-            catalog = receivedCatalog;
+            Catalog = receivedCatalog;
             Brand = brand;
         }
 
         public void Execute()
         {
-            catalog.AveragePrice(Brand);
+            Catalog.AveragePrice(Brand);
         }
     }
 }

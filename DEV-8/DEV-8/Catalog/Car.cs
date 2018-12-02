@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DEV_8
+﻿namespace DEV_8
 {
     /// <summary>
     /// Class Car

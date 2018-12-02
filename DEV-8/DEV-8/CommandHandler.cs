@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
 
 namespace DEV_8
 {
@@ -13,8 +11,7 @@ namespace DEV_8
     {
         private readonly Catalog<Car> CatalogOfCar;
         private readonly Catalog<Truck> CatalogOfTruck;
-        private readonly Printer Printer;
-        private List<ICatalogCommand> ListOfCommand;
+        private readonly List<ICatalogCommand> ListOfCommand;
         
         public CommandHandler(Catalog<Car> catalogOfCar,Catalog<Truck> catalogOfTruck)
         {
@@ -55,11 +52,10 @@ namespace DEV_8
         }
 
         /// <summary>
-        /// Method GetTypeOfCommands
-        /// Finds out the type of command.
+        /// Method AddCommandInList
+        /// Add command in actual list.
         /// </summary>
         /// <param name="command">Console command</param>
-        /// <returns>Type of command.</returns>
         private void AddCommandInList(string command)
         {
             ICatalogCommand catalogCommand = null;
@@ -70,14 +66,14 @@ namespace DEV_8
                 Console.WriteLine("Invalid command.");
                 return;
             }
-            Receiver catalog;
+            IReceiver Catalog;
             switch (splitCommand[1])
             {
                 case "car" :
-                    catalog = CatalogOfCar;
+                    Catalog = CatalogOfCar;
                     break;
                 case "truck" :
-                    catalog = CatalogOfTruck;
+                    Catalog = CatalogOfTruck;
                     break;
                 default :
                     throw new Exception();
@@ -86,16 +82,16 @@ namespace DEV_8
             switch (splitCommand[0])
             {
                 case "count_all":
-                    catalogCommand = new CountAll(catalog);
+                    catalogCommand = new CountAllCommand(Catalog);
                     break;
                 case "count_types":
-                    catalogCommand = new CountType(catalog);
+                    catalogCommand = new CountTypeCommand(Catalog);
                     break;
                 case "average_price":    
-                    catalogCommand = new AveragePrice(catalog);
+                    catalogCommand = new AveragePriceCommand(Catalog);
                     break;
                 case "average_price_type":    
-                    catalogCommand = new AveragePriceType(catalog, splitCommand[2]);
+                    catalogCommand = new AveragePriceTypeCommand(Catalog, splitCommand[2]);
                     break;
             }
 

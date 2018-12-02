@@ -15,10 +15,10 @@ namespace DEV_8
             this.XmlFile = addressXml;
         }
 
-        public List<Car> parseInListOfCars()
+        public List<Car> ParseInListOfCars()
         {
-            XDocument xdoc = XDocument.Load(XmlFile);
-            List<Car> result = xdoc.Element("machines")?.Elements("car").Select
+            var Xdoc = XDocument.Load(XmlFile);
+            List<Car> result = Xdoc.Element("machines")?.Elements("car").Select
             (x => new Car(x.Element("brand").Value, x.Element("model").Value,
                 Int32.Parse(x.Element("numberOfCars").Value),
                 Decimal.Parse(x.Element("price").Value,CultureInfo.InvariantCulture))).ToList();
@@ -26,10 +26,10 @@ namespace DEV_8
             return result;
         }
         
-        public List<Truck> parseInListOfTrucks()
+        public List<Truck> ParseInListOfTrucks()
         {
-            XDocument xdoc = XDocument.Load(XmlFile);
-            List<Truck> result = xdoc.Element("machines")?.Elements("truck").Select
+            var Xdoc = XDocument.Load(XmlFile);
+            List<Truck> result = Xdoc.Element("machines")?.Elements("truck").Select
             (x => new Truck(x.Element("brand").Value, x.Element("model").Value,
                 Int32.Parse(x.Element("numberOfCars").Value),
                 Decimal.Parse(x.Element("price").Value,CultureInfo.InvariantCulture))).ToList();

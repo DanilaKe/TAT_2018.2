@@ -1,6 +1,6 @@
 namespace DEV_8
 {
-    public interface Receiver
+    public interface IReceiver
     {
         void CountBrand();
         void Count();
