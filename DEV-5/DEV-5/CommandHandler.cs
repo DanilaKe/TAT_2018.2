@@ -48,6 +48,10 @@ namespace DEV_5
                     case TypeOfCommands.None :
                         Console.WriteLine("Invalid command.\n");
                         break;
+                    case TypeOfCommands.Add :
+                        catalogCommand = new Add(catalog,splitCommand[1], splitCommand[2],
+                            int.Parse(splitCommand[3]), int.Parse(splitCommand[4]));
+                        break;
                     case TypeOfCommands.CountAll :
                         catalogCommand = new CountAll(catalog);
                         break;
