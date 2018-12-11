@@ -46,7 +46,7 @@
     <Compile Include="pages\FeedPage.cs" />
     <Compile Include="pages\LoginPage.cs" />
     <Compile Include="pages\MessagePage.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
