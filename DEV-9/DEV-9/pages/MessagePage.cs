@@ -5,11 +5,11 @@ using OpenQA.Selenium;
 namespace DEV_9.pages
 {
     public class MessagePage
-    { 
+    {
         By DialogLocator = By.XPath("//*[@id=\"im_dialogs\"]");
         private IWebDriver driver;
 
-        private List<IWebElement> UnreadMessages; 
+        private List<IWebElement> UnreadMessages;
 
         public MessagePage(IWebDriver driver)
         {
@@ -19,7 +19,7 @@ namespace DEV_9.pages
 
         private void FindUnreadMessages()
         {
-            var unread = 
+            var unread =
                 driver.FindElement(DialogLocator).FindElements(By.ClassName("nim-dialog_unread"));
             foreach (var x in unread)
             {
@@ -29,19 +29,14 @@ namespace DEV_9.pages
 
         public List<string> GetUnreadMessages()
         {
-            try
+            List<string> ReturnedMessage = new List<string>();
+            FindUnreadMessages();
+            foreach (var x in UnreadMessages)
             {
-                FindUnreadMessages();
-                foreach (var x in UnreadMessages)
-                {
-                    Console.WriteLine(x.Text);
-                }
-                return null;
+                ReturnedMessage.Add(x.Text);
             }
-            catch (Exception e)
-            {
-                throw;
-            }
+
+            return ReturnedMessage;
         }
     }
 }

@@ -21,14 +21,16 @@ namespace DEV_9.pages
         {
             this.driver = driver;
         }
-
-        public bool TryLogin()
+        
+        /// <summary>
+        /// Method Login
+        /// Try login in vk.com.
+        /// </summary>
+        public void LogIn()
         {
-                driver.FindElement(UsernameLocator).Click();
-                driver.FindElement(UsernameLocator).SendKeys(Login);
-                driver.FindElement(PasswordLocator).SendKeys(Password);
-                driver.FindElement(LoginButtonLocator).Click();
-            return true;
+            driver.FindElement(UsernameLocator).SendKeys(Login);
+            driver.FindElement(PasswordLocator).SendKeys(Password);
+            driver.FindElement(LoginButtonLocator).Click();
         }
     }
 }

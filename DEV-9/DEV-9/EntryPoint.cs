@@ -29,13 +29,18 @@ namespace DEV_9
                 var loginPage = new LoginPage(driver);
                 loginPage.Login = "Login";
                 loginPage.Password = "Password";
-                loginPage.TryLogin();
+                loginPage.LogIn();
                 
                 var feedPage = new FeedPage(driver);
                 feedPage.OpenMessagePage();
                 
                 var messagePage = new MessagePage(driver);
-                messagePage.GetUnreadMessages();
+                var UnreadMessages = messagePage.GetUnreadMessages();
+
+                foreach (var x in UnreadMessages)
+                {
+                    Console.WriteLine(x);
+                }
                 
             }
             catch (Exception e)
