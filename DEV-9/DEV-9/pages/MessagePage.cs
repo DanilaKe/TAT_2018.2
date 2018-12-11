@@ -29,12 +29,19 @@ namespace DEV_9.pages
 
         public List<string> GetUnreadMessages()
         {
-            FindUnreadMessages();
-            foreach (var x in UnreadMessages)
+            try
             {
-                Console.WriteLine(x.FindElement(By.ClassName("nim-dialog--preview _dialog_body")).Text);
+                FindUnreadMessages();
+                foreach (var x in UnreadMessages)
+                {
+                    Console.WriteLine(x.Text);
+                }
+                return null;
             }
-            return null;
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
-}//*[@id="im_dialogs"]/li[1]/div[2]/div/div[3]/span[1]
+}

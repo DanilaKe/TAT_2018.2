@@ -1,6 +1,8 @@
+using System;
 using System.Net.Configuration;
 using System.Runtime.CompilerServices;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace DEV_9.pages
 {
@@ -22,10 +24,10 @@ namespace DEV_9.pages
 
         public bool TryLogin()
         {
-            driver.FindElement(UsernameLocator).Click();
-            driver.FindElement(UsernameLocator).SendKeys(Login);
-            driver.FindElement(PasswordLocator).SendKeys(Password);
-            driver.FindElement(LoginButtonLocator).Click();
+                driver.FindElement(UsernameLocator).Click();
+                driver.FindElement(UsernameLocator).SendKeys(Login);
+                driver.FindElement(PasswordLocator).SendKeys(Password);
+                driver.FindElement(LoginButtonLocator).Click();
             return true;
         }
     }

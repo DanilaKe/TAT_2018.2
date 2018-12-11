@@ -14,7 +14,7 @@ namespace DEV_9.pages
 
         public void OpenMessagePage()
         {
-            driver.FindElement(MenuBarLocator).FindElement(By.Id("l_msg")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"l_msg\"]/a/span/span[3]")).Click();
         }
     }
 }
