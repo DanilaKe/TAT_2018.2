@@ -2,6 +2,10 @@ using OpenQA.Selenium;
 
 namespace DEV_9.pages
 {
+    /// <summary>
+    /// Class FeedPage
+    /// Class with feed.
+    /// </summary>
     public class FeedPage
     {
         By MenuBarLocator = By.XPath("//*[@id=\"side_bar_inner\"]");

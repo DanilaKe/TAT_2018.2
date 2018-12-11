@@ -4,6 +4,10 @@ using OpenQA.Selenium;
 
 namespace DEV_9.pages
 {
+    /// <summary>
+    /// Class MessagePage
+    /// Page with messages.
+    /// </summary>
     public class MessagePage
     {
         By DialogLocator = By.XPath("//*[@id=\"im_dialogs\"]");

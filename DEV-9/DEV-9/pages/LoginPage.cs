@@ -6,6 +6,10 @@ using OpenQA.Selenium.Support.UI;
 
 namespace DEV_9.pages
 {
+    /// <summary>
+    /// Class LoginPage
+    /// Page with login function.
+    /// </summary>
     public class LoginPage
     {
         By UsernameLocator = By.XPath("//*[@id=\"index_email\"]");
