@@ -1,9 +1,8 @@
 ﻿using System;
-using DEV_9.pages;
-using Microsoft.Win32;
+using DEV_9.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace DEV_9
 {
@@ -26,20 +25,24 @@ namespace DEV_9
                 driver.Manage().Window.Maximize();
                 driver.Navigate().GoToUrl("https://vk.com/");
                 
-                var loginPage = new LoginPage(driver);
-                loginPage.Login = "Login";
-                loginPage.Password = "Password";
-                loginPage.LogIn();
+                var pageLogin = new PageLogin();
+                PageFactory.InitElements(driver, pageLogin);
+                pageLogin.TxtEmail.Click();
+                pageLogin.TxtEmail.SendKeys("login");
+                pageLogin.TxtPassword.Click();
+                pageLogin.TxtPassword.SendKeys("password");
+                pageLogin.BtnLogin.Click();
                 
-                var feedPage = new FeedPage(driver);
-                feedPage.OpenMessagePage();
+                var pageFeed = new PageFeed();
+                PageFactory.InitElements(driver, pageFeed);
+                pageFeed.BtnMessage.Click();
                 
-                var messagePage = new MessagePage(driver);
-                var UnreadMessages = messagePage.GetUnreadMessages();
+                var pageMessage = new PageMessage();
+                PageFactory.InitElements(driver, pageMessage);
 
-                foreach (var x in UnreadMessages)
+                foreach (var message in pageMessage.UnreadMessages)
                 {
-                    Console.WriteLine(x);
+                    Console.WriteLine(message.Text);
                 }
                 
             }
