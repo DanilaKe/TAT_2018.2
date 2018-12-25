@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using SeleniumTestFramework;
 using SeleniumTestFramework.Pages;
@@ -9,11 +7,9 @@ using SeleniumTestFramework.Pages;
 namespace DEV_10
 {
     [TestFixture]
-    public class Tests
+    public class LoginTest
     {
         private  Browser _browser;
-        private MainPage _mainPage;
-        private LoginPage _loginPage;
         private static readonly TimeSpan DefaultTimeSpan = TimeSpan.FromSeconds(10);
         
         [SetUp]
@@ -26,9 +22,6 @@ namespace DEV_10
             }
             _browser.WebDriver.Manage().Window.Maximize();
             _browser.WebDriver.Navigate().GoToUrl("https://poezd.rw.by");   
-
-            _mainPage = new MainPage(_browser.WebDriver,TimeSpan.FromSeconds(10));
-            _loginPage = new LoginPage(_browser.WebDriver,TimeSpan.FromSeconds(10));
         }
         
         [TearDown]
@@ -38,27 +31,30 @@ namespace DEV_10
         }
         
         [Test]
-        [TestCase("","sadfas","home/login_main")]
-        [TestCase("dsdfsdf","","home/login_main")]
-        [TestCase("login", "password","home/login_main")]
+        [TestCase("","sadfas","home/login_main", TestName = "Login empty test.")]
+        [TestCase("dsdfsdf","","home/login_main", TestName = "Password empty test")]
+        [TestCase("login", "password","home/login_main", TestName = "Invalid login/password test.")]
+        
         public void CheckLogin(string login, string password, string expectedResult)
         {
-            PageFactory.InitElements(_browser.WebDriver, _mainPage);
-            _mainPage.BtnLogin.Click();
+            var mainPage = new MainPage(_browser.WebDriver,DefaultTimeSpan);
+            PageFactory.InitElements(_browser.WebDriver, mainPage);
+            mainPage.BtnLogin.Click();
             Assert.True(_browser.WebDriver.Url.Contains("home/login_main"),"The \"Login\" button on the main page does not work.");
-            PageFactory.InitElements(_browser.WebDriver, _loginPage);
             
-            _loginPage.WaitUntil(_loginPage.TxtLogin).Click();
-            _loginPage.TxtLogin.Clear();
-            _loginPage.TxtLogin.SendKeys(login);
+            var loginPage = new LoginPage(_browser.WebDriver,DefaultTimeSpan);
+            PageFactory.InitElements(_browser.WebDriver, loginPage);
             
-            _loginPage.WaitUntil(_loginPage.TxtPassword).Click();
-            _loginPage.TxtPassword.Clear();
-            _loginPage.TxtPassword.SendKeys(password);
+            loginPage.WaitUntil(loginPage.TxtLogin).Click();
+            loginPage.TxtLogin.Clear();
+            loginPage.TxtLogin.SendKeys(login);
             
-            _loginPage.WaitUntil(_loginPage.BtnLogin).Click();
+            loginPage.WaitUntil(loginPage.TxtPassword).Click();
+            loginPage.TxtPassword.Clear();
+            loginPage.TxtPassword.SendKeys(password);
+            
+            loginPage.WaitUntil(loginPage.BtnLogin).Click();
             Assert.True(_browser.WebDriver.Url.Contains(expectedResult));
-            
         }
     }
 }
