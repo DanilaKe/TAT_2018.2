@@ -21,11 +21,8 @@ namespace SeleniumTestFramework.Pages
         [FindsBy(How = How.ClassName, Using = "btn")]
         public IWebElement BtnLogin { get; set; }
 
+        public static readonly string Url = "home/login_main";
 
-        public LoginPage(IWebDriver driver, TimeSpan defaultTimeSpan) : base(driver, defaultTimeSpan)
-        {
-        }
-        
-        
+        public LoginPage(IWebDriver driver, TimeSpan defaultTimeSpan) : base(driver, defaultTimeSpan) { }
     }
 }
