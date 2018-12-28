@@ -6,18 +6,11 @@ namespace SeleniumTestFramework.Pages
 {
     public abstract class Page
     {
-        protected  IWebDriver Driver;
-        protected  TimeSpan DefaultTimeSpan;
+        private static readonly TimeSpan DefaultTimeSpan = TimeSpan.FromSeconds(10);
 
-        public Page(IWebDriver driver, TimeSpan defaultTimeSpan)
+        public static IWebElement WaitUntil(IWebElement ExpectedItem)
         {
-            Driver = driver;
-            DefaultTimeSpan = defaultTimeSpan;
-        }
-
-        public IWebElement WaitUntil(IWebElement ExpectedItem)
-        {
-            return new WebDriverWait(Driver, DefaultTimeSpan).Until((d) => ExpectedItem.Enabled ? ExpectedItem : null);
+            return new WebDriverWait(Browser.WebDriver,DefaultTimeSpan).Until((d) => ExpectedItem.Enabled ? ExpectedItem : null);
         }
     }
 }

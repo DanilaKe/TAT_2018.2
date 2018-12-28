@@ -6,23 +6,29 @@ namespace SeleniumTestFramework.Pages
 {
     public class MainPage : Page
     {
-        private By UserBar = By.XPath("//*[@class=\"logo\"]//*[@class=\"user\"]");
+        const string UserBarLocator = "//*[@class=\"logo\"]//*[@class=\"user\"]";
         
-        private By ButtonBar = By.XPath("//*[@class=\"center\"]//*[@class=\"tabs\"]");
+        const string ButtonBarLocator = "//*[@class=\"center\"]//*[@class=\"tabs\"]";
 
-        public IWebElement BtnLogin => Driver.FindElement(UserBar).FindElement(By.XPath("//*[contains(@onclick,\"login\")]"));
+        [FindsBySequence]
+        [FindsBy(How = How.XPath, Using = UserBarLocator)]
+        [FindsBy(How = How.XPath, Using = "//*[contains(@onclick,\"login\")]")]
+        public IWebElement BtnLogin { get; set; }
+        
+        [FindsBySequence]
+        [FindsBy(How = How.XPath, Using = ButtonBarLocator)]
+        [FindsBy(How = How.XPath, Using = "//*[contains(@href,\"schedule\")]")]
+        public IWebElement BtnPageRouteSelection { get; set; }
 
-        public IWebElement BtnPageRouteSelection =>
-            Driver.FindElement(ButtonBar).FindElement(By.XPath("//*[contains(@href,\"schedule\")]"));
-
-        public void GoToLoginPage()
+        public bool GoToLoginPage()
         {
             WaitUntil(BtnLogin).Click();
+            return Browser.WebDriver.Url.Contains(LoginPage.Url);
         }
 
-      public MainPage(IWebDriver driver, TimeSpan defaultTimeSpan) : base(driver, defaultTimeSpan)
-      {
-          PageFactory.InitElements(Driver, this);
-      }
+        public MainPage()
+        {
+            PageFactory.InitElements(Browser.WebDriver, this);
+        }
     }
 }

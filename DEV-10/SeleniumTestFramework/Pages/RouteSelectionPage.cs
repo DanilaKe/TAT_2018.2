@@ -7,6 +7,8 @@ namespace SeleniumTestFramework.Pages
 {
     public class RouteSelectionPage : Page
     {
+        
+        /*
         [FindsBySequence]
         [FindsBy(How = How.ClassName, Using = "fields")]
         [FindsBy(How = How.XPath, Using = "tbody/tr[1]/td[1]/input")]
@@ -31,10 +33,8 @@ namespace SeleniumTestFramework.Pages
         [FindsBySequence]
         [FindsBy(How = How.ClassName, Using = "fields")]
         [FindsBy(How = How.CssSelector, Using = "tbody > tr:nth-child(1) > td:nth-child(5)")]
-        public IList<IWebElement> BtnDefaultDepartureRouteStantion { get; set; }
+        public IList<IWebElement> BtnDefaultDepartureRouteStantion { get; set; }*/
 
         public static readonly string Url = "/rp/schedule";
-
-        public RouteSelectionPage(IWebDriver driver, TimeSpan defaultTimeSpan) : base(driver, defaultTimeSpan) { }
     }
 }

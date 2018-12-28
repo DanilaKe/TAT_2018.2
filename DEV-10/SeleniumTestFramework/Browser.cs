@@ -3,20 +3,20 @@ using OpenQA.Selenium.Chrome;
 
 namespace SeleniumTestFramework
 {
-    public class Browser
+    public static class Browser
     {
-        public IWebDriver WebDriver { get; set; }
-        public bool Initialised { get; set; }
+        public static IWebDriver WebDriver { get; set; }
+        public static bool Initialised { get; set; }
 
         private const string ChromeDriverDirectory = "/home/danila";
 
-        public void Initialize()
+        public static void Initialize()
         {
             WebDriver = new ChromeDriver(ChromeDriverDirectory);
             Initialised = true;
         }
 
-        public  void Quit()
+        public static void Quit()
         {
             WebDriver.Quit();
             Initialised = false;

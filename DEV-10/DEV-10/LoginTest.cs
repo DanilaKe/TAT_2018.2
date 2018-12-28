@@ -8,59 +8,34 @@ namespace DEV_10
 {
     [TestFixture]
     public class LoginTest
-    {
-        private  Browser _browser;
-        private static readonly TimeSpan DefaultTimeSpan = TimeSpan.FromSeconds(10);
-        
+    {   
         [SetUp]
         public void SetUp()
         {
-            if (_browser == null || _browser.Initialised == false)
+            if (!Browser.Initialised)
             {
-                _browser = new Browser();
-                _browser.Initialize();
+                Browser.Initialize();
             }
-          //  _browser.WebDriver.Manage().Window.Maximize();
-            _browser.WebDriver.Navigate().GoToUrl("https://poezd.rw.by");   
+            Browser.WebDriver.Navigate().GoToUrl("https://poezd.rw.by");   
         }
         
         [TearDown]
         public void After()
         {
-            _browser.Quit(); 
+            Browser.Quit(); 
         }
         
         [Test]
-        [TestCase("","sadfas", false, TestName = "Login empty test.")]
-        [TestCase("dsdfsdf","", false, TestName = "Password empty test")]
-        [TestCase("login", "password", false, TestName = "Invalid login/password test.")]
-        
-        public void CheckLogin(string login, string password, bool expectedResult)
+        [TestCase("","sadfas", TestName = "Login empty test.")]
+        [TestCase("dsdfsdf","", TestName = "Password empty test")]
+        [TestCase("login", "password", TestName = "Invalid login/password test.")]
+        public void CheckLogin(string login, string password)
         {
-            var mainPage = new MainPage(_browser.WebDriver,DefaultTimeSpan);
-            mainPage.GoToLoginPage();
+            var mainPage = new MainPage();
+            var loginPage = new LoginPage();
             
-            Assert.True(_browser.WebDriver.Url.Contains(LoginPage.Url),"The \"Login\" button on the main page does not work.");
-            var loginPage = new LoginPage(_browser.WebDriver,DefaultTimeSpan);
-            PageFactory.InitElements(_browser.WebDriver, loginPage);
-            
-            loginPage.WaitUntil(loginPage.TxtLogin).Click();
-            loginPage.TxtLogin.Clear();
-            loginPage.TxtLogin.SendKeys(login);
-            
-            loginPage.WaitUntil(loginPage.TxtPassword).Click();
-            loginPage.TxtPassword.Clear();
-            loginPage.TxtPassword.SendKeys(password);
-            
-            loginPage.WaitUntil(loginPage.BtnLogin).Click();
-            if (expectedResult)
-            {
-                Assert.True(_browser.WebDriver.Url.Contains(BuyTicketPage.Url));
-            }
-            else
-            {
-                Assert.True(_browser.WebDriver.Url.Contains(LoginPage.Url));
-            }
+            Assert.True(mainPage.GoToLoginPage(),"The \"Login\" button on the main page does not work.");
+            Assert.True(!loginPage.TryLogin(login, password));
         }
     }
 }
