@@ -10,18 +10,18 @@ namespace SeleniumTestFramework.Pages
 
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = ContentLocator)]
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"login\"]")]
-        public IWebElement TxtLogin { get; set; }
+        [FindsBy(How = How.XPath, Using = "//*[@name=\"login\"]")]
+        private IWebElement TxtLogin { get; set; }
         
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = ContentLocator)]
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"password\"]")]
-        public IWebElement TxtPassword { get; set; }
+        [FindsBy(How = How.XPath, Using = "//*[@name=\"password\"]")]
+        private IWebElement TxtPassword { get; set; }
         
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = ContentLocator)]
         [FindsBy(How = How.XPath, Using = "//*[@class=\"btn\"]")]
-        public IWebElement BtnLogin { get; set; }
+        private IWebElement BtnLogin { get; set; }
 
         public static readonly string Url = "home/login_main";
 
