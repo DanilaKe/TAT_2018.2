@@ -40,7 +40,7 @@ namespace DEV_10
         
         [Test]
         [TestCase("login", "password")]
-        public void CheckLoginPostiveTest(string login, string password)
+        public void CheckLoginPositiveTest(string login, string password)
         {
             var mainPage = new MainPage();
             var loginPage = new LoginPage();

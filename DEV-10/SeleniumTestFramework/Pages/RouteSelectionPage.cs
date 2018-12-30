@@ -72,9 +72,26 @@ namespace SeleniumTestFramework.Pages
                        .Count == 1;
         }
 
-        public void SetDefaultStation(IWebElement defaultStation)
+        public bool TrySetDefaultStation(IWebElement defaultStation)
         {
+            var expectedStation = defaultStation.Text;
             WaitUntil(defaultStation).Click();
+            WaitUntil(BtnSearch).Click();
+
+            return Page.WaitUntil(TxtDepartureStation).GetAttribute("value") == expectedStation ||
+                   Page.WaitUntil(TxtDestinationStation).GetAttribute("value") == expectedStation;
+        }
+
+        public bool TrySetTimeRange(int leftBorder, int rightBorder)
+        {
+            if (leftBorder > rightBorder || leftBorder < 0 || rightBorder > 23)
+                return false;
+            WaitUntil(BtnTimeRange[0]).Click();
+            WaitUntil(BtnTimeRange[leftBorder]).Click();
+            WaitUntil(BtnTimeRange[rightBorder]).Click();
+
+            return Browser.WebDriver.FindElements(By.XPath("//*[@class = \"block\"]//*[contains(@class,\"time_ch\")]"))
+                       .Count == 23 - (rightBorder - leftBorder);
         }
         
         public RouteSelectionPage()

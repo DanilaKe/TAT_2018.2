@@ -29,7 +29,7 @@ namespace DEV_10
         [Test]    
         [TestCase("", "Брест", "26.12.18")]
         [TestCase("МинСк","","26.12.18")]
-        public void NegativeTest(string departureStation, string destinationStation, string date)
+        public void SetRouteNegativeTest(string departureStation, string destinationStation, string date)
         {
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
@@ -42,7 +42,7 @@ namespace DEV_10
         [Test]
         [TestCase("Минск","Брест","30.12.2018")]
         [TestCase("Брест", "Минск","")]
-        public void PositiveTest(string departureStation, string destinationStation, string date)
+        public void SetRoutePositiveTest(string departureStation, string destinationStation, string date)
         {
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
@@ -53,21 +53,56 @@ namespace DEV_10
         }
 
         [Test]
-        public void DefaultDeparture()
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        public void DefaultDepartureTest(int positionOfButton)
         {
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
-            
+
             Assert.True(mainPage.GoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
             
-            foreach (var station in routeSelectionPage.BtnDefaultDepartureRouteStation)
-            {
-                routeSelectionPage.SetDefaultStation(station);
-                PageFactory.InitElements(Browser.WebDriver, routeSelectionPage);
-                
-                Assert.True(routeSelectionPage.TxtDepartureStation.Text == station.Text);
-            }
+            
+            var station = routeSelectionPage.BtnDefaultDepartureRouteStation[positionOfButton-1];
+            Assert.True(routeSelectionPage.TrySetDefaultStation(station)); 
+        }
+        
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        public void DefaultDestinationTest(int positionOfButton)
+        {
+            var mainPage = new MainPage();
+            var routeSelectionPage = new RouteSelectionPage();
+
+            Assert.True(mainPage.GoToRoutePage(),
+                "The \"Open route selection page\" button on the main page does not work.");
+            
+            var station = routeSelectionPage.BtnDefaultDestinationRouteStation[positionOfButton-1];
+            Assert.True(routeSelectionPage.TrySetDefaultStation(station));
+        }
+
+        [Test]
+        [TestCase(1, 2)]
+        [TestCase(20, 23)]
+        public void TimeRangeTest(int leftBorder, int rightBorder)
+        {            
+            var mainPage = new MainPage();
+            var routeSelectionPage = new RouteSelectionPage();
+
+            Assert.True(mainPage.GoToRoutePage(),
+                "The \"Open route selection page\" button on the main page does not work.");
+            
+            Assert.True(routeSelectionPage.TrySetTimeRange(leftBorder,rightBorder));
         }
     }
 }
