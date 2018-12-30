@@ -1,7 +1,4 @@
-using System;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using SeleniumTestFramework;
 using SeleniumTestFramework.Pages;
 
@@ -34,7 +31,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
             
-            Assert.True(mainPage.GoToRoutePage(),
+            Assert.True(mainPage.TryGoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
             Assert.IsFalse(routeSelectionPage.TryChooseRoute(departureStation,destinationStation,date));
         }
@@ -47,7 +44,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
             
-            Assert.True(mainPage.GoToRoutePage(),
+            Assert.True(mainPage.TryGoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
             Assert.True(routeSelectionPage.TryChooseRoute(departureStation,destinationStation,date));
         }
@@ -64,9 +61,8 @@ namespace DEV_10
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
 
-            Assert.True(mainPage.GoToRoutePage(),
+            Assert.True(mainPage.TryGoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
-            
             
             var station = routeSelectionPage.BtnDefaultDepartureRouteStation[positionOfButton-1];
             Assert.True(routeSelectionPage.TrySetDefaultStation(station)); 
@@ -84,7 +80,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
 
-            Assert.True(mainPage.GoToRoutePage(),
+            Assert.True(mainPage.TryGoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
             
             var station = routeSelectionPage.BtnDefaultDestinationRouteStation[positionOfButton-1];
@@ -99,7 +95,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var routeSelectionPage = new RouteSelectionPage();
 
-            Assert.True(mainPage.GoToRoutePage(),
+            Assert.True(mainPage.TryGoToRoutePage(),
                 "The \"Open route selection page\" button on the main page does not work.");
             
             Assert.True(routeSelectionPage.TrySetTimeRange(leftBorder,rightBorder));

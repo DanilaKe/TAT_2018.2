@@ -1,4 +1,3 @@
-using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
@@ -10,6 +9,9 @@ namespace SeleniumTestFramework.Pages
     /// </summary>
     public class LoginPage : Page
     {
+        /// <summary>
+        /// This is a locator on an element with content on this page.
+        /// </summary>
         const string ContentLocator = "//*[@class=\"content\"]";
         
         /// <summary>

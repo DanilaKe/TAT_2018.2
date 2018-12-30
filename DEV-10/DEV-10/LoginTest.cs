@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using NUnit.Framework;
 using SeleniumTestFramework;
 using SeleniumTestFramework.Pages;
 
@@ -34,7 +32,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var loginPage = new LoginPage();
             
-            Assert.True(mainPage.GoToLoginPage(),"The \"Login\" button on the main page does not work.");
+            Assert.True(mainPage.TryGoToLoginPage(),"The \"Login\" button on the main page does not work.");
             Assert.IsFalse(loginPage.TryLogin(login, password));
         }
         
@@ -45,7 +43,7 @@ namespace DEV_10
             var mainPage = new MainPage();
             var loginPage = new LoginPage();
             
-            Assert.True(mainPage.GoToLoginPage(),"The \"Login\" button on the main page does not work.");
+            Assert.True(mainPage.TryGoToLoginPage(),"The \"Login\" button on the main page does not work.");
             Assert.True(loginPage.TryLogin(login, password));
         }
     }
