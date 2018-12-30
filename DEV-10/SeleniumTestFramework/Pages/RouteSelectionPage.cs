@@ -60,11 +60,23 @@ namespace SeleniumTestFramework.Pages
             TxtDestinationStation.SendKeys(destinationStation);
             TxtDestinationStation.SendKeys(Keys.Escape);
             
+            WaitUntil(TxtDate).Click();
+            TxtDate.Clear();
+            TxtDate.SendKeys(date);
+            TxtDate.SendKeys(Keys.Escape);
+            
             WaitUntil(BtnSearch).Click();
 
-            return !TxtDepartureStation.Displayed;
+            return Browser.WebDriver
+                       .FindElements(By.XPath("//div[contains(@id,\"359b\") and contains(@class,\"tabsl2_ch\")]"))
+                       .Count == 1;
         }
 
+        public void SetDefaultStation(IWebElement defaultStation)
+        {
+            WaitUntil(defaultStation).Click();
+        }
+        
         public RouteSelectionPage()
         {
             PageFactory.InitElements(Browser.WebDriver,this);

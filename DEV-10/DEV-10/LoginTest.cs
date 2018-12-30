@@ -29,13 +29,24 @@ namespace DEV_10
         [TestCase("","sadfas", TestName = "Login empty test.")]
         [TestCase("dsdfsdf","", TestName = "Password empty test")]
         [TestCase("login", "password", TestName = "Invalid login/password test.")]
-        public void CheckLogin(string login, string password)
+        public void CheckLoginNegativeTest(string login, string password)
         {
             var mainPage = new MainPage();
             var loginPage = new LoginPage();
             
             Assert.True(mainPage.GoToLoginPage(),"The \"Login\" button on the main page does not work.");
             Assert.IsFalse(loginPage.TryLogin(login, password));
+        }
+        
+        [Test]
+        [TestCase("login", "password")]
+        public void CheckLoginPostiveTest(string login, string password)
+        {
+            var mainPage = new MainPage();
+            var loginPage = new LoginPage();
+            
+            Assert.True(mainPage.GoToLoginPage(),"The \"Login\" button on the main page does not work.");
+            Assert.True(loginPage.TryLogin(login, password));
         }
     }
 }
