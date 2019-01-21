@@ -10,14 +10,50 @@ namespace DEV_3
     /// </summary>
     public class NumbersConverter
     {
-        public int NumberInDecimal { get; set; }
-        public int Radix { get; set; }
+        private int radix;
+        private int numberInDecimal;
+        public const int MaxRadix = 20;
+        public const int MinRadix = 2;
+        
+        public int Radix
+        {
+            get => radix;
 
-        private const int MaxRadix = 20;
-        private const int MinRadix = 2;
+            set
+            {
+                if (value < MinRadix || value > MaxRadix)
+                {
+                    throw new ArgumentOutOfRangeException("Radix is not in the desired range.");
+                }
+
+                radix = value;
+            }
+        }
+        
+        public int NumberInDecimal
+        {
+            get => numberInDecimal;
+
+            set
+            {
+                if (value == int.MinValue)
+                {
+                    throw new ArgumentOutOfRangeException("Number in decimal is not in the desired range.");
+                }
+
+                numberInDecimal = value;
+            }
+        }
+        
         // Matching numbers with letters.
         private readonly string lettersInNumbers = "0123456789ABCDEFGHIJ";
 
+        public NumbersConverter()
+        {
+            NumberInDecimal = 0;
+            Radix = MinRadix;
+        }
+        
         public NumbersConverter(int receivedNumber, int radixOfTheNewNumberSystem)
         {
             if (radixOfTheNewNumberSystem < MinRadix || radixOfTheNewNumberSystem > MaxRadix)

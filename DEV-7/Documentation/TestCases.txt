@@ -1,0 +1,114 @@
+Test PositiveTest: 
+    TestCase "Convert minimum positive number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 1
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 1 2"
+        Expected result : 1
+
+    TestCase "Convert maximum negative number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 2
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe -1 2"
+        Expected result : -1
+
+    TestCase "Convert random positive number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 3
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 326443 20"
+        Expected result : 20G23
+
+    TestCase "Convert random negative number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 4
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe -326443 20"
+        Expected result : -20G23
+
+    TestCase "Convert maximum positive number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 5
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 2147483647 2"
+        Expected result : 1111111111111111111111111111111
+
+    TestCase "Convert maximum negative number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 6
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe -2147483647 2"
+        Expected result : -1111111111111111111111111111111
+
+    TestCase "Convert maximum positive number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 7
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 2147483647 20"
+        Expected result : 1DB1F927
+
+    TestCase "Convert maximum negative number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 8
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe -2147483647 20"
+        Expected result : -1DB1F927
+
+    TestCase "Convert zero" :
+        Identifier : Dev3Tests.PositiveTest 9
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 0 2"
+        Expected result : 0
+
+Test ArgumentOutOfRangeExceptionTest : 
+    TestCase "Exception when radix out of upper range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 1
+        Module : NumbersConverter
+        Submodule : set_Radix()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 23 21"
+        Expected result : ArgumentOutOfRangeException
+
+    TestCase "Exception when radix out of lower range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 2
+        Module : NumbersConverter
+        Submodule : set_Radix()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe 23 1"
+        Expected result : ArgumentOutOfRangeException
+
+    TestCase "Exception when decimal number out range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 3
+        Module : NumbersConverter
+        Submodule : set_NumberInDecimal()
+        Test steps :
+            1. Change the directory in the console to the directory with the EXE file. Example : "cd /Documents/DEV-3/bin/Debug/"   
+            2. To run the program enter into the console : "mono DEV_3.exe -2147483648 2"
+        Expected result : ArgumentOutOfRangeException
+        
+
+
+
+

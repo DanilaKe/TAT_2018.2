@@ -1,0 +1,155 @@
+Test PositiveTest: 
+    TestCase "Convert minimum positive number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 1
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = 1
+            radixOfTheNumberSystem = 2
+        Expected result : 1
+        Actual result : 1
+        Test result : success
+
+    TestCase "Convert maximum negative number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 2
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = -1
+            radixOfTheNumberSystem = 2
+        Expected result : -1
+        Actual result : -1
+        Test result : success
+
+    TestCase "Convert random positive number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 3
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = 326443
+            radixOfTheNumberSystem = 20
+        Expected result : 20G23
+        Actual result : 20G23
+        Test result : success
+
+    TestCase "Convert random negative number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 4
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = -326443
+            radixOfTheNumberSystem = 20
+        Expected result : -20G23
+        Actual result : -20G23
+        Test result : success
+
+    TestCase "Convert maximum positive number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 5
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = 2147483647
+            radixOfTheNumberSystem = 2
+        Expected result : 1111111111111111111111111111111
+        Actual result : 1111111111111111111111111111111
+        Test result : success
+
+    TestCase "Convert maximum negative number in minimal radix" :
+        Identifier : Dev3Tests.PositiveTest 6
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = -2147483647
+            radixOfTheNumberSystem = 2
+        Expected result : -1111111111111111111111111111111
+        Actual result : -1111111111111111111111111111111
+        Test result : success
+
+    TestCase "Convert maximum positive number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 7
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = 2147483647
+            radixOfTheNumberSystem = 20
+        Expected result : 1DB1F927
+        Actual result : 1DB1F927
+        Test result : success
+
+    TestCase "Convert maximum negative number in maximal radix" :
+        Identifier : Dev3Tests.PositiveTest 8
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = -2147483647
+            radixOfTheNumberSystem = 20
+        Expected result : -1DB1F927
+        Actual result : -1DB1F927
+        Test result : success
+
+    TestCase "Convert zero" :
+        Identifier : Dev3Tests.PositiveTest 9
+        Module : NumbersConverter
+        Submodule : ConvertNumberFromDecimal()
+        Test description : Convert decimal number to new radix of number system. ﻿
+        Initial data :
+            number = 0
+            radixOfTheNumberSystem = 2
+        Expected result : 0
+        Actual result : 0
+        Test result : success
+
+Test ArgumentOutOfRangeExceptionTest : 
+    TestCase "Exception when radix out of upper range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 1
+        Module : NumbersConverter
+        Submodule : set_Radix()
+        Test description : Check for correct response to incorrect data. ﻿
+        Initial data :
+            number = 23
+            radixOfTheNumberSystem = 21
+        Expected result : ArgumentOutOfRangeException
+        Actual result : ArgumentOutOfRangeException
+        Test result : success
+
+    TestCase "Exception when radix out of lower range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 2
+        Module : NumbersConverter
+        Submodule : set_Radix()
+        Test description : Check for correct response to incorrect data. ﻿
+        Initial data :
+            number = 23
+            radixOfTheNumberSystem = 1
+        Expected result : ArgumentOutOfRangeException
+        Actual result : ArgumentOutOfRangeException
+        Test result : success
+
+    TestCase "Exception when decimal number out range" :
+        Identifier : Dev3Tests.ArgumentOutOfRangeExceptionTest 3
+        Module : NumbersConverter
+        Submodule : set_NumberInDecimal.()
+        Test description : Check for correct response to incorrect data. ﻿
+        Initial data : 
+            number = -2147483648
+            radixOfTheNumberSystem = 2
+        Expected result : ArgumentOutOfRangeException
+        Actual result : ArgumentOutOfRangeException
+        Test result : success
+
+------------------------------------------------------------------------------------
+Summary: 
+Pass Rate = 100 %.
+------------------------------------------------------------------------------------
+        
+
+
+
+
