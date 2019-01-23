@@ -27,21 +27,18 @@ namespace DEV_9
                 driver.Manage().Window.Maximize();
                 driver.Navigate().GoToUrl("https://vk.com/");
                 
-                var pageLogin = new PageLogin();
-                PageFactory.InitElements(driver, pageLogin);
-                pageLogin.TxtEmail.Click();
-                pageLogin.TxtEmail.SendKeys("login");
-                pageLogin.TxtPassword.Click();
-                pageLogin.TxtPassword.SendKeys("password");
-                pageLogin.BtnLogin.Click();
-                
-                var pageFeed = new PageFeed(driver);
-                pageFeed.BtnMessage.Click();
-                
-                var pageMessage = new PageMessage(driver);
-                foreach (var message in pageMessage.UnreadMessages)
+                var pageLogin = new PageLogin(driver);
+                if (pageLogin.TryLogin("", ""))
                 {
-                    Console.WriteLine(message.Text);
+                    new PageFeed(driver).TryGoToMessagePage();
+                    foreach (var message in new PageMessage(driver).GetUnreadMessages())
+                    {
+                        Console.WriteLine(message);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid login/password.");
                 }
                 
             }

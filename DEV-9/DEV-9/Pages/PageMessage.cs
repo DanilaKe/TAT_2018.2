@@ -14,6 +14,10 @@ namespace DEV_9.Pages
     /// </summary>
     public class PageMessage
     {
+        public static readonly string Url = "https://vk.com/im";
+
+        private IWebDriver _webDriver;
+        
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = "//*[@id=\"im_dialogs\"]")] 
         [FindsBy(How = How.ClassName, Using = "nim-dialog_unread")]
@@ -28,11 +32,17 @@ namespace DEV_9.Pages
 
         public PageMessage(IWebDriver webDriver)
         {
+            _webDriver = webDriver;
             // Using PageFactory.
             PageFactory.InitElements(webDriver, this);
             var wait = new WebDriverWait(webDriver,TimeSpan.FromSeconds(60));
             // Custom expected condition.
             wait.Until((d) => EndTblMessage.Enabled ? EndTblMessage : null);
+        }
+
+        public List<string> GetUnreadMessages()
+        {
+            return UnreadMessages.Select(message => message.Text).ToList();
         }
     }
 }
