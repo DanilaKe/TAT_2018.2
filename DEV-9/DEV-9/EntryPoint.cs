@@ -24,19 +24,12 @@ namespace DEV_9
                 driver.Navigate().GoToUrl("https://vk.com/");
                 
                 var pageLogin = new PageLogin(driver);
-                if (pageLogin.TryLogin("", ""))
+                pageLogin.Login("login", "password");
+                new PageFeed(driver).GoToMessagePage();
+                foreach (var message in new PageMessage(driver).GetUnreadMessages())
                 {
-                    new PageFeed(driver).TryGoToMessagePage();
-                    foreach (var message in new PageMessage(driver).GetUnreadMessages())
-                    {
-                        Console.WriteLine(message);
-                    }
+                    Console.WriteLine(message);
                 }
-                else
-                {
-                    Console.WriteLine("Invalid login/password.");
-                }
-                
             }
             catch (Exception e)
             {

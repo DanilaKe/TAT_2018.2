@@ -12,12 +12,10 @@ namespace DEV_9.Pages
     /// Class MessagePage
     /// Page with messages.
     /// </summary>
-    public class PageMessage
+    public class PageMessage : Page
     {
         public static readonly string Url = "https://vk.com/im";
 
-        private IWebDriver _webDriver;
-        
         [FindsBySequence]
         [FindsBy(How = How.XPath, Using = "//*[@id=\"im_dialogs\"]")] 
         [FindsBy(How = How.ClassName, Using = "nim-dialog_unread")]
@@ -30,13 +28,11 @@ namespace DEV_9.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id=\"content\"]/div/div[1]/div[3]")]
         public IWebElement EndTblMessage { get; set; }
 
-        public PageMessage(IWebDriver webDriver)
+        public PageMessage(IWebDriver webDriver) : base(webDriver)
         {
-            _webDriver = webDriver;
             // Using PageFactory.
             PageFactory.InitElements(webDriver, this);
             var wait = new WebDriverWait(webDriver,TimeSpan.FromSeconds(60));
-            // Custom expected condition.
             wait.Until((d) => EndTblMessage.Enabled ? EndTblMessage : null);
         }
 

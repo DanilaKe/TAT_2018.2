@@ -9,10 +9,8 @@ namespace DEV_9.Pages
     /// Class LoginPage
     /// Page with login function.
     /// </summary>
-    public class PageLogin
+    public class PageLogin : Page
     {
-        private IWebDriver _webDriver;
-        
         [FindsBy(How = How.XPath, Using = "//*[@id=\"index_email\"]")]
         public IWebElement TxtEmail { get; set; }
 
@@ -22,25 +20,19 @@ namespace DEV_9.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id=\"index_login_button\"]")]
         public IWebElement BtnLogin { get; set; }
 
-        public PageLogin(IWebDriver webDriver)
+        public PageLogin(IWebDriver webDriver) : base(webDriver)
         {
-            _webDriver = webDriver;
             // Using PageFactory.
             PageFactory.InitElements(webDriver, this);
-            var wait = new WebDriverWait(webDriver,TimeSpan.FromSeconds(60));
-            // Custom expected condition.
-            wait.Until((d) => BtnLogin.Displayed ? BtnLogin : null);
         }
 
-        public bool TryLogin(string login,string password)
+        public void Login(string login,string password)
         {
-            TxtEmail.Click();
+            WaitUntil(TxtEmail).Click();
             TxtEmail.SendKeys(login);
-            TxtPassword.Click();
+            WaitUntil(TxtPassword).Click();
             TxtPassword.SendKeys(password);
-            BtnLogin.Click();
-
-            return _webDriver.Url  == PageFeed.Url;
+            WaitUntil(BtnLogin).Click();
         }
     }
 }
