@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Threading;
 using DEV_9.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 
 namespace DEV_9
 {
