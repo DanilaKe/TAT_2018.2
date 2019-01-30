@@ -1,4 +1,4 @@
-namespace SeleniumTestFramework.Pages
+namespace DEV10SeleniumTestFramework
 {
     public class BuyTicketPage : Page
     {

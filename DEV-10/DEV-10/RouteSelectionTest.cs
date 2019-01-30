@@ -1,6 +1,5 @@
+using DEV10SeleniumTestFramework;
 using NUnit.Framework;
-using SeleniumTestFramework;
-using SeleniumTestFramework.Pages;
 
 namespace DEV_10
 {

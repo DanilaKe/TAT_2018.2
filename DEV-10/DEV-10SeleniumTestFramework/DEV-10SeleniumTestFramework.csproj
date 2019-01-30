@@ -7,8 +7,8 @@
     <ProjectGuid>{10546E47-543D-4C7C-AB62-5C2DB382E75C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SeleniumTestFramework</RootNamespace>
-    <AssemblyName>SeleniumTestFramework</AssemblyName>
+    <RootNamespace>DEV-10SeleniumTestFramework</RootNamespace>
+    <AssemblyName>DEV-10SeleniumTestFramework</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

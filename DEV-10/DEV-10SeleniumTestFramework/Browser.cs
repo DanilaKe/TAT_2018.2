@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace SeleniumTestFramework
+namespace DEV10SeleniumTestFramework
 {
     public static class Browser
     {

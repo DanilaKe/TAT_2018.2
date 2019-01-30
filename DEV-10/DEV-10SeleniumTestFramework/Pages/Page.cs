@@ -2,7 +2,7 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumTestFramework.Pages
+namespace DEV10SeleniumTestFramework
 {
     public abstract class Page
     {

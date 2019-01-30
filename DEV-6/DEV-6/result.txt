@@ -1,0 +1,40 @@
+<glossary>
+    <title>
+            example glossary
+    </title>
+    <GlossDiv>
+        <title>
+                S
+        </title>
+        <GlossList>
+            <GlossEntry>
+                <ID>
+                        SGML
+                </ID>
+                <SortAs>
+                        SGML
+                </SortAs>
+                <GlossTerm>
+                        Standard Generalized Markup Language
+                </GlossTerm>
+                <Acronym>
+                        SGML
+                </Acronym>
+                <Abbrev>
+                        ISO 8879:1986
+                </Abbrev>
+                <GlossDef>
+                    <para>
+                            A meta-markup language, used to create markup languages such as DocBook.
+                    </para>
+                    <GlossSeeAlso>
+                    </XML>
+                </GML>
+                <GlossSee>
+                        markup
+                </GlossSee>
+            </GlossSeeAlso>
+        </GlossDef>
+    </GlossEntry>
+</GlossList>
+</GlossDiv>

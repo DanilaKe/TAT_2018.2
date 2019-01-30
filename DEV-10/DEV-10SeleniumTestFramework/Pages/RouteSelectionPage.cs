@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace SeleniumTestFramework.Pages
+namespace DEV10SeleniumTestFramework
 {
     public class RouteSelectionPage : Page
     {

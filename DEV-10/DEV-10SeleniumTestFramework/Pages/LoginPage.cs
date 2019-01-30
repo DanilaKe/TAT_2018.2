@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
-namespace SeleniumTestFramework.Pages
+namespace DEV10SeleniumTestFramework
 {
     /// <summary>
     /// Class LoginPage.

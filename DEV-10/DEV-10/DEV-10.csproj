@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SeleniumTestFramework\SeleniumTestFramework.csproj">
+    <ProjectReference Include="..\DEV-10SeleniumTestFramework\DEV-10SeleniumTestFramework.csproj">
       <Project>{10546e47-543d-4c7c-ab62-5c2db382e75c}</Project>
-      <Name>SeleniumTestFramework</Name>
+      <Name>DEV-10SeleniumTestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
