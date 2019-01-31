@@ -16,14 +16,14 @@ namespace DEV_4
         public ClosingXmlTag(Stack<string> stackWithTags, string tag)
         {
             StackWithTags = stackWithTags;
-            this.actualTag = tag;
+            this.ActualTag = tag;
         }
         
         public sealed override void Implement()
         {
             var tagWithoutValues = new string(StackWithTags.Peek().TakeWhile(x => x != ' ').ToArray());
             // Determines if the top of the stack matches the closing tag.
-            if (actualTag != tagWithoutValues)
+            if (ActualTag != tagWithoutValues)
             {
                 throw new Exception("Incorrectly closed tags.");
             } 

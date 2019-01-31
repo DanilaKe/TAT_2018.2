@@ -14,14 +14,14 @@ namespace DEV_4
         public XmlDeclarationTag(FlagsOfTheState flagsOfTheState, string tag)
         {
             this.flagsOfTheState = flagsOfTheState;
-            this.actualTag = tag;
+            this.ActualTag = tag;
         }
         
         public sealed override void Implement()
         {
             try
             {
-                if (actualTag.ToLower().Contains("?xml"))
+                if (ActualTag.ToLower().Contains("?xml"))
                 {
                     flagsOfTheState.XmlFlag = true;
                 }

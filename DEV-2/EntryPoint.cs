@@ -17,7 +17,7 @@ namespace DEV_2
             try
             {
                 // Check whether the argument is the only one.
-                if (args.Length != 1)
+                if (1 != args.Length)
                 {
                     throw new WrongNumberOfArgumentsException("Wrong number of arguments.");
                 }
@@ -25,7 +25,7 @@ namespace DEV_2
                 var sequenceOfSymbols = args[0];
                 
                 // Checks the argument for correctness.     
-                if (sequenceOfSymbols == string.Empty)
+                if (string.Empty == sequenceOfSymbols)
                 {
                     throw new EmptyStringException("Empty argument.");
                 }

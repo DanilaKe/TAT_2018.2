@@ -15,7 +15,7 @@ namespace DEV_1
         {    
             var maximumLength = 0;
             
-            if (sequenceOfSymbols.Length == 1)
+            if (1 == sequenceOfSymbols.Length)
             {
                 maximumLength = 1;    
                 return maximumLength;

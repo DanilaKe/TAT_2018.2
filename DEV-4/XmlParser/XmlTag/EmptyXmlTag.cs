@@ -13,21 +13,21 @@ namespace DEV_4
         
         public EmptyXmlTag(Argument argument, string emptyTag)
         {
-            actualTag = emptyTag;
+            ActualTag = emptyTag;
             Argument = argument;
         }
         
         public sealed override void Implement()
         {
             // Remove character '/' from addString.
-            actualTag = DeleteLastSymbol();
-            Argument.CreateArgument(actualTag);
+            ActualTag = DeleteLastSymbol();
+            Argument.CreateArgument(ActualTag);
         }
 
         public string DeleteLastSymbol()
         {
-            StringBuilder newString =new StringBuilder(actualTag);
-            return newString.Remove(actualTag.Length-1,1).ToString();
+            StringBuilder newString =new StringBuilder(ActualTag);
+            return newString.Remove(ActualTag.Length-1,1).ToString();
         }
     }
 }

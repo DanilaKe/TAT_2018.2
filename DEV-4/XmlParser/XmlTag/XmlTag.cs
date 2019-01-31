@@ -14,14 +14,14 @@ namespace DEV_4
         public XmlTag(Stack<string> stackWithTags, string tag)
         {
             StackWithTags = stackWithTags;
-            this.actualTag = tag;
+            this.ActualTag = tag;
         }
         
         public sealed override void Implement()
         {
-            if (actualTag != string.Empty)
+            if (ActualTag != string.Empty)
             {
-                StackWithTags.Push(actualTag);
+                StackWithTags.Push(ActualTag);
             }
         }
     }

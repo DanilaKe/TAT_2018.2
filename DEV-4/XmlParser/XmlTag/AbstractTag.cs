@@ -8,10 +8,7 @@ namespace DEV_4
     /// </summary>
     public abstract class AbstractTag
     {
-        public string actualTag;
-        public virtual void  Implement()
-        {
-            throw new NotImplementedException();
-        }
+        protected string ActualTag;
+        public virtual void  Implement() { }
     }
 }

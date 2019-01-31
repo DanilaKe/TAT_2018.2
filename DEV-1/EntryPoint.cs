@@ -18,9 +18,9 @@ namespace DEV_1
             try
             {
                 // Check whether the argument is the only one.
-                if (args.Length != 1)
+                if (1 != args.Length)
                 {
-                    if (args.Length == 0)
+                    if (0 == args.Length)
                     {
                         throw new WrongNumberOfArguments("You have not used any arguments in the console line.");
                     }
@@ -31,15 +31,7 @@ namespace DEV_1
                 // Select the first argument from the command line.
                 var sequenceOfSymbols = args[0];
                 
-                // Checks the argument for correctness.     
-                if (sequenceOfSymbols == string.Empty)
-                {
-                    throw new WrongDataInString("Empty argument.");
-                }
-                
-                int lengthUniqueSubsequence = sequenceOfSymbols.GetLengthUniqueSubsequence();
-                
-                Console.WriteLine($"Maximum size of a series of unique characters : {lengthUniqueSubsequence}");
+                Console.WriteLine($"Maximum size of a series of unique characters : {sequenceOfSymbols.GetLengthUniqueSubsequence()}");
             }
             catch (ApplicationException e)
             {

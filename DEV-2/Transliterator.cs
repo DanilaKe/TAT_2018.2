@@ -33,7 +33,7 @@ namespace DEV_2
         private TypeOfText GetTypeOfString(string receivedString)
         {
             var cyrillicCharFlag = false; // A variable that signals when the Cyrillic alphabet is in a string.
-            TypeOfText returnedType = TypeOfText.Cyrillic; 
+            var returnedType = TypeOfText.Cyrillic; 
             
             var stringWithoutLatinCharacter = receivedString.Where(x => !Enumerable.Range(97, 122).Contains(x)).Select(x => x);
             if (stringWithoutLatinCharacter.Any(x => Enumerable.Range(1072, 1103).Contains(x)))
